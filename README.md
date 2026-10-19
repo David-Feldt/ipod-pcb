@@ -8,6 +8,24 @@ no audio or microSD hardware.
 This is revision D, an unbuilt prototype design. The earlier 1.54-inch, 40 × 78 mm version is tagged `v1-1.54in`
 in git. See `DESIGN.md` for the GPIO map, power architecture and revision notes.
 
+## Repository and branches
+
+The central repository is https://github.com/David-Feldt/ipod-pcb. Use one local
+checkout named `ipod-pcb`, with `origin` pointing to that GitHub repository.
+The current 2.13-inch design lives on `portrait-2.13`, tracking
+`origin/portrait-2.13`. The older 1.54-inch design remains on `main` and at the
+`v1-1.54in` tag. Separate local folders are not needed for each screen size.
+
+For a new checkout:
+
+```sh
+git clone --branch portrait-2.13 https://github.com/David-Feldt/ipod-pcb.git
+cd ipod-pcb
+```
+
+Save your work and close the KiCad editors before switching branches. Open
+`kicad/eink-pod.kicad_pro` from this checkout after selecting the desired branch.
+
 ![Back of board](renders/back.png)
 
 ## Project files
