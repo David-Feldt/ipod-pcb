@@ -1,0 +1,15 @@
+(footprint "EPD_GDEY0154D67_3D"
+	(version 20240108)
+	(generator "eink-pod")
+	(layer "F.Cu")
+	(descr "Mechanical placeholder + 3D model for the GoodDisplay GDEY0154D67 1.54in e-paper panel (taped to the front; tail wraps to J4 on the back). No pads.")
+	(attr board_only exclude_from_pos_files exclude_from_bom)
+	(property "Reference" "DS1" (at 0 -20 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
+	(property "Value" "GDEY0154D67" (at 0 20 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
+	(fp_rect (start -15.9 -18.66) (end 15.9 18.66) (stroke (width 0.1) (type solid)) (fill no) (layer "F.Fab"))
+	(model "${KIPRJMOD}/3d/EPD_GDEY0154D67.wrl"
+		(offset (xyz 0 0 0))
+		(scale (xyz 0.3937 0.3937 0.3937))
+		(rotate (xyz 0 0 0))
+	)
+)

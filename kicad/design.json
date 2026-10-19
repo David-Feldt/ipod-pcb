@@ -1,0 +1,1894 @@
+{
+ "root_uuid": "f234e2fc-9a55-4543-b817-d87097d02c97",
+ "components": [
+  {
+   "ref": "J1",
+   "value": "USB-C",
+   "footprint": "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12",
+   "uuid": "f68f6912-9a38-487a-b688-0daa9ca2ec99",
+   "lcsc": "C165948",
+   "mpn": "TYPE-C-31-M-12",
+   "dnp": false,
+   "pads": {
+    "A1": "GND",
+    "A4": "VBUS",
+    "A5": "CC1",
+    "A6": "USB_DP",
+    "A7": "USB_DN",
+    "A9": "VBUS",
+    "A12": "GND",
+    "B1": "GND",
+    "B4": "VBUS",
+    "B5": "CC2",
+    "B6": "USB_DP",
+    "B7": "USB_DN",
+    "B9": "VBUS",
+    "B12": "GND",
+    "SH": "GND"
+   }
+  },
+  {
+   "ref": "R1",
+   "value": "5.1k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "56a95b88-27f5-48bf-afd9-9ff7825d6bdf",
+   "lcsc": "C25905",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "CC1",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R2",
+   "value": "5.1k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "ef6811cd-41d5-445d-8e82-5fe40c6c470e",
+   "lcsc": "C25905",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "CC2",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "U6",
+   "value": "USBLC6-2SC6",
+   "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+   "uuid": "ecf78926-dcd7-42e8-9067-6fd36f661f6a",
+   "lcsc": "C7519",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "USB_DP",
+    "2": "GND",
+    "3": "USB_DN",
+    "4": "USB_DN",
+    "5": "VBUS",
+    "6": "USB_DP"
+   }
+  },
+  {
+   "ref": "U4",
+   "value": "MCP73831-2-OT",
+   "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+   "uuid": "83d59e86-475d-4847-a3df-5690ccb9e55f",
+   "lcsc": "C424093",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "CHG_STAT",
+    "2": "GND",
+    "3": "VBAT",
+    "4": "VBUS",
+    "5": "CHG_PROG"
+   }
+  },
+  {
+   "ref": "R3",
+   "value": "2k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "086fc110-7a69-4668-8765-1a1eb169126d",
+   "lcsc": "C4109",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "CHG_PROG",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C1",
+   "value": "10uF",
+   "footprint": "Capacitor_SMD:C_0805_2012Metric",
+   "uuid": "76c920c5-f79d-46e1-8aff-99b543adb99d",
+   "lcsc": "C15850",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VBUS",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C2",
+   "value": "10uF",
+   "footprint": "Capacitor_SMD:C_0805_2012Metric",
+   "uuid": "d515f700-eecb-4650-a5b2-32f09ffd047b",
+   "lcsc": "C15850",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VBAT",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R4",
+   "value": "1k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "0526efc1-e382-46c6-8865-84f910453416",
+   "lcsc": "C11702",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VBUS",
+    "2": "LED_A"
+   }
+  },
+  {
+   "ref": "D5",
+   "value": "red",
+   "footprint": "LED_SMD:LED_0603_1608Metric",
+   "uuid": "07c30145-97ff-4631-a8e7-93fe7e636716",
+   "lcsc": "C2286",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "CHG_STAT",
+    "2": "LED_A"
+   }
+  },
+  {
+   "ref": "J2",
+   "value": "LiPo 1S",
+   "footprint": "Connector_JST:JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal",
+   "uuid": "94aa1227-3b92-41c6-ab0d-100644a99e3a",
+   "lcsc": "C295747",
+   "mpn": "S2B-PH-SM4-TB",
+   "dnp": false,
+   "pads": {
+    "1": "VBAT",
+    "2": "GND",
+    "MP": "GND"
+   }
+  },
+  {
+   "ref": "D1",
+   "value": "B5819W",
+   "footprint": "Diode_SMD:D_SOD-123",
+   "uuid": "df50b729-d61a-444e-87c7-3dc74ff14f34",
+   "lcsc": "C8598",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VSYS",
+    "2": "VBUS"
+   }
+  },
+  {
+   "ref": "Q1",
+   "value": "AO3401A",
+   "footprint": "Package_TO_SOT_SMD:SOT-23",
+   "uuid": "5f209ac0-b9a2-4eba-8959-0392f2cd9247",
+   "lcsc": "C15127",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VBUS",
+    "2": "VSYS",
+    "3": "VBAT"
+   }
+  },
+  {
+   "ref": "R5",
+   "value": "100k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "3c12cde2-f28f-481d-ba4f-d9638a42f299",
+   "lcsc": "C25741",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VBUS",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "U5",
+   "value": "AP2112K-3.3",
+   "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+   "uuid": "d0d60bb7-dd78-4d84-a4ed-3c72dea7bc30",
+   "lcsc": "C51118",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VSYS",
+    "2": "GND",
+    "3": "LDO_EN",
+    "5": "+3V3"
+   }
+  },
+  {
+   "ref": "SW8",
+   "value": "POWER",
+   "footprint": "Button_Switch_SMD:SW_SPDT_Shouhan_MSK12C02",
+   "uuid": "1b9ec0a3-3f25-4513-ae50-89234161cef8",
+   "lcsc": "C431540",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VSYS",
+    "2": "LDO_EN",
+    "3": "GND"
+   }
+  },
+  {
+   "ref": "C3",
+   "value": "10uF",
+   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "uuid": "099ccccc-f4a1-4bd2-a71e-9c60562e2718",
+   "lcsc": "C19702",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VSYS",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C4",
+   "value": "10uF",
+   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "uuid": "7a9600a8-5349-4111-8996-4d11963f3b66",
+   "lcsc": "C19702",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "+3V3",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "Q4",
+   "value": "AO3401A",
+   "footprint": "Package_TO_SOT_SMD:SOT-23",
+   "uuid": "91140246-2569-475b-94c0-c593822f2f36",
+   "lcsc": "C15127",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "BAT_SENSE_GATE",
+    "2": "VBAT",
+    "3": "VBAT_MEAS"
+   }
+  },
+  {
+   "ref": "Q5",
+   "value": "AO3400A",
+   "footprint": "Package_TO_SOT_SMD:SOT-23",
+   "uuid": "b8686637-4035-4d35-b385-248c7ca7676d",
+   "lcsc": "C20917",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "+3V3",
+    "2": "GND",
+    "3": "BAT_SENSE_GATE"
+   }
+  },
+  {
+   "ref": "R9",
+   "value": "1M",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "e953a0cb-18fd-4bb6-8643-f3e2fc502241",
+   "lcsc": "C26083",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VBAT",
+    "2": "BAT_SENSE_GATE"
+   }
+  },
+  {
+   "ref": "R11",
+   "value": "1M",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "ef292643-4527-4b9d-9101-27c96377feb3",
+   "lcsc": "C26083",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "+3V3",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R6",
+   "value": "1M",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "2f3d2c1b-6e5a-4e72-ba2f-beb6b36d6ced",
+   "lcsc": "C26083",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VBAT_MEAS",
+    "2": "VBAT_SENSE"
+   }
+  },
+  {
+   "ref": "R7",
+   "value": "1M",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "a65f6e33-fae1-4612-b7a0-6cc7ecd4b7b0",
+   "lcsc": "C26083",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VBAT_SENSE",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C5",
+   "value": "100nF",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "uuid": "76f733bf-5e66-40fa-912e-2a3138c9d327",
+   "lcsc": "C1525",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VBAT_SENSE",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R8",
+   "value": "100k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "815e54d5-362d-4f8c-8e15-159cad334054",
+   "lcsc": "C25741",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "+3V3",
+    "2": "USB_PRESENT_N"
+   }
+  },
+  {
+   "ref": "Q3",
+   "value": "AO3400A",
+   "footprint": "Package_TO_SOT_SMD:SOT-23",
+   "uuid": "66539c82-bf83-493c-8330-bc2d12043a73",
+   "lcsc": "C20917",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VBUS",
+    "2": "GND",
+    "3": "USB_PRESENT_N"
+   }
+  },
+  {
+   "ref": "U1",
+   "value": "ESP32-S3-MINI-1-N8",
+   "footprint": "eink-pod:ESP32-S3-MINI-1",
+   "uuid": "fd9c8b98-2a55-426a-94e7-409622962a7b",
+   "lcsc": "C2913206",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "GND",
+    "2": "GND",
+    "3": "+3V3",
+    "4": "BOOT",
+    "5": "VBAT_SENSE",
+    "6": "USB_PRESENT_N",
+    "13": "BTN_MENU",
+    "14": "BTN_PLAY",
+    "15": "BTN_PREV",
+    "16": "BTN_NEXT",
+    "17": "BTN_SEL",
+    "20": "EPD_SCK",
+    "21": "EPD_MOSI",
+    "22": "EPD_CS",
+    "23": "USB_MCU_N",
+    "24": "USB_MCU_P",
+    "25": "EPD_DC",
+    "27": "EPD_RST",
+    "30": "EPD_BUSY",
+    "39": "TXD0",
+    "40": "RXD0",
+    "42": "GND",
+    "43": "GND",
+    "45": "EN",
+    "46": "GND",
+    "47": "GND",
+    "48": "GND",
+    "49": "GND",
+    "50": "GND",
+    "51": "GND",
+    "52": "GND",
+    "53": "GND",
+    "54": "GND",
+    "55": "GND",
+    "56": "GND",
+    "57": "GND",
+    "58": "GND",
+    "59": "GND",
+    "60": "GND",
+    "61": "GND",
+    "62": "GND",
+    "63": "GND",
+    "64": "GND",
+    "65": "GND"
+   }
+  },
+  {
+   "ref": "R12",
+   "value": "22",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "2a96bd4a-4254-45dc-88fa-e19bc1e72037",
+   "lcsc": "C25092",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "USB_DP",
+    "2": "USB_MCU_P"
+   }
+  },
+  {
+   "ref": "R13",
+   "value": "22",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "edb936ff-3a7e-40e5-8da6-bebaf4a337e1",
+   "lcsc": "C25092",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "USB_DN",
+    "2": "USB_MCU_N"
+   }
+  },
+  {
+   "ref": "C9",
+   "value": "22uF",
+   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "uuid": "3f2e97f5-c8bf-4aac-ae20-df21dd48e87f",
+   "lcsc": "C59461",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "+3V3",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C6",
+   "value": "10uF",
+   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "uuid": "1eda9f1c-6ed6-4039-b5a6-a7ca3c03b01d",
+   "lcsc": "C19702",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "+3V3",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C7",
+   "value": "100nF",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "uuid": "3b343caf-aa28-4abc-a2f2-a82b9ae75ae7",
+   "lcsc": "C1525",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "+3V3",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R10",
+   "value": "10k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "117d81d0-7b61-4bb1-abea-49bd36971db9",
+   "lcsc": "C25744",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "+3V3",
+    "2": "EN"
+   }
+  },
+  {
+   "ref": "C8",
+   "value": "1uF",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "uuid": "6f03cd6f-89f1-4299-9c66-95241d2c55fa",
+   "lcsc": "C52923",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "EN",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "SW6",
+   "value": "BOOT",
+   "footprint": "Button_Switch_SMD:SW_SPST_TS-1088-xR020",
+   "uuid": "2f53ef05-84db-4309-9c43-3641787f743a",
+   "lcsc": "C720477",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "BOOT",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "SW7",
+   "value": "RESET",
+   "footprint": "Button_Switch_SMD:SW_SPST_TS-1088-xR020",
+   "uuid": "fac60628-14c9-4b2b-81df-64e097bf553f",
+   "lcsc": "C720477",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "EN",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "TP1",
+   "value": "TXD0",
+   "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+   "uuid": "d8ccbebf-cd1b-4aa3-933b-c1e47e91c496",
+   "lcsc": null,
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "TXD0"
+   }
+  },
+  {
+   "ref": "TP2",
+   "value": "RXD0",
+   "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+   "uuid": "6ace8800-16f8-4749-bd72-0c36d2c564eb",
+   "lcsc": null,
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "RXD0"
+   }
+  },
+  {
+   "ref": "TP3",
+   "value": "GND",
+   "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+   "uuid": "4f108929-b200-4cab-8490-c3d04a824768",
+   "lcsc": null,
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "TP4",
+   "value": "+3V3",
+   "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+   "uuid": "b2bbf8d4-3e50-4f6b-9d0b-8cbd091bebe3",
+   "lcsc": null,
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "+3V3"
+   }
+  },
+  {
+   "ref": "TP5",
+   "value": "VBAT",
+   "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+   "uuid": "24b360f3-a641-4844-9c91-7932ae28d816",
+   "lcsc": null,
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VBAT"
+   }
+  },
+  {
+   "ref": "SW1",
+   "value": "MENU",
+   "footprint": "Button_Switch_SMD:SW_SPST_TS-1088-xR020",
+   "uuid": "695aa207-6ef4-474f-a11a-d2ea7fa12157",
+   "lcsc": "C720477",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "BTN_MENU",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "SW2",
+   "value": "PLAY",
+   "footprint": "Button_Switch_SMD:SW_SPST_TS-1088-xR020",
+   "uuid": "403055f4-78af-443c-ad87-3a56162c09d7",
+   "lcsc": "C720477",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "BTN_PLAY",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "SW3",
+   "value": "PREV",
+   "footprint": "Button_Switch_SMD:SW_SPST_TS-1088-xR020",
+   "uuid": "d14e5789-ae4a-4849-b906-5616b1c345f5",
+   "lcsc": "C720477",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "BTN_PREV",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "SW4",
+   "value": "NEXT",
+   "footprint": "Button_Switch_SMD:SW_SPST_TS-1088-xR020",
+   "uuid": "fffc733a-0836-4fac-b93f-aed89cc70744",
+   "lcsc": "C720477",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "BTN_NEXT",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "SW5",
+   "value": "SEL",
+   "footprint": "Button_Switch_SMD:SW_SPST_TS-1088-xR020",
+   "uuid": "9f7b6105-b75c-416b-bb7e-1c8598eb3f25",
+   "lcsc": "C720477",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "BTN_SEL",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "J4",
+   "value": "GDEY0154D67",
+   "footprint": "eink-pod:FPC-05FB-24PH20",
+   "uuid": "1e6cb515-f89a-4b8d-b951-5a90cb8da517",
+   "lcsc": "C2856831",
+   "mpn": "FPC-05FB-24PH20",
+   "dnp": false,
+   "pads": {
+    "2": "EPD_GDR",
+    "3": "EPD_RESE",
+    "5": "EPD_VSH2",
+    "8": "GND",
+    "9": "EPD_BUSY",
+    "10": "EPD_RST",
+    "11": "EPD_DC",
+    "12": "EPD_CS",
+    "13": "EPD_SCK",
+    "14": "EPD_MOSI",
+    "15": "+3V3",
+    "16": "+3V3",
+    "17": "GND",
+    "18": "EPD_VDD",
+    "20": "EPD_VSH1",
+    "21": "EPD_PREVGH",
+    "22": "EPD_VSL",
+    "23": "EPD_PREVGL",
+    "24": "EPD_VCOM",
+    "MP": "GND"
+   }
+  },
+  {
+   "ref": "L1",
+   "value": "10uH",
+   "footprint": "Inductor_SMD:L_Sunlord_SWPA4030S",
+   "uuid": "9ee87475-0a95-4086-bc2d-76f65b6b0aad",
+   "lcsc": "C38117",
+   "mpn": "SWPA4030S100MT",
+   "dnp": false,
+   "pads": {
+    "1": "+3V3",
+    "2": "EPD_SW"
+   }
+  },
+  {
+   "ref": "Q2",
+   "value": "AO3400A",
+   "footprint": "Package_TO_SOT_SMD:SOT-23",
+   "uuid": "f94185e8-f512-4eec-a7f9-5eb8860827fc",
+   "lcsc": "C20917",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "EPD_GDR",
+    "2": "EPD_RESE",
+    "3": "EPD_SW"
+   }
+  },
+  {
+   "ref": "D2",
+   "value": "B5819W",
+   "footprint": "Diode_SMD:D_SOD-123",
+   "uuid": "5480daf1-9d26-4d08-850c-49246add83a7",
+   "lcsc": "C8598",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "EPD_PREVGH",
+    "2": "EPD_SW"
+   }
+  },
+  {
+   "ref": "D3",
+   "value": "B5819W",
+   "footprint": "Diode_SMD:D_SOD-123",
+   "uuid": "b507cf96-e7ac-49a3-a292-6ce10a654127",
+   "lcsc": "C8598",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "GND",
+    "2": "EPD_X"
+   }
+  },
+  {
+   "ref": "D4",
+   "value": "B5819W",
+   "footprint": "Diode_SMD:D_SOD-123",
+   "uuid": "835925ef-4970-4832-873e-0293293fdbec",
+   "lcsc": "C8598",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "EPD_X",
+    "2": "EPD_PREVGL"
+   }
+  },
+  {
+   "ref": "R21",
+   "value": "1M",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "2bd2a628-c5ed-424f-a1aa-12cf9eef7c5f",
+   "lcsc": "C26083",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "EPD_GDR",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R22",
+   "value": "2.2",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "848d6c2e-48c3-445c-9b8f-7bc1193917ca",
+   "lcsc": "C25158",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "EPD_RESE",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C26",
+   "value": "4.7uF 25V",
+   "footprint": "Capacitor_SMD:C_0805_2012Metric",
+   "uuid": "47bac8d6-db59-49d5-801a-b875d80672bd",
+   "lcsc": "C1779",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "EPD_SW",
+    "2": "EPD_X"
+   }
+  },
+  {
+   "ref": "C27",
+   "value": "10uF",
+   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "uuid": "49362439-8231-48cb-9287-0a6493d7d2cf",
+   "lcsc": "C19702",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "+3V3",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C28",
+   "value": "1uF",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "uuid": "64721953-7eaf-4ea1-b66b-63121b57d66b",
+   "lcsc": "C52923",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "+3V3",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C29",
+   "value": "1uF",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "uuid": "f70cb0af-8aa8-4260-be10-667440543ed6",
+   "lcsc": "C52923",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "EPD_VDD",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C30",
+   "value": "1uF 50V",
+   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "uuid": "516147d9-3f3e-4a5e-adc6-6ff1691588d2",
+   "lcsc": "C15849",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "EPD_PREVGH",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C31",
+   "value": "1uF 50V",
+   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "uuid": "f61855e5-aca4-4ebe-bcdb-d198965a5ac3",
+   "lcsc": "C15849",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "EPD_PREVGL",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C32",
+   "value": "1uF 50V",
+   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "uuid": "b591764e-23d6-4658-a358-7412fc6c3185",
+   "lcsc": "C15849",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "EPD_VSH1",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C33",
+   "value": "1uF 50V",
+   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "uuid": "3f7685cb-5777-4eb2-8ad1-377079e09800",
+   "lcsc": "C15849",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "EPD_VSH2",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C34",
+   "value": "1uF 50V",
+   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "uuid": "a78a4801-06ce-4c07-8cfb-ba9ab5a35b0a",
+   "lcsc": "C15849",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "EPD_VSL",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C35",
+   "value": "1uF 50V",
+   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "uuid": "3b14ba1e-261c-48d9-b005-e84adc794a1e",
+   "lcsc": "C15849",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "EPD_VCOM",
+    "2": "GND"
+   }
+  }
+ ],
+ "nets": {
+  "GND": [
+   [
+    "J1",
+    "A1"
+   ],
+   [
+    "J1",
+    "A12"
+   ],
+   [
+    "J1",
+    "B1"
+   ],
+   [
+    "J1",
+    "B12"
+   ],
+   [
+    "J1",
+    "SH"
+   ],
+   [
+    "R1",
+    "2"
+   ],
+   [
+    "R2",
+    "2"
+   ],
+   [
+    "U6",
+    "2"
+   ],
+   [
+    "U4",
+    "2"
+   ],
+   [
+    "R3",
+    "2"
+   ],
+   [
+    "C1",
+    "2"
+   ],
+   [
+    "C2",
+    "2"
+   ],
+   [
+    "J2",
+    "2"
+   ],
+   [
+    "J2",
+    "MP"
+   ],
+   [
+    "R5",
+    "2"
+   ],
+   [
+    "U5",
+    "2"
+   ],
+   [
+    "SW8",
+    "3"
+   ],
+   [
+    "C3",
+    "2"
+   ],
+   [
+    "C4",
+    "2"
+   ],
+   [
+    "Q5",
+    "2"
+   ],
+   [
+    "R11",
+    "2"
+   ],
+   [
+    "R7",
+    "2"
+   ],
+   [
+    "C5",
+    "2"
+   ],
+   [
+    "Q3",
+    "2"
+   ],
+   [
+    "#FLG01",
+    "1"
+   ],
+   [
+    "U1",
+    "1"
+   ],
+   [
+    "U1",
+    "2"
+   ],
+   [
+    "U1",
+    "42"
+   ],
+   [
+    "U1",
+    "43"
+   ],
+   [
+    "U1",
+    "46"
+   ],
+   [
+    "U1",
+    "47"
+   ],
+   [
+    "U1",
+    "48"
+   ],
+   [
+    "U1",
+    "49"
+   ],
+   [
+    "U1",
+    "50"
+   ],
+   [
+    "U1",
+    "51"
+   ],
+   [
+    "U1",
+    "52"
+   ],
+   [
+    "U1",
+    "53"
+   ],
+   [
+    "U1",
+    "54"
+   ],
+   [
+    "U1",
+    "55"
+   ],
+   [
+    "U1",
+    "56"
+   ],
+   [
+    "U1",
+    "57"
+   ],
+   [
+    "U1",
+    "58"
+   ],
+   [
+    "U1",
+    "59"
+   ],
+   [
+    "U1",
+    "60"
+   ],
+   [
+    "U1",
+    "61"
+   ],
+   [
+    "U1",
+    "62"
+   ],
+   [
+    "U1",
+    "63"
+   ],
+   [
+    "U1",
+    "64"
+   ],
+   [
+    "U1",
+    "65"
+   ],
+   [
+    "C9",
+    "2"
+   ],
+   [
+    "C6",
+    "2"
+   ],
+   [
+    "C7",
+    "2"
+   ],
+   [
+    "C8",
+    "2"
+   ],
+   [
+    "SW6",
+    "2"
+   ],
+   [
+    "SW7",
+    "2"
+   ],
+   [
+    "TP3",
+    "1"
+   ],
+   [
+    "SW1",
+    "2"
+   ],
+   [
+    "SW2",
+    "2"
+   ],
+   [
+    "SW3",
+    "2"
+   ],
+   [
+    "SW4",
+    "2"
+   ],
+   [
+    "SW5",
+    "2"
+   ],
+   [
+    "J4",
+    "8"
+   ],
+   [
+    "J4",
+    "17"
+   ],
+   [
+    "J4",
+    "MP"
+   ],
+   [
+    "D3",
+    "1"
+   ],
+   [
+    "R21",
+    "2"
+   ],
+   [
+    "R22",
+    "2"
+   ],
+   [
+    "C27",
+    "2"
+   ],
+   [
+    "C28",
+    "2"
+   ],
+   [
+    "C29",
+    "2"
+   ],
+   [
+    "C30",
+    "2"
+   ],
+   [
+    "C31",
+    "2"
+   ],
+   [
+    "C32",
+    "2"
+   ],
+   [
+    "C33",
+    "2"
+   ],
+   [
+    "C34",
+    "2"
+   ],
+   [
+    "C35",
+    "2"
+   ]
+  ],
+  "VBUS": [
+   [
+    "J1",
+    "A4"
+   ],
+   [
+    "J1",
+    "A9"
+   ],
+   [
+    "J1",
+    "B4"
+   ],
+   [
+    "J1",
+    "B9"
+   ],
+   [
+    "U6",
+    "5"
+   ],
+   [
+    "U4",
+    "4"
+   ],
+   [
+    "C1",
+    "1"
+   ],
+   [
+    "R4",
+    "1"
+   ],
+   [
+    "D1",
+    "2"
+   ],
+   [
+    "Q1",
+    "1"
+   ],
+   [
+    "R5",
+    "1"
+   ],
+   [
+    "Q3",
+    "1"
+   ],
+   [
+    "#FLG02",
+    "1"
+   ]
+  ],
+  "CC1": [
+   [
+    "J1",
+    "A5"
+   ],
+   [
+    "R1",
+    "1"
+   ]
+  ],
+  "USB_DP": [
+   [
+    "J1",
+    "A6"
+   ],
+   [
+    "J1",
+    "B6"
+   ],
+   [
+    "U6",
+    "1"
+   ],
+   [
+    "U6",
+    "6"
+   ],
+   [
+    "R12",
+    "1"
+   ]
+  ],
+  "USB_DN": [
+   [
+    "J1",
+    "A7"
+   ],
+   [
+    "J1",
+    "B7"
+   ],
+   [
+    "U6",
+    "3"
+   ],
+   [
+    "U6",
+    "4"
+   ],
+   [
+    "R13",
+    "1"
+   ]
+  ],
+  "CC2": [
+   [
+    "J1",
+    "B5"
+   ],
+   [
+    "R2",
+    "1"
+   ]
+  ],
+  "CHG_STAT": [
+   [
+    "U4",
+    "1"
+   ],
+   [
+    "D5",
+    "1"
+   ]
+  ],
+  "VBAT": [
+   [
+    "U4",
+    "3"
+   ],
+   [
+    "C2",
+    "1"
+   ],
+   [
+    "J2",
+    "1"
+   ],
+   [
+    "Q1",
+    "3"
+   ],
+   [
+    "Q4",
+    "2"
+   ],
+   [
+    "R9",
+    "1"
+   ],
+   [
+    "TP5",
+    "1"
+   ]
+  ],
+  "CHG_PROG": [
+   [
+    "U4",
+    "5"
+   ],
+   [
+    "R3",
+    "1"
+   ]
+  ],
+  "LED_A": [
+   [
+    "R4",
+    "2"
+   ],
+   [
+    "D5",
+    "2"
+   ]
+  ],
+  "VSYS": [
+   [
+    "D1",
+    "1"
+   ],
+   [
+    "Q1",
+    "2"
+   ],
+   [
+    "U5",
+    "1"
+   ],
+   [
+    "SW8",
+    "1"
+   ],
+   [
+    "C3",
+    "1"
+   ],
+   [
+    "#FLG03",
+    "1"
+   ]
+  ],
+  "LDO_EN": [
+   [
+    "U5",
+    "3"
+   ],
+   [
+    "SW8",
+    "2"
+   ]
+  ],
+  "+3V3": [
+   [
+    "U5",
+    "5"
+   ],
+   [
+    "C4",
+    "1"
+   ],
+   [
+    "Q5",
+    "1"
+   ],
+   [
+    "R11",
+    "1"
+   ],
+   [
+    "R8",
+    "1"
+   ],
+   [
+    "U1",
+    "3"
+   ],
+   [
+    "C9",
+    "1"
+   ],
+   [
+    "C6",
+    "1"
+   ],
+   [
+    "C7",
+    "1"
+   ],
+   [
+    "R10",
+    "1"
+   ],
+   [
+    "TP4",
+    "1"
+   ],
+   [
+    "J4",
+    "15"
+   ],
+   [
+    "J4",
+    "16"
+   ],
+   [
+    "L1",
+    "1"
+   ],
+   [
+    "C27",
+    "1"
+   ],
+   [
+    "C28",
+    "1"
+   ]
+  ],
+  "BAT_SENSE_GATE": [
+   [
+    "Q4",
+    "1"
+   ],
+   [
+    "Q5",
+    "3"
+   ],
+   [
+    "R9",
+    "2"
+   ]
+  ],
+  "VBAT_MEAS": [
+   [
+    "Q4",
+    "3"
+   ],
+   [
+    "R6",
+    "1"
+   ]
+  ],
+  "VBAT_SENSE": [
+   [
+    "R6",
+    "2"
+   ],
+   [
+    "R7",
+    "1"
+   ],
+   [
+    "C5",
+    "1"
+   ],
+   [
+    "U1",
+    "5"
+   ]
+  ],
+  "USB_PRESENT_N": [
+   [
+    "R8",
+    "2"
+   ],
+   [
+    "Q3",
+    "3"
+   ],
+   [
+    "U1",
+    "6"
+   ]
+  ],
+  "BOOT": [
+   [
+    "U1",
+    "4"
+   ],
+   [
+    "SW6",
+    "1"
+   ]
+  ],
+  "BTN_MENU": [
+   [
+    "U1",
+    "13"
+   ],
+   [
+    "SW1",
+    "1"
+   ]
+  ],
+  "BTN_PLAY": [
+   [
+    "U1",
+    "14"
+   ],
+   [
+    "SW2",
+    "1"
+   ]
+  ],
+  "BTN_PREV": [
+   [
+    "U1",
+    "15"
+   ],
+   [
+    "SW3",
+    "1"
+   ]
+  ],
+  "BTN_NEXT": [
+   [
+    "U1",
+    "16"
+   ],
+   [
+    "SW4",
+    "1"
+   ]
+  ],
+  "BTN_SEL": [
+   [
+    "U1",
+    "17"
+   ],
+   [
+    "SW5",
+    "1"
+   ]
+  ],
+  "EPD_SCK": [
+   [
+    "U1",
+    "20"
+   ],
+   [
+    "J4",
+    "13"
+   ]
+  ],
+  "EPD_MOSI": [
+   [
+    "U1",
+    "21"
+   ],
+   [
+    "J4",
+    "14"
+   ]
+  ],
+  "EPD_CS": [
+   [
+    "U1",
+    "22"
+   ],
+   [
+    "J4",
+    "12"
+   ]
+  ],
+  "USB_MCU_N": [
+   [
+    "U1",
+    "23"
+   ],
+   [
+    "R13",
+    "2"
+   ]
+  ],
+  "USB_MCU_P": [
+   [
+    "U1",
+    "24"
+   ],
+   [
+    "R12",
+    "2"
+   ]
+  ],
+  "EPD_DC": [
+   [
+    "U1",
+    "25"
+   ],
+   [
+    "J4",
+    "11"
+   ]
+  ],
+  "EPD_RST": [
+   [
+    "U1",
+    "27"
+   ],
+   [
+    "J4",
+    "10"
+   ]
+  ],
+  "EPD_BUSY": [
+   [
+    "U1",
+    "30"
+   ],
+   [
+    "J4",
+    "9"
+   ]
+  ],
+  "TXD0": [
+   [
+    "U1",
+    "39"
+   ],
+   [
+    "TP1",
+    "1"
+   ]
+  ],
+  "RXD0": [
+   [
+    "U1",
+    "40"
+   ],
+   [
+    "TP2",
+    "1"
+   ]
+  ],
+  "EN": [
+   [
+    "U1",
+    "45"
+   ],
+   [
+    "R10",
+    "2"
+   ],
+   [
+    "C8",
+    "1"
+   ],
+   [
+    "SW7",
+    "1"
+   ]
+  ],
+  "EPD_GDR": [
+   [
+    "J4",
+    "2"
+   ],
+   [
+    "Q2",
+    "1"
+   ],
+   [
+    "R21",
+    "1"
+   ]
+  ],
+  "EPD_RESE": [
+   [
+    "J4",
+    "3"
+   ],
+   [
+    "Q2",
+    "2"
+   ],
+   [
+    "R22",
+    "1"
+   ]
+  ],
+  "EPD_VSH2": [
+   [
+    "J4",
+    "5"
+   ],
+   [
+    "C33",
+    "1"
+   ]
+  ],
+  "EPD_VDD": [
+   [
+    "J4",
+    "18"
+   ],
+   [
+    "C29",
+    "1"
+   ]
+  ],
+  "EPD_VSH1": [
+   [
+    "J4",
+    "20"
+   ],
+   [
+    "C32",
+    "1"
+   ]
+  ],
+  "EPD_PREVGH": [
+   [
+    "J4",
+    "21"
+   ],
+   [
+    "D2",
+    "1"
+   ],
+   [
+    "C30",
+    "1"
+   ]
+  ],
+  "EPD_VSL": [
+   [
+    "J4",
+    "22"
+   ],
+   [
+    "C34",
+    "1"
+   ]
+  ],
+  "EPD_PREVGL": [
+   [
+    "J4",
+    "23"
+   ],
+   [
+    "D4",
+    "2"
+   ],
+   [
+    "C31",
+    "1"
+   ]
+  ],
+  "EPD_VCOM": [
+   [
+    "J4",
+    "24"
+   ],
+   [
+    "C35",
+    "1"
+   ]
+  ],
+  "EPD_SW": [
+   [
+    "L1",
+    "2"
+   ],
+   [
+    "Q2",
+    "3"
+   ],
+   [
+    "D2",
+    "2"
+   ],
+   [
+    "C26",
+    "1"
+   ]
+  ],
+  "EPD_X": [
+   [
+    "D3",
+    "2"
+   ],
+   [
+    "D4",
+    "1"
+   ],
+   [
+    "C26",
+    "2"
+   ]
+  ]
+ }
+}
