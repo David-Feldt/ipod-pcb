@@ -43,7 +43,7 @@ def main():
     run("pcb", "export", "pos", "--format", "csv", "--units", "mm", "--side", "both",
         "--exclude-dnp", "-o", raw, PCB)
     with open(raw) as f, open(os.path.join(FAB, "eink-pod-cpl.csv"), "w", newline="") as g:
-        w = csv.writer(g)
+        w = csv.writer(g, lineterminator="\n")
         w.writerow(["Designator", "Mid X", "Mid Y", "Layer", "Rotation"])
         for r in csv.DictReader(f):
             if r["Ref"].startswith(("TP", "H")):
@@ -68,7 +68,7 @@ def main():
         p = r.rstrip("0123456789")
         return (p, int(r[len(p):]))
     with open(os.path.join(FAB, "eink-pod-bom.csv"), "w", newline="") as g:
-        w = csv.writer(g)
+        w = csv.writer(g, lineterminator="\n")
         w.writerow(["Comment", "Designator", "Footprint", "LCSC Part #", "Qty"])
         for (fp, lcsc), grp in sorted(groups.items(), key=lambda kv: refkey(sorted(kv[1]["refs"], key=refkey)[0])):
             refs = sorted(grp["refs"], key=refkey)

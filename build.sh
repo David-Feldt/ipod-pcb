@@ -9,6 +9,7 @@ KC="$KAPP/MacOS/kicad-cli"
 KPY="$KAPP/Frameworks/Python.framework/Versions/Current/bin/python3"
 JAR="${1:-tools/freerouting.jar}"
 
+python3 gen/models.py
 python3 gen/build_sch.py
 "$KC" sch erc --severity-all --exit-code-violations -o kicad/erc.rpt kicad/eink-pod.kicad_sch
 "$KC" sch export netlist --format kicadsexpr -o kicad/eink-pod.net kicad/eink-pod.kicad_sch
@@ -19,4 +20,5 @@ python3 gen/build_sch.py
 "$KPY" -u gen/verify_board.py > kicad/verification.txt
 cat kicad/verification.txt
 python3 gen/fab.py
-echo "OK: ERC + DRC clean, outputs in fab/"
+"$KPY" gen/release.py
+echo "OK: ERC + electrical DRC clean; see drc-all.rpt for warnings. Outputs in fab/"

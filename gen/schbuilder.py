@@ -216,8 +216,8 @@ class Schematic:
         root = [S("kicad_sch"), [S("version"), 20231120], [S("generator"), "eeschema"],
                 [S("generator_version"), "8.0"], [S("uuid"), self.root_uuid],
                 [S("paper"), self.paper],
-                [S("title_block"), [S("title"), self.title], [S("rev"), "A"],
-                 [S("company"), "github.com/you/eink-pod"]],
+                [S("title_block"), [S("title"), self.title], [S("rev"), "D"],
+                 [S("company"), "E-ink Remote"]],
                 [S("lib_symbols")] + list(self.lib_symbols.values())]
         root += self.items
         root.append([S("sheet_instances"), [S("path"), "/", [S("page"), "1"]]])

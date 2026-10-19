@@ -111,7 +111,7 @@ def epaper():
     m = Model()
     hw, hh, t = 14.6, 29.6, 1.0
     m.box(GLASS, -hw, -hh, 0, hw, hh, t)
-    ax0, ax1, ay0, ay1 = -11.85, 11.85, -hh + 8.0, -hh + 56.55   # 23.7 x 48.55 mm active area
+    ax0, ax1, ay0, ay1 = -11.85, 11.85, -hh + 7.95, -hh + 56.50   # 23.7 x 48.55 mm active area
     m.box(PAPER, ax0, ay0, t, ax1, ay1, t + 0.01)
     z0, z1 = t + 0.01, t + 0.02
 
@@ -161,7 +161,7 @@ def epaper():
 
 
 def rk10j():
-    """Alps RK10J1xR thumbwheel in footprint coordinates: knob centre (0, -2.45)."""
+    """Alps RK10J1xR thumbwheel in footprint coordinates: knob centre (0, -2.40)."""
     m = Model()
     m.box(STEEL, -7.0, -6.0, 0.0, 7.0, 5.6, 0.25)                       # metal frame
     m.box(STEEL, -7.0, -5.6, 0.0, -5.0, -4.2, 0.25)                     # side lugs
@@ -169,8 +169,8 @@ def rk10j():
     m.box(BLACK, -5.2, -1.0, 0.25, 5.2, 5.4, 0.95)                      # resistor housing
     for x in (-4, -2, 0, 2, 4):                                         # terminals
         m.box(SILVER, x - 0.5, 5.4, 0.0, x + 0.5, 7.2, 0.15)
-    m.disc(BLACK, 0, -2.45, 7.0, 1.0, 2.6, n=96, knurl=0.25)            # knurled knob
-    m.disc(GRAY, 0, -2.45, 1.4, 2.6, 2.65)                              # hub
+    m.disc(BLACK, 0, -2.4, 7.0, 1.0, 2.6, n=96, knurl=0.25)            # knurled knob
+    m.disc(GRAY, 0, -2.4, 1.4, 2.6, 2.65)                              # hub
     m.save("Alps_RK10J1xR")
 
 

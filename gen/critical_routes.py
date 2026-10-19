@@ -84,8 +84,34 @@ def route_critical(board, collect=None):
     wire("+3V3", [xy("C7", 1), (32.5, 38.62), (32.5, 40.525), xy("C6", 1)], width=0.4)
     wire("+3V3", [xy("C7", 1), (35.025, 38.62), xy("C9", 1)], width=0.4)
 
-    # Battery FET output to the LDO input capacitor; the autorouter cannot escape Q1 pin 2 here.
-    wire("VSYS", [xy("Q1", 2), (26.2, 77.55), (26.2, 84.3), (22.0, 84.3), xy("C3", 1)], width=0.4)
+    # Filled/capped thermal vias connect both power IC exposed pads to In1.GND.
+    for x, y in [(13.6,76.6),(14.4,76.6),(13.6,77.4),(14.4,77.4),(28,77.6),(28,78.4)]:
+        via("GND", (x,y))
+
+    # Buck-boost: switch loops stay on the component layer; feedback avoids L2.
+    wire("PWR_L1", [xy("U5", 4), (30.4, 78.5), (31.4, 79.5), xy("L2", 1)], width=0.3)
+    wire("PWR_L2", [xy("U5", 2), (30.4, 77.5), (31.4, 76.5), xy("L2", 2)], width=0.3)
+    wire("VSYS", [xy("U5", 5), (29.5, 79.3), xy("C3", 1)], width=0.3)
+    wire("+3V3", [xy("U5", 1), (29.5, 76.7), xy("C4", 1)], width=0.3)
+    wire("+3V3", [xy("U5", 10), (26.5, 76.7), xy("C37", 1), xy("C4", 1)], width=0.25)
+    wire("VSYS", [xy("U5", 8), (25.8, 78), xy("C38", 1)], width=0.2)
+    wire("VSYS", [xy("C3", 1), (25,80.55), xy("C38", 1)], width=0.4)
+    # Direct copper into PGND and exposed pad; the thermal pad reaches In1.GND.
+    wire("GND", [xy("U5", 3), xy("U5", 11), (27.5, 77.5), xy("U5", 9)], width=0.25)
+    wire("GND", [xy("U5", 11), (27.5, 78.5), xy("U5", 7)], width=0.25)
+    # Charger local input, battery, and system output capacitors.
+    wire("VBUS", [xy("U4", 13), (14.75, 79.4), xy("C1", 1)], width=0.3)
+    wire("VBAT", [xy("U4", 2), xy("U4", 3), (11.8, 76.75), xy("C2", 1)], width=0.3)
+    wire("VSYS", [xy("U4", 10), xy("U4", 11), (16.3, 77.25), xy("C39", 1)], width=0.3)
+
+    wire("VSYS", [xy("C39", 1), (18.35,78.8), (24.68,78.8), xy("C38", 1)], width=0.4)
+
+    # Complete VSYS explicitly. Leaving branches of this protected power network
+    # to Freerouting can trigger exponential cycle cleanup in version 2.4.1.
+    wire("VSYS", [xy("C3", 1), (31,80.55), (31,81.5), (36,81.5), (36,75.75), xy("SW8", 1)], width=0.4)
+    wire("VSYS", [(31,81.5), (31,89.5), (29,91.5)], width=0.4)
+    via("VSYS", (29,91.5))
+    wire("VSYS", [(29,91.5), xy("R4", 1)], P.F_Cu, 0.4)
 
     # Keep switching nodes and sense path short and on B.Cu.
     wire("EPD_SW", [xy("L1", 2), xy("Q2", 3), (13.35, 12), xy("D2", 2)], width=0.3)

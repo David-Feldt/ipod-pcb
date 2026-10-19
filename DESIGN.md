@@ -13,11 +13,11 @@ official Web API. No audio hardware on board.
 | MCU | ESP32-S3-MINI-1-N8 module | Pre-certified Wi-Fi + antenna, native USB, no RF layout to get wrong |
 | Antenna | At the right board edge, Espressif's full keepout (no copper on any layer) | Wi-Fi range is now the core feature |
 | Display | GoodDisplay GDEY0213B74, 2.13" 122x250 portrait, bare panel on 24-pin FPC | Zero power while showing now-playing; room for album art plus title, artist and volume |
-| Volume | Alps RK10J11R0A0H 10k thumbwheel pot on the back, knob edge overhangs the right board edge by ~1.5 mm | Bluetooth-speaker style wheel; powered from a GPIO only while read |
+| Volume | Alps RK10J11R0A0H 10k thumbwheel pot on the back, knob edge overhangs the right board edge by 1.50 mm nominal | Bluetooth-speaker style wheel; powered from a GPIO only while read |
 | Mounting | Four 2.7 mm NPTH (M2.5) holes, 3.5 mm from each corner | Board is wide enough that the holes clear the display glass |
-| Power | USB-C -> MCP73831 charger -> LiPo; P-FET power path; AP2112K 3.3V LDO | Simple, cheap, JLC-assemblable; LDO covers ~350 mA Wi-Fi bursts |
-| Bulk caps | 22 µF + 10 µF + 100 nF at the module, 10 µF at the LDO | Wi-Fi TX current spikes |
-| On/off | Slide switch on LDO EN; Q4/Q5 disconnect battery sensing when 3.3 V is off | Avoids feeding an unpowered ADC through the battery divider |
+| Power | USB-C -> BQ24074 power-path charger -> TPS63031 3.3V buck-boost | Input current limiting and battery supplement; regulated rail through battery discharge |
+| Bulk caps | 22 µF + 10 µF + 100 nF at the module, 2 × 10 µF at the buck-boost output | Wi-Fi TX current spikes |
+| On/off | Slide switch on buck-boost EN; Q4/Q5 disconnect battery sensing when 3.3 V is off | Avoids feeding an unpowered ADC through the battery divider |
 | USB detection | Q3 open-drain output, R8 pulled up to 3.3 V | Active-low detection with full logic swing and no DC path from VBUS into the GPIO |
 | Input | 5 tactile buttons in an iPod cross: MENU / PREV / NEXT / PLAY + centre SELECT | All RTC GPIOs, any can wake from deep sleep |
 | No audio / SD | Removed | Remote only; playback happens on the Spotify device |
@@ -30,9 +30,45 @@ official Web API. No audio hardware on board.
 | Screen showing now-playing, ESP32 in deep sleep | ~0.1 mA (e-ink keeps the image with no power) |
 | Switch off | To be measured; includes charger, regulator and MOSFET leakage |
 
-The firmware should wake on a button press, reconnect to Wi-Fi (~1–2 s), act,
-refresh the screen, and go back to sleep after ~30 s idle. With a 1000 mAh cell
-that gives weeks of normal use. Staying awake continuously gives ~10–20 hours.
+These figures are estimates, not runtime measurements. Battery runtime depends on Wi-Fi
+association time, refresh cadence, firmware, cell capacity and converter losses.
+
+## Revision D display correction
+
+L1 changes from 10 µH to 47 µH (`SWPA4030S470MT`, `C54731`) to match the
+GDEY0213B74 reference circuit on datasheet page 29. The footprint is unchanged.
+R22 remains 2.2 Ω and C26 remains 4.7 µF / 25 V. AO3400A and B5819W remain
+substitutes for the reference MOSFET and Schottky parts; confirm boost startup
+and full refresh on the first assembled prototype.
+
+## Revision D power design
+
+U4 is BQ24074RGTR (`C54313`). Its system output supplies U5 independently of the
+battery charging path; the battery supplements load peaks when the input limit is
+reached. The charge LED is supplied from VSYS so its load shares the input budget. R3 + R14 = 4 kΩ sets nominal fast charge to 890/4000 = 223 mA. R15 = 5.1 kΩ
+limits the optional resistor-programmed input mode to approximately 304 mA typical.
+The default GPIO6/7 pull-downs select USB100 (100 mA maximum total input). USB500
+requires firmware and host authorization. Both bits high suspend input; charging
+and system operation must obey the selected source budget. Without firmware,
+a battery is needed for Wi-Fi peaks and charging is limited by USB100.
+
+R16 = 10 kΩ provides the fixed TS bias specified by TI for a two-wire pack. It does
+not measure cell temperature. Use a protected 1S, 4.2 V-maximum LiPo with at least
+250 mA allowable charge and 1 A pulse discharge; protection is in the pack, not
+on this PCB. Charge only within that pack's temperature range. TMR and ITERM are
+left open to retain default timers and termination. D1/Q1 are removed.
+
+U5 is TPS63031DSKR (`C15516`), fixed 3.3 V buck-boost. L2 is 2.2 µH
+SWPA4030S2R2MT (`C36409`). C3 is the local input capacitor, C4/C37 are two 10 µF
+0805 output capacitors, C38 is the 100 nF VINA bypass, and C39 bypasses charger OUT.
+The slide switch drives EN; R20 holds EN low during contact transitions. Power-save
+mode is enabled. Fixed component-layer routes keep the switching loops local.
+Four charger thermal vias and two converter thermal vias connect to the ground
+plane. Specify epoxy-filled and copper-capped vias for assembly.
+
+R19 = 2 kΩ limits the wheel's ADC voltage: at 3.3 V and +30% pot tolerance,
+3.3 × 13k/(13k + 1.98k) = 2.864 V. Use calibrated ADC readings and measured end stops.
+The wheel remains an absolute control; its application behavior is a firmware task.
 
 ## GPIO map (ESP32-S3-MINI-1)
 
@@ -42,6 +78,8 @@ that gives weeks of normal use. Staying awake continuously gives ~10–20 hours.
 | USB_PRESENT_N | 2 | Low = USB plugged in; high = absent. Disable internal pulls; R8 supplies the pull-up |
 | VOL_SENSE | 4 | ADC1_CH3, thumbwheel wiper, 10 nF to GND |
 | VOL_EN | 5 | Drive high to power the thumbwheel, low otherwise |
+| CHG_EN1 | 6 | USB input mode bit; 100k pull-down |
+| CHG_EN2 | 7 | USB input mode bit; 100k pull-down |
 | BTN_MENU | 9 | to GND, internal pull-up, wake |
 | BTN_PLAY | 10 | to GND, internal pull-up, wake |
 | BTN_PREV | 11 | to GND, internal pull-up, wake |
@@ -56,14 +94,14 @@ that gives weeks of normal use. Staying awake continuously gives ~10–20 hours.
 | EPD_RST | 47 | |
 | EPD_BUSY | 48 | |
 | BOOT | 0 | button to GND |
-| spare | 6–8, 14, 15, 38–42 | free for later |
+| spare | 8, 14, 15, 38–42 | free for later |
 | avoid | 3, 45, 46 (strapping), 26–37 (module flash) | |
 
 ## Display connection
 
 The panel sits on the front, face up and portrait, with its FPC tail edge flush with
 the board's top edge. The glass is 29.2 × 59.2 mm, and the 23.7 × 48.55 mm active area
-starts 8.0 mm below the tail edge. The 14.3 mm tail wraps over the top edge to J4 on
+starts 7.95 mm below the tail edge. The 14.3 mm tail wraps over the top edge to J4 on
 the back (cable entry 5.5 mm in from the edge). Per the datasheet drawing, the tail is
 0.2 mm off centre toward pin 1, so J4 sits at x = 21.2 mm. J4 is a dual-contact
 connector, so it mates whichever way the tail's contacts face. The tail's pin 1 lands
@@ -78,7 +116,7 @@ panel, so the display electronics are unchanged.
   and USB group and the front buttons move 20 mm down, below the panel.
 - RV1 volume thumbwheel at the right edge, below the antenna keepout. The knob is
   plastic, and its metal lugs are outside the keepout. The pot is wired 1 = GND,
-  2 = wiper (`VOL_SENSE`), 3 = `VOL_EN`; its frame and tabs are grounded. The
+  2 = wiper (`VOL_SENSE`), 3 = `VOL_SUPPLY` through R19 from `VOL_EN`; its frame and tabs are grounded. The
   enclosure needs a slot in the right wall at y ≈ 54–69 mm so the wheel edge
   can be reached.
 - H1–H4: M2.5 mounting holes. The top-right hole is about 4 mm from the antenna
@@ -110,11 +148,17 @@ panel, so the display electronics are unchanged.
 
 Bench checks still needed: USB operation in both plug orientations, off-state
 current with/without USB, battery ADC calibration, low-battery Wi-Fi bursts,
-charger/LDO temperatures, and display refresh. Use a protected 1S LiPo rated
-for the 500 mA charge setting. Enclosure retention and display/antenna clearance
+charger/converter temperatures, and display refresh. Use a protected 1S LiPo rated
+for the 223 mA nominal charge setting (use a pack rated for at least 250 mA charging). Enclosure retention and display/antenna clearance
 must be checked with the actual panel, cell and enclosure.
 
 Reference documents: [ESP32-S3 hardware guidelines](https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32s3/),
 [AO3400A](https://www.aosmd.com/res/data_sheets/AO3400A.pdf),
 [AO3401A](https://www.aosmd.com/res/data_sheets/AO3401A.pdf),
 [JLCPCB stackups](https://jlcpcb.com/impedance).
+
+Revision D references: [TI BQ24074](https://www.ti.com/lit/ds/symlink/bq24074.pdf),
+[TI TPS63031](https://www.ti.com/lit/ds/symlink/tps63031.pdf),
+[Good Display panel drawing, page 7](https://evelta.com/content/datasheets/496-GDEY0213B74.pdf),
+[Alps exact selected part, drawing No.2](https://datasheet.lcsc.com/datasheet/pdf/615fc0707edbbacfefd77b152f406e79.pdf?productCode=C470766),
+[XUNPU connector drawing](https://datasheet.lcsc.com/datasheet/pdf/e480b0871d0881a4ae70dd94a2979182.pdf?productCode=C2856831).

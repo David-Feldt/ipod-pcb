@@ -5,7 +5,7 @@ buttons, a volume thumbwheel, USB-C and a 1S LiPo, on a 42 × 98 mm four-layer P
 four M2.5 mounting holes. Playback happens on another Spotify device; this board has
 no audio or microSD hardware.
 
-This is revision C. The earlier 1.54-inch, 40 × 78 mm version is tagged `v1-1.54in`
+This is revision D, an unbuilt prototype design. The earlier 1.54-inch, 40 × 78 mm version is tagged `v1-1.54in`
 in git. See `DESIGN.md` for the GPIO map, power architecture and revision notes.
 
 ![Back of board](renders/back.png)
@@ -58,6 +58,10 @@ Assembly is on both sides. To use bottom-side assembly only, hand-solder
 SW1–SW5, D5 and R4 on the front. Check every assembly rotation, especially the
 MOSFETs, USB-C connector, FPC connector and slide switch, in the assembler's
 preview. DS1 is a mechanical display model and is excluded from assembly files.
+Use `fab/assembly-pin1.csv` and the assembly maps to check pin orientation;
+CPL angles use KiCad conventions and still need the JLC order preview check.
+**Select epoxy-filled and copper-capped vias:** this design has vias in thermal
+pads; ordinary tenting is not an equivalent process.
 
 ## Firmware and bring-up
 
@@ -67,13 +71,21 @@ preview. DS1 is a mechanical display model and is excluded from assembly files.
   250 ms after power-on for the switched divider and its 100 nF filter to settle.
 - Use GxEPD2's GDEY0213B74 driver (`GxEPD2_213_GDEY0213B74`; confirm the class name
   in the library version you install) and the GPIO map in `DESIGN.md`.
+- Charger control: GPIO6/7 drive `CHG_EN1`/`CHG_EN2`. Both are pulled low at
+  reset, selecting a **100 mA total USB input limit**. A charged battery supplies
+  Wi-Fi peaks. Select USB500 (`EN1=1, EN2=0`) only after the host grants it;
+  use `EN1=1, EN2=1` on USB suspend. A wall supply without enumeration stays
+  at 100 mA unless firmware positively identifies its available current.
+  Charge current is nominally 223 mA when the input budget permits.
 - Volume wheel: drive GPIO5 (`VOL_EN`) high, wait ~1 ms, read GPIO4 (`VOL_SENSE`) with
-  the ADC, then drive GPIO5 low again. The pot draws nothing while GPIO5 is low.
+  the ADC, then drive GPIO5 low again. Use the highest ADC attenuation and calibrate the two end positions.
+  R19 limits the maximum wiper voltage to about 2.86 V at 3.3 V supply and
+  +30% pot tolerance. The pot draws nothing while GPIO5 is low.
   The wheel is absolute (270° travel), so send Spotify a new volume only when the
   wheel moves; a volume change made on the phone will not move the wheel.
 - Buttons use internal pull-ups; configure RTC pull-ups and wake behavior for
   deep sleep. BOOT and RESET remain accessible for USB recovery/flashing.
-- Use a protected 1S LiPo whose manufacturer allows 500 mA charging. Verify the
+- Use a protected 1S LiPo whose manufacturer allows at least 250 mA charging. Verify the
   JST lead polarity; battery connectors are not universally wired the same way.
 - Test USB in both orientations, Wi-Fi during low battery and screen refresh,
   off/sleep current, and charging temperature before relying on runtime estimates.
@@ -84,4 +96,6 @@ preview. DS1 is a mechanical display model and is excluded from assembly files.
   antenna. Keep the battery and conductive enclosure/display features away from
   the antenna region, then test radio performance in the assembled device.
 
-Firmware has not been implemented in this repository.
+Firmware has not been implemented in this repository. No hardware has been bench-tested.
+See `BRINGUP.md` for acceptance measurements and `MECHANICAL.md` for the verified
+drawing dimensions and the remaining physical fit check.

@@ -38,6 +38,33 @@ def verify():
         "R12": {1: "USB_DP", 2: "USB_MCU_P"},
         "R13": {1: "USB_DN", 2: "USB_MCU_N"},
     }
+    expected_nets.update({
+        "U4": {1: "BAT_TS", 2: "VBAT", 3: "VBAT", 4: "GND", 5: "CHG_EN2", 6: "CHG_EN1",
+               8: "GND", 9: "CHG_STAT", 10: "VSYS", 11: "VSYS", 12: "CHG_ILIM", 13: "VBUS",
+               16: "CHG_PROG", 17: "GND"},
+        "U5": {1: "+3V3", 2: "PWR_L2", 3: "GND", 4: "PWR_L1", 5: "VSYS", 6: "PWR_EN",
+               7: "GND", 8: "VSYS", 9: "GND", 10: "+3V3", 11: "GND"},
+        "L2": {1: "PWR_L1", 2: "PWR_L2"},
+        "R3": {1: "CHG_PROG", 2: "CHG_PROG_MID"}, "R14": {1: "CHG_PROG_MID", 2: "GND"},
+        "R15": {1: "CHG_ILIM", 2: "GND"}, "R16": {1: "BAT_TS", 2: "GND"},
+        "R17": {1: "CHG_EN1", 2: "GND"}, "R18": {1: "CHG_EN2", 2: "GND"},
+        "R4": {1: "VSYS", 2: "LED_A"}, "R19": {1: "VOL_EN", 2: "VOL_SUPPLY"}, "R20": {1: "PWR_EN", 2: "GND"},
+        "RV1": {1: "GND", 2: "VOL_SENSE", 3: "VOL_SUPPLY"},
+        "J2": {1: "VBAT", 2: "GND"}, "SW8": {1: "VSYS", 2: "PWR_EN", 3: "GND"},
+        "J4": {2: "EPD_GDR", 3: "EPD_RESE", 5: "EPD_VSH2", 8: "GND", 9: "EPD_BUSY",
+               10: "EPD_RST", 11: "EPD_DC", 12: "EPD_CS", 13: "EPD_SCK", 14: "EPD_MOSI",
+               15: "+3V3", 16: "+3V3", 17: "GND", 18: "EPD_VDD", 20: "EPD_VSH1",
+               21: "EPD_PREVGH", 22: "EPD_VSL", 23: "EPD_PREVGL", 24: "EPD_VCOM"},
+    })
+    expected_nets["U1"].update({8: "VOL_SENSE", 9: "VOL_EN", 10: "CHG_EN1", 11: "CHG_EN2"})
+    for ref, val in {"L1": "47uH", "U4": "BQ24074RGTR", "U5": "TPS63031DSKR", "R3": "2k", "R14": "2k",
+                     "R15": "5.1k", "R16": "10k", "R17": "100k", "R18": "100k", "R19": "2k", "L2": "2.2uH"}.items():
+        assert fps[ref].GetValue() == val, (ref, val)
+    assert "Q1" not in fps and "D1" not in fps, "Obsolete power path present"
+    for pin in (7, 14, 15):
+        assert pad("U4", pin).GetNetname().startswith("unconnected-"), ("U4", pin)
+    for pin in (1, 4, 6, 7, 19):
+        assert pad("J4", pin).GetNetname().startswith("unconnected-"), ("J4", pin)
     for ref, pins in expected_nets.items():
         for num, net in pins.items():
             assert pad(ref, num).GetNetname() == net, (ref, num, net)
@@ -48,6 +75,26 @@ def verify():
         distance = math.dist(point(pad("U1", 3).GetPosition()), point(pad(ref, 1).GetPosition()))
         assert distance <= limit, (ref, distance, limit)
         print("%s to MCU supply pad: %.2f mm" % (ref, distance))
+
+    # Capacitors must remain close to the switching and charger supply pins.
+    for ic, pin, cap, limit in [("U4", 13, "C1", 2.0), ("U4", 2, "C2", 3.0),
+                               ("U4", 10, "C39", 3.0), ("U5", 5, "C3", 2.0),
+                               ("U5", 1, "C4", 2.0), ("U5", 8, "C38", 2.0)]:
+        d = math.dist(point(pad(ic, pin).GetPosition()), point(pad(cap, 1).GetPosition()))
+        assert d <= limit, (ic, pin, cap, d)
+    # Front-view coordinates after rotating the vendor panel drawing 90 degrees.
+    assert abs(point(pad("J4", 1).GetPosition())[0] - 126.95) < 0.01
+    assert abs(point(pad("J4", 24).GetPosition())[0] - 115.45) < 0.01
+    assert point(pad("J2", 1).GetPosition())[0] < point(pad("J2", 2).GetPosition())[0]
+    # Glass 29.2 x 59.2; screw/boss OD 4.5 mm max leaves 0.65 mm nominal clearance.
+    for ref, x, y in [("H1",103.5,103.5),("H2",138.5,103.5),("H3",103.5,194.5),("H4",138.5,194.5)]:
+        assert math.dist(point(fps[ref].GetPosition()), (x,y)) < 0.01
+    assert abs(fps["RV1"].GetOrientationDegrees() - 90) < 0.01
+    assert math.dist(point(fps["RV1"].GetPosition()), (134.1,161.5)) < 0.01
+    # Alps drawing No.2: knob center is 1.8 below the lower edge of the MP lands.
+    # MP center -4.9 + half-height .7 + 1.8 = -2.4; board-right edge is x=142.
+    assert abs((134.1 + 2.4 + 7) - 142 - 1.5) < 0.001
+    print("PASS: power-path topology, default USB100 straps, buck-boost, wheel range, panel pinout and geometry")
 
     # Snapshot native objects; checks do not mutate the board or reload it.
     actual_tracks, actual_vias = [], []
@@ -90,6 +137,18 @@ def verify():
                        for v in actual_vias), "Fixed via lost: " + t["net"]
         else:
             assert covers(t), "Fixed route lost: %s %s -> %s" % (t["net"], t["start"], t["end"])
+    # Screw heads/bosses must not touch signal copper on either outer surface.
+    def seg_distance(p, a, b):
+        dx, dy = b[0]-a[0], b[1]-a[1]
+        den = dx*dx + dy*dy
+        u = 0 if not den else max(0, min(1, ((p[0]-a[0])*dx+(p[1]-a[1])*dy)/den))
+        return math.dist(p, (a[0]+u*dx, a[1]+u*dy))
+    for ref in ("H1", "H2", "H3", "H4"):
+        center = point(fps[ref].GetPosition())
+        for t in actual_tracks:
+            if t["net"] != "GND" and t["layer"] in (P.F_Cu, P.B_Cu):
+                assert seg_distance(center, t["start"], t["end"]) >= 2.25 + P.ToMM(t["width"])/2, (ref, t["net"], "signal under screw head")
+    print("PASS: no signal tracks under 4.5 mm mounting heads")
     # No extra branches on the USB data nets; two layer changes per wire.
     for net in ["USB_DP", "USB_DN", "USB_MCU_P", "USB_MCU_N"]:
         actual_len = sum(t["length"] for t in actual_tracks if t["net"] == net)

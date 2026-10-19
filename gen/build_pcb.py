@@ -19,8 +19,8 @@ R_CORNER = 3.0
 
 # GDEY0213B74 on the front: 29.2 x 59.2 mm glass, FPC tail edge flush with the top edge
 PANEL_W, PANEL_H, PANEL_CX = 29.2, 59.2, W / 2
-# active area 23.70 x 48.55 mm, centred across, 8.0 mm below the tail edge (datasheet drawing)
-PANEL_AA = ((PANEL_CX - 11.85, 8.0), (PANEL_CX + 11.85, 56.55))
+# active area 23.70 x 48.55 mm, centred across, 7.95 mm below the tail edge (datasheet drawing)
+PANEL_AA = ((PANEL_CX - 11.85, 7.95), (PANEL_CX + 11.85, 56.50))
 
 
 def V(x, y):
@@ -64,10 +64,16 @@ PLACE = {
 
     # back, bottom: power + USB
     "J2": (6.8, 84, 0, "B"),
-    "U4": (15, 78.5, 0, "B"), "U5": (22.5, 78.5, 0, "B"), "Q1": (28.5, 78.5, 0, "B"),
-    "D1": (33.5, 78.5, 0, "B"),
-    "C1": (13, 82, 90, "B"), "C2": (15.5, 82, 90, "B"), "R3": (17.8, 82, 90, "B"),
-    "R5": (19.8, 82, 90, "B"), "C3": (22, 82, 90, "B"), "C4": (24.4, 82, 90, "B"),
+    "U4": (14, 77, 0, "B"), "U5": (28, 78, 180, "B"),
+    "L2": (33, 78, 90, "B"),
+    "C1": (14.75, 81, 270, "B"), "C2": (10.5, 77, 270, "B"),
+    "C39": (17.5, 77, 90, "B"),
+    "R3": (12.5, 81, 90, "B"), "R14": (12.5, 83, 90, "B"),
+    "R15": (19.5, 77, 90, "B"), "R16": (10, 73, 90, "B"),
+    "R17": (14, 73, 90, "B"), "R18": (12, 73, 90, "B"),
+    "R5": (19.5, 81, 90, "B"), "C3": (29.5, 81.5, 270, "B"),
+    "C4": (29.5, 74.5, 90, "B"), "C37": (26.5, 74.5, 90, "B"),
+    "R20": (22.5, 80.5, 90, "B"), "C38": (25, 78, 90, "B"), "R19": (25, 60, 90, "B"),
     "J1": (17, 94.3, 180, "B"), "U6": (17, 86, 270, "B"), "R1": (13, 86.3, 90, "B"), "R2": (21, 86.3, 90, "B"),
     "TP1": (7, 46, 0, "B"), "TP2": (9.5, 46, 0, "B"), "TP3": (12, 46, 0, "B"),
     "TP4": (14.5, 46, 0, "B"), "TP5": (17, 46, 0, "B"),
@@ -208,6 +214,21 @@ def write_stackup(path):
         f.write(content)
 
 
+def finish_silkscreen(board):
+    """Keep overhanging component outlines on fabrication drawings only."""
+    for fp in board.GetFootprints():
+        if fp.GetReference() in ('U1', 'J1'):
+            for item in fp.GraphicalItems():
+                if item.GetLayer() != P.B_SilkS:
+                    continue
+                box = item.GetBoundingBox()
+                if (P.ToMM(box.GetRight()) > OX + W - 0.2 or
+                        P.ToMM(box.GetBottom()) > OY + H - 0.2):
+                    item.SetLayer(P.B_Fab)
+        if fp.GetReference() == 'U4':
+            fp.Reference().SetPosition(V(17, 73))
+
+
 def main():
     design = json.load(open(os.path.join(KDIR, "design.json")))
     netmap = netlist_pads()
@@ -325,7 +346,7 @@ def main():
     text(board, P.F_SilkS, ">>", 31, 78.2, 0.8)
     text(board, P.F_SilkS, "CHG", 27.5, 95.5, 0.8)
     # back silkscreen (mirrored)
-    text(board, P.B_SilkS, "E-INK REMOTE rev C", 21, 50.5, 1.0, mirror=True, bold=True)
+    text(board, P.B_SilkS, "E-INK REMOTE rev D", 21, 50.5, 1.0, mirror=True, bold=True)
     text(board, P.B_SilkS, "BOOT", 26, 45.3, 0.8, mirror=True)
     text(board, P.B_SilkS, "RST", 33, 47.8, 0.8, mirror=True)
     text(board, P.B_SilkS, "+", 5.8, 90.4, 1.0, mirror=True, bold=True)
@@ -335,6 +356,7 @@ def main():
     text(board, P.B_SilkS, "ON/OFF", 37.5, 72.8, 0.8, mirror=True)
     text(board, P.B_SilkS, "VOL", 31, 53.5, 0.8, mirror=True)
 
+    finish_silkscreen(board)
     P.SaveBoard(PCB, board)
     write_stackup(PCB)
     print("saved", PCB, "footprints:", len(board.GetFootprints()))

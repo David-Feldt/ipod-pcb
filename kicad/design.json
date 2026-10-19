@@ -1,11 +1,11 @@
 {
- "root_uuid": "8a983bad-ed6e-427d-ac07-396035b6bc02",
+ "root_uuid": "b2241535-5b2c-4551-afc6-52b302566a50",
  "components": [
   {
    "ref": "J1",
    "value": "USB-C",
    "footprint": "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12",
-   "uuid": "71f90e2b-7b7a-4161-809d-f6da1b6e19da",
+   "uuid": "6d060efc-22a7-4dfc-bf5e-47c113032362",
    "lcsc": "C165948",
    "mpn": "TYPE-C-31-M-12",
    "dnp": false,
@@ -31,7 +31,7 @@
    "ref": "R1",
    "value": "5.1k",
    "footprint": "Resistor_SMD:R_0402_1005Metric",
-   "uuid": "3da1fc10-9b54-4cd8-9c22-89103c252224",
+   "uuid": "da1f02bb-6524-45c6-8081-f230029a66d2",
    "lcsc": "C25905",
    "mpn": null,
    "dnp": false,
@@ -44,7 +44,7 @@
    "ref": "R2",
    "value": "5.1k",
    "footprint": "Resistor_SMD:R_0402_1005Metric",
-   "uuid": "cfe47e4e-d259-463a-9cf2-19a8bdee0033",
+   "uuid": "88044a6b-7f9f-4180-b428-f0119c31bbec",
    "lcsc": "C25905",
    "mpn": null,
    "dnp": false,
@@ -57,7 +57,7 @@
    "ref": "U6",
    "value": "USBLC6-2SC6",
    "footprint": "Package_TO_SOT_SMD:SOT-23-6",
-   "uuid": "d180993e-cded-4a2a-b75e-36ffb1d6e9a6",
+   "uuid": "bc64ca19-16d7-4ec0-ad87-916052fb6a90",
    "lcsc": "C7519",
    "mpn": null,
    "dnp": false,
@@ -72,30 +72,104 @@
   },
   {
    "ref": "U4",
-   "value": "MCP73831-2-OT",
-   "footprint": "Package_TO_SOT_SMD:SOT-23-5",
-   "uuid": "1eb46b12-9008-4574-bf8e-6e47509b41a7",
-   "lcsc": "C424093",
-   "mpn": null,
+   "value": "BQ24074RGTR",
+   "footprint": "Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.6x1.6mm",
+   "uuid": "0b65a29a-5a07-426f-9364-a5e041edb346",
+   "lcsc": "C54313",
+   "mpn": "BQ24074RGTR",
    "dnp": false,
    "pads": {
-    "1": "CHG_STAT",
-    "2": "GND",
+    "1": "BAT_TS",
+    "2": "VBAT",
     "3": "VBAT",
-    "4": "VBUS",
-    "5": "CHG_PROG"
+    "4": "GND",
+    "5": "CHG_EN2",
+    "6": "CHG_EN1",
+    "8": "GND",
+    "9": "CHG_STAT",
+    "10": "VSYS",
+    "11": "VSYS",
+    "12": "CHG_ILIM",
+    "13": "VBUS",
+    "16": "CHG_PROG",
+    "17": "GND"
    }
   },
   {
    "ref": "R3",
    "value": "2k",
    "footprint": "Resistor_SMD:R_0402_1005Metric",
-   "uuid": "2d0709cf-4a2f-47fc-98e0-186d9c5298ac",
+   "uuid": "38eb3e2b-814c-4142-8f84-2712f594273d",
    "lcsc": "C4109",
    "mpn": null,
    "dnp": false,
    "pads": {
     "1": "CHG_PROG",
+    "2": "CHG_PROG_MID"
+   }
+  },
+  {
+   "ref": "R14",
+   "value": "2k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "6879d734-92ad-414f-9328-547432af3330",
+   "lcsc": "C4109",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "CHG_PROG_MID",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R15",
+   "value": "5.1k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "ce1a738c-1fe0-40b3-ad09-5839445d90c9",
+   "lcsc": "C25905",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "CHG_ILIM",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R16",
+   "value": "10k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "3ad7d2f3-1dc9-450b-9d11-72444ef8afa6",
+   "lcsc": "C25744",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "BAT_TS",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R17",
+   "value": "100k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "4d63a448-92da-4c5c-b975-210c4fe4b76e",
+   "lcsc": "C25741",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "CHG_EN1",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R18",
+   "value": "100k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "c59f5e86-9e37-411a-a5df-59538f7d2332",
+   "lcsc": "C25741",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "CHG_EN2",
     "2": "GND"
    }
   },
@@ -103,7 +177,7 @@
    "ref": "C1",
    "value": "10uF",
    "footprint": "Capacitor_SMD:C_0805_2012Metric",
-   "uuid": "481e8cf5-6451-4048-bb6b-1621d04fc5e3",
+   "uuid": "a77635bb-f63c-4be7-9303-4be0a0d540db",
    "lcsc": "C15850",
    "mpn": null,
    "dnp": false,
@@ -116,7 +190,7 @@
    "ref": "C2",
    "value": "10uF",
    "footprint": "Capacitor_SMD:C_0805_2012Metric",
-   "uuid": "62d904a6-b938-426c-882c-a2e20084e1ed",
+   "uuid": "dfa0da8d-2ee5-49cb-88dc-6541d8621ad3",
    "lcsc": "C15850",
    "mpn": null,
    "dnp": false,
@@ -129,20 +203,33 @@
    "ref": "R4",
    "value": "1k",
    "footprint": "Resistor_SMD:R_0402_1005Metric",
-   "uuid": "403e5bfb-d336-432e-94ea-835e84396967",
+   "uuid": "6f7c029e-552e-47c4-a928-77c18ef92952",
    "lcsc": "C11702",
    "mpn": null,
    "dnp": false,
    "pads": {
-    "1": "VBUS",
+    "1": "VSYS",
     "2": "LED_A"
+   }
+  },
+  {
+   "ref": "R5",
+   "value": "100k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "e9da5215-16a2-44dc-8ff8-2d2cf0abf6ad",
+   "lcsc": "C25741",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VBUS",
+    "2": "GND"
    }
   },
   {
    "ref": "D5",
    "value": "red",
    "footprint": "LED_SMD:LED_0603_1608Metric",
-   "uuid": "a2168801-3da9-4a5b-b93f-d5a71834386e",
+   "uuid": "5c11748d-a212-4803-8732-bb998ace8cbe",
    "lcsc": "C2286",
    "mpn": null,
    "dnp": false,
@@ -153,9 +240,9 @@
   },
   {
    "ref": "J2",
-   "value": "LiPo 1S",
+   "value": "LiPo 1S PROTECTED",
    "footprint": "Connector_JST:JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal",
-   "uuid": "64ba49af-a8e3-4d89-a853-fb3a1c97dbab",
+   "uuid": "005c57bd-bf1b-4a59-a7a9-6c865fadf67e",
    "lcsc": "C295747",
    "mpn": "S2B-PH-SM4-TB",
    "dnp": false,
@@ -166,80 +253,60 @@
    }
   },
   {
-   "ref": "D1",
-   "value": "B5819W",
-   "footprint": "Diode_SMD:D_SOD-123",
-   "uuid": "1b002cae-53fe-45b9-aa3d-4211dcfa51a5",
-   "lcsc": "C8598",
-   "mpn": null,
-   "dnp": false,
-   "pads": {
-    "1": "VSYS",
-    "2": "VBUS"
-   }
-  },
-  {
-   "ref": "Q1",
-   "value": "AO3401A",
-   "footprint": "Package_TO_SOT_SMD:SOT-23",
-   "uuid": "cb718e3e-7f1f-45d1-8054-f8c70cd36974",
-   "lcsc": "C15127",
-   "mpn": null,
-   "dnp": false,
-   "pads": {
-    "1": "VBUS",
-    "2": "VSYS",
-    "3": "VBAT"
-   }
-  },
-  {
-   "ref": "R5",
-   "value": "100k",
-   "footprint": "Resistor_SMD:R_0402_1005Metric",
-   "uuid": "c4c0666d-8b8a-40b4-9434-8a9f537bbd2c",
-   "lcsc": "C25741",
-   "mpn": null,
-   "dnp": false,
-   "pads": {
-    "1": "VBUS",
-    "2": "GND"
-   }
-  },
-  {
    "ref": "U5",
-   "value": "AP2112K-3.3",
-   "footprint": "Package_TO_SOT_SMD:SOT-23-5",
-   "uuid": "20e2e45e-3211-4490-91fa-54c203865305",
-   "lcsc": "C51118",
-   "mpn": null,
+   "value": "TPS63031DSKR",
+   "footprint": "Package_SON:WSON-10-1EP_2.5x2.5mm_P0.5mm_EP1.2x2mm",
+   "uuid": "44301773-ab98-4cb8-a1ad-a49434e98186",
+   "lcsc": "C15516",
+   "mpn": "TPS63031DSKR",
    "dnp": false,
    "pads": {
-    "1": "VSYS",
-    "2": "GND",
-    "3": "LDO_EN",
-    "5": "+3V3"
+    "1": "+3V3",
+    "2": "PWR_L2",
+    "3": "GND",
+    "4": "PWR_L1",
+    "5": "VSYS",
+    "6": "PWR_EN",
+    "7": "GND",
+    "8": "VSYS",
+    "9": "GND",
+    "10": "+3V3",
+    "11": "GND"
+   }
+  },
+  {
+   "ref": "L2",
+   "value": "2.2uH",
+   "footprint": "Inductor_SMD:L_Sunlord_SWPA4030S",
+   "uuid": "c0ebc73d-5f90-4ac6-8f8d-4d6cf4310d9d",
+   "lcsc": "C36409",
+   "mpn": "SWPA4030S2R2MT",
+   "dnp": false,
+   "pads": {
+    "1": "PWR_L1",
+    "2": "PWR_L2"
    }
   },
   {
    "ref": "SW8",
    "value": "POWER",
    "footprint": "Button_Switch_SMD:SW_SPDT_Shouhan_MSK12C02",
-   "uuid": "0e3c1f5d-0de3-4ae0-967c-22b6a02e06ec",
+   "uuid": "b725ac08-561c-4360-b3bd-efb3459f57bf",
    "lcsc": "C431540",
    "mpn": null,
    "dnp": false,
    "pads": {
     "1": "VSYS",
-    "2": "LDO_EN",
+    "2": "PWR_EN",
     "3": "GND"
    }
   },
   {
    "ref": "C3",
    "value": "10uF",
-   "footprint": "Capacitor_SMD:C_0603_1608Metric",
-   "uuid": "acff5a09-9eac-46dc-9385-1d19507d68fc",
-   "lcsc": "C19702",
+   "footprint": "Capacitor_SMD:C_0805_2012Metric",
+   "uuid": "a36853f2-6b12-4b6a-890d-52c2317af080",
+   "lcsc": "C15850",
    "mpn": null,
    "dnp": false,
    "pads": {
@@ -250,9 +317,9 @@
   {
    "ref": "C4",
    "value": "10uF",
-   "footprint": "Capacitor_SMD:C_0603_1608Metric",
-   "uuid": "3f870745-247b-4d19-bc57-5f5bc4864d53",
-   "lcsc": "C19702",
+   "footprint": "Capacitor_SMD:C_0805_2012Metric",
+   "uuid": "c597efc4-843f-428e-9235-7238c6ea736d",
+   "lcsc": "C15850",
    "mpn": null,
    "dnp": false,
    "pads": {
@@ -261,10 +328,62 @@
    }
   },
   {
+   "ref": "C37",
+   "value": "10uF",
+   "footprint": "Capacitor_SMD:C_0805_2012Metric",
+   "uuid": "bd559b6d-77bc-481f-9861-9c04f8cab475",
+   "lcsc": "C15850",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "+3V3",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C38",
+   "value": "100nF",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "uuid": "10237677-55e0-4929-b627-36e9a31ec631",
+   "lcsc": "C1525",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VSYS",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C39",
+   "value": "10uF",
+   "footprint": "Capacitor_SMD:C_0805_2012Metric",
+   "uuid": "13f6ebf9-5b71-4aa6-935f-280c04b373a0",
+   "lcsc": "C15850",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VSYS",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R20",
+   "value": "100k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "0bb4e137-9031-40a7-9ea4-1caddace6e69",
+   "lcsc": "C25741",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "PWR_EN",
+    "2": "GND"
+   }
+  },
+  {
    "ref": "Q4",
    "value": "AO3401A",
    "footprint": "Package_TO_SOT_SMD:SOT-23",
-   "uuid": "1306022a-d9cc-4bd0-9684-c0e4ea6aaaab",
+   "uuid": "32dbeb8b-3a92-427b-94e6-c1303150e7e8",
    "lcsc": "C15127",
    "mpn": null,
    "dnp": false,
@@ -278,7 +397,7 @@
    "ref": "Q5",
    "value": "AO3400A",
    "footprint": "Package_TO_SOT_SMD:SOT-23",
-   "uuid": "1cd3c2bc-b0d1-4827-a239-e2857d97743a",
+   "uuid": "338d848c-036d-4685-8a3d-a176435e0358",
    "lcsc": "C20917",
    "mpn": null,
    "dnp": false,
@@ -292,7 +411,7 @@
    "ref": "R9",
    "value": "1M",
    "footprint": "Resistor_SMD:R_0402_1005Metric",
-   "uuid": "1c9c2177-52e3-4fd9-964a-9823558bf872",
+   "uuid": "0a2b7f4f-2898-43ba-b2de-8760ba7306a8",
    "lcsc": "C26083",
    "mpn": null,
    "dnp": false,
@@ -305,7 +424,7 @@
    "ref": "R11",
    "value": "1M",
    "footprint": "Resistor_SMD:R_0402_1005Metric",
-   "uuid": "41dae37f-21fb-4602-a58c-8d296088a7e7",
+   "uuid": "312b455a-c103-496b-86ec-5a0c8c03a04e",
    "lcsc": "C26083",
    "mpn": null,
    "dnp": false,
@@ -318,7 +437,7 @@
    "ref": "R6",
    "value": "1M",
    "footprint": "Resistor_SMD:R_0402_1005Metric",
-   "uuid": "6f9d884c-d5fc-4482-ae08-3b2b1e4a14a9",
+   "uuid": "5bddff46-db13-4da4-a83f-4c8db7c21a6e",
    "lcsc": "C26083",
    "mpn": null,
    "dnp": false,
@@ -331,7 +450,7 @@
    "ref": "R7",
    "value": "1M",
    "footprint": "Resistor_SMD:R_0402_1005Metric",
-   "uuid": "ea9f53ee-f150-4562-9f4f-82eb0819a8c1",
+   "uuid": "9318627c-b51e-4cdd-9cc1-4da25093e74c",
    "lcsc": "C26083",
    "mpn": null,
    "dnp": false,
@@ -344,7 +463,7 @@
    "ref": "C5",
    "value": "100nF",
    "footprint": "Capacitor_SMD:C_0402_1005Metric",
-   "uuid": "046110ad-edc7-45b5-998c-0920566f147f",
+   "uuid": "8500bba1-6819-4d79-a722-7c82506fd3dc",
    "lcsc": "C1525",
    "mpn": null,
    "dnp": false,
@@ -357,7 +476,7 @@
    "ref": "R8",
    "value": "100k",
    "footprint": "Resistor_SMD:R_0402_1005Metric",
-   "uuid": "fbb0166c-32e8-4641-885c-d3712c7a6bbc",
+   "uuid": "b581a1f4-0a7b-4005-a11b-29c2a7d02aa4",
    "lcsc": "C25741",
    "mpn": null,
    "dnp": false,
@@ -370,7 +489,7 @@
    "ref": "Q3",
    "value": "AO3400A",
    "footprint": "Package_TO_SOT_SMD:SOT-23",
-   "uuid": "52115f47-1d67-4308-8587-a87665d1f28a",
+   "uuid": "a7af4dfd-5c24-4d83-8ca2-2fadbe03a9d2",
    "lcsc": "C20917",
    "mpn": null,
    "dnp": false,
@@ -384,7 +503,7 @@
    "ref": "U1",
    "value": "ESP32-S3-MINI-1-N8",
    "footprint": "eink-pod:ESP32-S3-MINI-1",
-   "uuid": "213ae36d-daf9-4ee9-a9c0-34d7ee214fd8",
+   "uuid": "26be95c4-1b6f-4042-9d51-c5baaeb8f45b",
    "lcsc": "C2913206",
    "mpn": null,
    "dnp": false,
@@ -397,6 +516,8 @@
     "6": "USB_PRESENT_N",
     "8": "VOL_SENSE",
     "9": "VOL_EN",
+    "10": "CHG_EN1",
+    "11": "CHG_EN2",
     "13": "BTN_MENU",
     "14": "BTN_PLAY",
     "15": "BTN_PREV",
@@ -441,7 +562,7 @@
    "ref": "R12",
    "value": "22",
    "footprint": "Resistor_SMD:R_0402_1005Metric",
-   "uuid": "d2a0448c-4bf1-4b83-8b9f-39d6b171c83c",
+   "uuid": "b8fdbcd4-d237-44b5-b952-9fa5098eaf24",
    "lcsc": "C25092",
    "mpn": null,
    "dnp": false,
@@ -454,7 +575,7 @@
    "ref": "R13",
    "value": "22",
    "footprint": "Resistor_SMD:R_0402_1005Metric",
-   "uuid": "6365af9c-fb32-4ddc-b303-6b3354e89d51",
+   "uuid": "4d96e258-76c8-4fbb-baa8-c736e107243d",
    "lcsc": "C25092",
    "mpn": null,
    "dnp": false,
@@ -467,7 +588,7 @@
    "ref": "C9",
    "value": "22uF",
    "footprint": "Capacitor_SMD:C_0603_1608Metric",
-   "uuid": "b579dffd-3a2d-4fa3-bd0a-6c5f0ec7e7e8",
+   "uuid": "62709ba8-f953-432f-a68d-5ec0f4ff67da",
    "lcsc": "C59461",
    "mpn": null,
    "dnp": false,
@@ -480,7 +601,7 @@
    "ref": "C6",
    "value": "10uF",
    "footprint": "Capacitor_SMD:C_0603_1608Metric",
-   "uuid": "aa7a51d3-656f-4585-8fe8-086306d3bf0b",
+   "uuid": "0288a5a8-7017-4275-aca1-96b95daf5638",
    "lcsc": "C19702",
    "mpn": null,
    "dnp": false,
@@ -493,7 +614,7 @@
    "ref": "C7",
    "value": "100nF",
    "footprint": "Capacitor_SMD:C_0402_1005Metric",
-   "uuid": "1c6559f9-d3d8-435a-ab62-9ccc5c693969",
+   "uuid": "ad171431-d32f-436e-be74-ea39409d31d4",
    "lcsc": "C1525",
    "mpn": null,
    "dnp": false,
@@ -506,7 +627,7 @@
    "ref": "R10",
    "value": "10k",
    "footprint": "Resistor_SMD:R_0402_1005Metric",
-   "uuid": "2d3bbd97-e9b9-4ba9-a33d-5f1aed8856ad",
+   "uuid": "f5cf7279-6e4f-4bd4-86ce-f2ea8ffe9853",
    "lcsc": "C25744",
    "mpn": null,
    "dnp": false,
@@ -519,7 +640,7 @@
    "ref": "C8",
    "value": "1uF",
    "footprint": "Capacitor_SMD:C_0402_1005Metric",
-   "uuid": "b7f9699b-6e62-4345-b8bc-fb8bc6b32535",
+   "uuid": "e816cdc3-0ea1-4219-82eb-2e50fcba8140",
    "lcsc": "C52923",
    "mpn": null,
    "dnp": false,
@@ -532,7 +653,7 @@
    "ref": "SW6",
    "value": "BOOT",
    "footprint": "Button_Switch_SMD:SW_SPST_TS-1088-xR020",
-   "uuid": "82ec7fa1-1433-4be7-9845-70d19465163c",
+   "uuid": "75dbefe4-d58a-42f9-8794-b508ae50bf14",
    "lcsc": "C720477",
    "mpn": null,
    "dnp": false,
@@ -545,7 +666,7 @@
    "ref": "SW7",
    "value": "RESET",
    "footprint": "Button_Switch_SMD:SW_SPST_TS-1088-xR020",
-   "uuid": "6ae6e948-ec98-4403-a884-935247081175",
+   "uuid": "17d29018-3f05-4026-897b-5b43ae47c74b",
    "lcsc": "C720477",
    "mpn": null,
    "dnp": false,
@@ -558,7 +679,7 @@
    "ref": "TP1",
    "value": "TXD0",
    "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
-   "uuid": "8a3008f8-481d-4162-a163-f3a6a3823639",
+   "uuid": "cc0f2d9a-5787-45b7-ab07-c5a72f233cc6",
    "lcsc": null,
    "mpn": null,
    "dnp": false,
@@ -570,7 +691,7 @@
    "ref": "TP2",
    "value": "RXD0",
    "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
-   "uuid": "d330b6fa-7f4e-4cb3-b052-1ff34179c02a",
+   "uuid": "6cbd2695-1340-4f51-ada7-f4060d818bd9",
    "lcsc": null,
    "mpn": null,
    "dnp": false,
@@ -582,7 +703,7 @@
    "ref": "TP3",
    "value": "GND",
    "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
-   "uuid": "5ce8d689-dabe-43b1-a798-70d18f7e70e1",
+   "uuid": "8e0cde7a-5629-4375-8678-9727f60d8736",
    "lcsc": null,
    "mpn": null,
    "dnp": false,
@@ -594,7 +715,7 @@
    "ref": "TP4",
    "value": "+3V3",
    "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
-   "uuid": "a17c75d0-9eba-407d-8e13-5510a3ba5f6c",
+   "uuid": "e827d211-22d6-4ef0-822d-eea31a020dbd",
    "lcsc": null,
    "mpn": null,
    "dnp": false,
@@ -606,7 +727,7 @@
    "ref": "TP5",
    "value": "VBAT",
    "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
-   "uuid": "a55d09e2-15c3-46e3-9352-eb30808fe830",
+   "uuid": "753ad8bb-c2d3-4e6b-a9c6-c87a7f208883",
    "lcsc": null,
    "mpn": null,
    "dnp": false,
@@ -618,7 +739,7 @@
    "ref": "SW1",
    "value": "MENU",
    "footprint": "Button_Switch_SMD:SW_SPST_TS-1088-xR020",
-   "uuid": "10a9c3a7-4db2-4c09-adff-d67c5d667497",
+   "uuid": "2024271f-75f4-4dbe-a0aa-832028083b33",
    "lcsc": "C720477",
    "mpn": null,
    "dnp": false,
@@ -631,7 +752,7 @@
    "ref": "SW2",
    "value": "PLAY",
    "footprint": "Button_Switch_SMD:SW_SPST_TS-1088-xR020",
-   "uuid": "2a0fa45e-120c-4d01-82c5-79458dd50aea",
+   "uuid": "6b203fb9-dc24-4345-aea6-edf64d5fb437",
    "lcsc": "C720477",
    "mpn": null,
    "dnp": false,
@@ -644,7 +765,7 @@
    "ref": "SW3",
    "value": "PREV",
    "footprint": "Button_Switch_SMD:SW_SPST_TS-1088-xR020",
-   "uuid": "e2b5f91c-fa72-413c-8257-0b591d6a9ccd",
+   "uuid": "5f5b3bc6-fd92-42f5-a6b9-16ccb36cfed7",
    "lcsc": "C720477",
    "mpn": null,
    "dnp": false,
@@ -657,7 +778,7 @@
    "ref": "SW4",
    "value": "NEXT",
    "footprint": "Button_Switch_SMD:SW_SPST_TS-1088-xR020",
-   "uuid": "071aad7d-957c-48c7-a679-153a67845592",
+   "uuid": "37d27398-5ef6-4a0b-b850-022cff5b8322",
    "lcsc": "C720477",
    "mpn": null,
    "dnp": false,
@@ -670,7 +791,7 @@
    "ref": "SW5",
    "value": "SEL",
    "footprint": "Button_Switch_SMD:SW_SPST_TS-1088-xR020",
-   "uuid": "f2b5820e-8176-44b6-91c9-935f0078d5ca",
+   "uuid": "8f6be577-3fa2-4d80-8cd5-aa620107b8f4",
    "lcsc": "C720477",
    "mpn": null,
    "dnp": false,
@@ -683,14 +804,14 @@
    "ref": "RV1",
    "value": "10k",
    "footprint": "eink-pod:Alps_RK10J1xR_Thumbwheel",
-   "uuid": "4d1a662c-5d3f-4c60-a8c3-508aa0ff9219",
+   "uuid": "1af340d8-e78d-447d-8534-29d1e1b8b628",
    "lcsc": "C470766",
    "mpn": "RK10J11R0A0H",
    "dnp": false,
    "pads": {
     "1": "GND",
     "2": "VOL_SENSE",
-    "3": "VOL_EN",
+    "3": "VOL_SUPPLY",
     "MP": "GND"
    }
   },
@@ -698,7 +819,7 @@
    "ref": "C36",
    "value": "10nF",
    "footprint": "Capacitor_SMD:C_0402_1005Metric",
-   "uuid": "f6d8fce7-be4e-4126-aa88-d520ec435ec3",
+   "uuid": "20333bd2-ad15-4301-b7a1-1acd3186fe3a",
    "lcsc": "C15195",
    "mpn": null,
    "dnp": false,
@@ -708,10 +829,23 @@
    }
   },
   {
+   "ref": "R19",
+   "value": "2k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "uuid": "e82c1428-99d1-4f2b-967a-ed2059d9fadc",
+   "lcsc": "C4109",
+   "mpn": null,
+   "dnp": false,
+   "pads": {
+    "1": "VOL_EN",
+    "2": "VOL_SUPPLY"
+   }
+  },
+  {
    "ref": "H1",
    "value": "M2.5",
    "footprint": "MountingHole:MountingHole_2.7mm_M2.5",
-   "uuid": "b229c65d-ea46-4563-b973-af3ce847383e",
+   "uuid": "9b291a45-3701-4c6c-a026-1e30a0e0512e",
    "lcsc": null,
    "mpn": null,
    "dnp": false,
@@ -721,7 +855,7 @@
    "ref": "H2",
    "value": "M2.5",
    "footprint": "MountingHole:MountingHole_2.7mm_M2.5",
-   "uuid": "647b6b0d-85bd-49c7-9464-0ca01791cefe",
+   "uuid": "4e79e938-76aa-4b52-831b-71fadf750077",
    "lcsc": null,
    "mpn": null,
    "dnp": false,
@@ -731,7 +865,7 @@
    "ref": "H3",
    "value": "M2.5",
    "footprint": "MountingHole:MountingHole_2.7mm_M2.5",
-   "uuid": "9e0a576b-1989-404c-86db-445c1cab228a",
+   "uuid": "a199cd6d-1970-4406-bb61-a566afa1c781",
    "lcsc": null,
    "mpn": null,
    "dnp": false,
@@ -741,7 +875,7 @@
    "ref": "H4",
    "value": "M2.5",
    "footprint": "MountingHole:MountingHole_2.7mm_M2.5",
-   "uuid": "465d1ad7-5664-4b47-b6ff-d16b3e6043f7",
+   "uuid": "5167331e-897f-4195-9c80-bae63f47d44c",
    "lcsc": null,
    "mpn": null,
    "dnp": false,
@@ -751,7 +885,7 @@
    "ref": "J4",
    "value": "GDEY0213B74",
    "footprint": "eink-pod:FPC-05FB-24PH20",
-   "uuid": "6424f63a-de25-43ff-93b6-d0b10598405b",
+   "uuid": "bc5628a9-a2e0-414c-aaf1-bc58b6725dcb",
    "lcsc": "C2856831",
    "mpn": "FPC-05FB-24PH20",
    "dnp": false,
@@ -780,11 +914,11 @@
   },
   {
    "ref": "L1",
-   "value": "10uH",
+   "value": "47uH",
    "footprint": "Inductor_SMD:L_Sunlord_SWPA4030S",
-   "uuid": "cabb7696-9533-4ee6-9fd6-88f4197f732d",
-   "lcsc": "C38117",
-   "mpn": "SWPA4030S100MT",
+   "uuid": "bbb5e5a0-5f31-4952-905a-2f87e91ce07b",
+   "lcsc": "C54731",
+   "mpn": "SWPA4030S470MT",
    "dnp": false,
    "pads": {
     "1": "+3V3",
@@ -795,7 +929,7 @@
    "ref": "Q2",
    "value": "AO3400A",
    "footprint": "Package_TO_SOT_SMD:SOT-23",
-   "uuid": "be5a2980-5f32-4b91-8622-5ae2133fcd02",
+   "uuid": "4162d407-dc85-4d82-a741-71ba86d60d37",
    "lcsc": "C20917",
    "mpn": null,
    "dnp": false,
@@ -809,7 +943,7 @@
    "ref": "D2",
    "value": "B5819W",
    "footprint": "Diode_SMD:D_SOD-123",
-   "uuid": "1b82c324-be46-4bf3-9a74-2e9eec9f5bbc",
+   "uuid": "b997146b-3d5d-491e-bf3d-7c3e2832515e",
    "lcsc": "C8598",
    "mpn": null,
    "dnp": false,
@@ -822,7 +956,7 @@
    "ref": "D3",
    "value": "B5819W",
    "footprint": "Diode_SMD:D_SOD-123",
-   "uuid": "6c6bf914-3a33-430a-a778-136c6afee1b0",
+   "uuid": "2c9af9b2-1080-4b17-b8c2-c6bed4ce9862",
    "lcsc": "C8598",
    "mpn": null,
    "dnp": false,
@@ -835,7 +969,7 @@
    "ref": "D4",
    "value": "B5819W",
    "footprint": "Diode_SMD:D_SOD-123",
-   "uuid": "60ccf7f9-eb74-41d6-af54-c315796a8fcd",
+   "uuid": "53f7b943-53fb-48b1-8439-760219e0f0a3",
    "lcsc": "C8598",
    "mpn": null,
    "dnp": false,
@@ -848,7 +982,7 @@
    "ref": "R21",
    "value": "1M",
    "footprint": "Resistor_SMD:R_0402_1005Metric",
-   "uuid": "131168ed-c0ec-4e1d-b856-43a4b0f2f8a8",
+   "uuid": "74bc060c-c16f-4fa8-a965-ae0e19aaf78b",
    "lcsc": "C26083",
    "mpn": null,
    "dnp": false,
@@ -861,7 +995,7 @@
    "ref": "R22",
    "value": "2.2",
    "footprint": "Resistor_SMD:R_0402_1005Metric",
-   "uuid": "9e553ce9-e8db-499b-b16e-5175ca089e7c",
+   "uuid": "175fbcee-164d-4899-be88-acaffaaa84ab",
    "lcsc": "C25158",
    "mpn": null,
    "dnp": false,
@@ -874,7 +1008,7 @@
    "ref": "C26",
    "value": "4.7uF 25V",
    "footprint": "Capacitor_SMD:C_0805_2012Metric",
-   "uuid": "8fd648f6-99b5-4172-ad71-e34c2e460ddd",
+   "uuid": "3c1f1836-6f1d-42a5-87d7-f146ced72dad",
    "lcsc": "C1779",
    "mpn": null,
    "dnp": false,
@@ -887,7 +1021,7 @@
    "ref": "C27",
    "value": "10uF",
    "footprint": "Capacitor_SMD:C_0603_1608Metric",
-   "uuid": "7481d25a-5514-4558-a49a-31fc248ef558",
+   "uuid": "7ee2e429-f073-48cd-a815-f5e24bef3d91",
    "lcsc": "C19702",
    "mpn": null,
    "dnp": false,
@@ -900,7 +1034,7 @@
    "ref": "C28",
    "value": "1uF",
    "footprint": "Capacitor_SMD:C_0402_1005Metric",
-   "uuid": "6c4aabbf-f583-47ce-91a6-c51a4ff3998f",
+   "uuid": "691879b8-5aa1-40e8-9743-5c6b4b3b0408",
    "lcsc": "C52923",
    "mpn": null,
    "dnp": false,
@@ -913,7 +1047,7 @@
    "ref": "C29",
    "value": "1uF",
    "footprint": "Capacitor_SMD:C_0402_1005Metric",
-   "uuid": "f5aa5963-b2d0-40e5-814a-48975ca07ae3",
+   "uuid": "295252d0-23c4-46c4-b591-657c2f6315b7",
    "lcsc": "C52923",
    "mpn": null,
    "dnp": false,
@@ -926,7 +1060,7 @@
    "ref": "C30",
    "value": "1uF 50V",
    "footprint": "Capacitor_SMD:C_0603_1608Metric",
-   "uuid": "b403c5cf-0e69-49af-a374-06a0011ea9c6",
+   "uuid": "e6b37c5e-37a9-4733-b59e-2ad206fea13f",
    "lcsc": "C15849",
    "mpn": null,
    "dnp": false,
@@ -939,7 +1073,7 @@
    "ref": "C31",
    "value": "1uF 50V",
    "footprint": "Capacitor_SMD:C_0603_1608Metric",
-   "uuid": "dc5f9a71-5ce5-4272-ab8b-b9f5cf02c45f",
+   "uuid": "3cb14edb-0640-428a-a5c6-651d918344fe",
    "lcsc": "C15849",
    "mpn": null,
    "dnp": false,
@@ -952,7 +1086,7 @@
    "ref": "C32",
    "value": "1uF 50V",
    "footprint": "Capacitor_SMD:C_0603_1608Metric",
-   "uuid": "4a8db13d-345b-4df7-b5df-14811cbe100c",
+   "uuid": "8a8f7742-f9dc-4402-a000-d6e2d00ef5f3",
    "lcsc": "C15849",
    "mpn": null,
    "dnp": false,
@@ -965,7 +1099,7 @@
    "ref": "C33",
    "value": "1uF 50V",
    "footprint": "Capacitor_SMD:C_0603_1608Metric",
-   "uuid": "c0927fa1-f233-4105-b1d5-829ace30c477",
+   "uuid": "0b1c4011-f5c8-47a6-a073-11bd5cc159f7",
    "lcsc": "C15849",
    "mpn": null,
    "dnp": false,
@@ -978,7 +1112,7 @@
    "ref": "C34",
    "value": "1uF 50V",
    "footprint": "Capacitor_SMD:C_0603_1608Metric",
-   "uuid": "7601ae44-b9d5-451e-a6fb-11d25f98d804",
+   "uuid": "2aca794c-39cf-42bd-9f7a-98ee62caa81a",
    "lcsc": "C15849",
    "mpn": null,
    "dnp": false,
@@ -991,7 +1125,7 @@
    "ref": "C35",
    "value": "1uF 50V",
    "footprint": "Capacitor_SMD:C_0603_1608Metric",
-   "uuid": "c7398dc8-4169-4917-97ea-bbd89a34bb25",
+   "uuid": "4c5e0c2b-b465-4def-8b60-b132bcffdead",
    "lcsc": "C15849",
    "mpn": null,
    "dnp": false,
@@ -1037,10 +1171,34 @@
    ],
    [
     "U4",
+    "4"
+   ],
+   [
+    "U4",
+    "8"
+   ],
+   [
+    "U4",
+    "17"
+   ],
+   [
+    "R14",
     "2"
    ],
    [
-    "R3",
+    "R15",
+    "2"
+   ],
+   [
+    "R16",
+    "2"
+   ],
+   [
+    "R17",
+    "2"
+   ],
+   [
+    "R18",
     "2"
    ],
    [
@@ -1052,6 +1210,10 @@
     "2"
    ],
    [
+    "R5",
+    "2"
+   ],
+   [
     "J2",
     "2"
    ],
@@ -1060,12 +1222,20 @@
     "MP"
    ],
    [
-    "R5",
-    "2"
+    "U5",
+    "3"
    ],
    [
     "U5",
-    "2"
+    "7"
+   ],
+   [
+    "U5",
+    "9"
+   ],
+   [
+    "U5",
+    "11"
    ],
    [
     "SW8",
@@ -1077,6 +1247,22 @@
    ],
    [
     "C4",
+    "2"
+   ],
+   [
+    "C37",
+    "2"
+   ],
+   [
+    "C38",
+    "2"
+   ],
+   [
+    "C39",
+    "2"
+   ],
+   [
+    "R20",
     "2"
    ],
    [
@@ -1343,22 +1529,10 @@
    ],
    [
     "U4",
-    "4"
+    "13"
    ],
    [
     "C1",
-    "1"
-   ],
-   [
-    "R4",
-    "1"
-   ],
-   [
-    "D1",
-    "2"
-   ],
-   [
-    "Q1",
     "1"
    ],
    [
@@ -1438,17 +1612,21 @@
     "1"
    ]
   ],
-  "CHG_STAT": [
+  "BAT_TS": [
    [
     "U4",
     "1"
    ],
    [
-    "D5",
+    "R16",
     "1"
    ]
   ],
   "VBAT": [
+   [
+    "U4",
+    "2"
+   ],
    [
     "U4",
     "3"
@@ -1460,10 +1638,6 @@
    [
     "J2",
     "1"
-   ],
-   [
-    "Q1",
-    "3"
    ],
    [
     "Q4",
@@ -1478,13 +1652,109 @@
     "1"
    ]
   ],
-  "CHG_PROG": [
+  "CHG_EN2": [
    [
     "U4",
     "5"
    ],
    [
+    "R18",
+    "1"
+   ],
+   [
+    "U1",
+    "11"
+   ]
+  ],
+  "CHG_EN1": [
+   [
+    "U4",
+    "6"
+   ],
+   [
+    "R17",
+    "1"
+   ],
+   [
+    "U1",
+    "10"
+   ]
+  ],
+  "CHG_STAT": [
+   [
+    "U4",
+    "9"
+   ],
+   [
+    "D5",
+    "1"
+   ]
+  ],
+  "VSYS": [
+   [
+    "U4",
+    "10"
+   ],
+   [
+    "U4",
+    "11"
+   ],
+   [
+    "R4",
+    "1"
+   ],
+   [
+    "U5",
+    "5"
+   ],
+   [
+    "U5",
+    "8"
+   ],
+   [
+    "SW8",
+    "1"
+   ],
+   [
+    "C3",
+    "1"
+   ],
+   [
+    "C38",
+    "1"
+   ],
+   [
+    "C39",
+    "1"
+   ]
+  ],
+  "CHG_ILIM": [
+   [
+    "U4",
+    "12"
+   ],
+   [
+    "R15",
+    "1"
+   ]
+  ],
+  "CHG_PROG": [
+   [
+    "U4",
+    "16"
+   ],
+   [
     "R3",
+    "1"
+   ]
+  ],
+  "CHG_PROG_MID": [
+   [
+    "R3",
+    "2"
+   ],
+   [
+    "R14",
     "1"
    ]
   ],
@@ -1498,49 +1768,21 @@
     "2"
    ]
   ],
-  "VSYS": [
-   [
-    "D1",
-    "1"
-   ],
-   [
-    "Q1",
-    "2"
-   ],
-   [
-    "U5",
-    "1"
-   ],
-   [
-    "SW8",
-    "1"
-   ],
-   [
-    "C3",
-    "1"
-   ],
-   [
-    "#FLG03",
-    "1"
-   ]
-  ],
-  "LDO_EN": [
-   [
-    "U5",
-    "3"
-   ],
-   [
-    "SW8",
-    "2"
-   ]
-  ],
   "+3V3": [
    [
     "U5",
-    "5"
+    "1"
+   ],
+   [
+    "U5",
+    "10"
    ],
    [
     "C4",
+    "1"
+   ],
+   [
+    "C37",
     "1"
    ],
    [
@@ -1597,6 +1839,40 @@
    ],
    [
     "C28",
+    "1"
+   ]
+  ],
+  "PWR_L2": [
+   [
+    "U5",
+    "2"
+   ],
+   [
+    "L2",
+    "2"
+   ]
+  ],
+  "PWR_L1": [
+   [
+    "U5",
+    "4"
+   ],
+   [
+    "L2",
+    "1"
+   ]
+  ],
+  "PWR_EN": [
+   [
+    "U5",
+    "6"
+   ],
+   [
+    "SW8",
+    "2"
+   ],
+   [
+    "R20",
     "1"
    ]
   ],
@@ -1686,8 +1962,8 @@
     "9"
    ],
    [
-    "RV1",
-    "3"
+    "R19",
+    "1"
    ]
   ],
   "BTN_MENU": [
@@ -1856,6 +2132,16 @@
    [
     "SW7",
     "1"
+   ]
+  ],
+  "VOL_SUPPLY": [
+   [
+    "RV1",
+    "3"
+   ],
+   [
+    "R19",
+    "2"
    ]
   ],
   "EPD_GDR": [

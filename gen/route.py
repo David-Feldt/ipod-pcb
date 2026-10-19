@@ -17,6 +17,7 @@ sys.path.insert(0, HERE)
 from build_pcb import outline_poly, OX, OY  # noqa: E402
 from fanout import fanout, EDGE_INSET  # noqa: E402
 from critical_routes import route_critical  # noqa: E402
+from postroute import repair_power_escape  # noqa: E402
 
 
 def stitch(board, gnd, step=2.5, keep=0.55):
@@ -86,6 +87,7 @@ def route_once(jar, passes, dsn, ses):
 
     if not P.ImportSpecctraSES(board, ses):
         raise SystemExit("SES import failed")
+    print("power via escapes corrected:", repair_power_escape(board), flush=True)
 
     # outer-layer GND pours
     gnd = board.FindNet("GND")

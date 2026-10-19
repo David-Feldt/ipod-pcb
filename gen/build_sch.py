@@ -56,34 +56,48 @@ sch.add("U6", "Power_Protection:USBLC6-2SC6", "USBLC6-2SC6",
         {"1": "USB_DP", "6": "USB_DP", "3": "USB_DN", "4": "USB_DN",
          "2": "GND", "5": "VBUS"}, lcsc="C7519")
 
-# Li-ion charger, 500 mA (PROG = 2k)
-sch.add("U4", "Battery_Management:MCP73831-2-OT", "MCP73831-2-OT",
-        "Package_TO_SOT_SMD:SOT-23-5", 140, 50,
-        {"1": "CHG_STAT", "2": "GND", "3": "VBAT", "4": "VBUS", "5": "CHG_PROG"},
-        lcsc="C424093")
-row(120, 75, [("R", "R3", "2k", "CHG_PROG", "GND"), ("C", "C1", "10uF", "VBUS", "GND", C0805),
-              ("C", "C2", "10uF", "VBAT", "GND", C0805), ("R", "R4", "1k", "VBUS", "LED_A")])
-sch.add("D5", "Device:LED", "red", "LED_SMD:LED_0603_1608Metric", 170, 75,
+# Integrated power path: USB input is limited independently of charge current.
+# Reset defaults to USB100. Firmware may select USB500 only after enumeration.
+sch.add("U4", "Battery_Management:BQ24074RGT", "BQ24074RGTR",
+        "Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.6x1.6mm", 140, 50,
+        {"1": "BAT_TS", "2": "VBAT", "3": "VBAT", "4": "GND", "5": "CHG_EN2",
+         "6": "CHG_EN1", "8": "GND", "9": "CHG_STAT", "10": "VSYS", "11": "VSYS",
+         "12": "CHG_ILIM", "13": "VBUS", "16": "CHG_PROG", "17": "GND"},
+        lcsc="C54313", mpn="BQ24074RGTR")
+# 2k + 2k = 4k: nominal charge current 890/4000 = 222.5 mA.
+row(115, 85, [("R", "R3", "2k", "CHG_PROG", "CHG_PROG_MID"),
+              ("R", "R14", "2k", "CHG_PROG_MID", "GND"),
+              ("R", "R15", "5.1k", "CHG_ILIM", "GND"),
+              ("R", "R16", "10k", "BAT_TS", "GND"),
+              ("R", "R17", "100k", "CHG_EN1", "GND"),
+              ("R", "R18", "100k", "CHG_EN2", "GND")])
+# Fixed TS resistor supports a two-wire protected pack; no cell temperature sensing.
+row(115, 105, [("C", "C1", "10uF", "VBUS", "GND", C0805),
+               ("C", "C2", "10uF", "VBAT", "GND", C0805),
+               ("R", "R4", "1k", "VSYS", "LED_A"), ("R", "R5", "100k", "VBUS", "GND")])
+sch.add("D5", "Device:LED", "red", "LED_SMD:LED_0603_1608Metric", 170, 65,
         {"2": "LED_A", "1": "CHG_STAT"}, lcsc="C2286")
-sch.add("J2", "Connector_Generic_MountingPin:Conn_01x02_MountingPin", "LiPo 1S",
-        "Connector_JST:JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal", 190, 50,
+sch.add("J2", "Connector_Generic_MountingPin:Conn_01x02_MountingPin", "LiPo 1S PROTECTED",
+        "Connector_JST:JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal", 195, 50,
         {"1": "VBAT", "2": "GND", "MP": "GND"}, lcsc="C295747", mpn="S2B-PH-SM4-TB")
 
-# power path: USB present -> VSYS from VBUS via Schottky, battery FET off
-sch.text("Power path", 20, 110)
-sch.add("D1", "Device:D_Schottky", "B5819W", "Diode_SMD:D_SOD-123", 40, 125,
-        {"2": "VBUS", "1": "VSYS"}, lcsc="C8598")
-sch.add("Q1", "Transistor_FET:AO3401A", "AO3401A", "Package_TO_SOT_SMD:SOT-23",
-        70, 130, {"1": "VBUS", "3": "VBAT", "2": "VSYS"}, lcsc="C15127")
-row(90, 130, [("R", "R5", "100k", "VBUS", "GND")])
-
-# 3.3 V LDO, slide switch drives EN (hold / off)
-sch.add("U5", "Regulator_Linear:AP2112K-3.3", "AP2112K-3.3",
-        "Package_TO_SOT_SMD:SOT-23-5", 130, 125,
-        {"1": "VSYS", "2": "GND", "3": "LDO_EN", "5": "+3V3"}, lcsc="C51118")
+# Buck-boost keeps 3.3 V regulated below the battery's 3.5 V region.
+sch.add("U5", "Regulator_Switching:TPS63031DSK", "TPS63031DSKR",
+        "Package_SON:WSON-10-1EP_2.5x2.5mm_P0.5mm_EP1.2x2mm", 55, 140,
+        {"1": "+3V3", "2": "PWR_L2", "3": "GND", "4": "PWR_L1", "5": "VSYS",
+         "6": "PWR_EN", "7": "GND", "8": "VSYS", "9": "GND", "10": "+3V3", "11": "GND"},
+        lcsc="C15516", mpn="TPS63031DSKR")
+sch.add("L2", "Device:L", "2.2uH", "Inductor_SMD:L_Sunlord_SWPA4030S", 90, 135,
+        {"1": "PWR_L1", "2": "PWR_L2"}, lcsc="C36409", mpn="SWPA4030S2R2MT")
 sch.add("SW8", "Switch:SW_SPDT", "POWER", "Button_Switch_SMD:SW_SPDT_Shouhan_MSK12C02",
-        105, 160, {"2": "LDO_EN", "1": "VSYS", "3": "GND"}, lcsc="C431540")
-row(150, 125, [("C", "C3", "10uF", "VSYS", "GND", C0603), ("C", "C4", "10uF", "+3V3", "GND", C0603)])
+        105, 160, {"2": "PWR_EN", "1": "VSYS", "3": "GND"}, lcsc="C431540")
+row(125, 140, [("C", "C3", "10uF", "VSYS", "GND", C0805),
+               ("C", "C4", "10uF", "+3V3", "GND", C0805),
+               ("C", "C37", "10uF", "+3V3", "GND", C0805),
+               ("C", "C38", "100nF", "VSYS", "GND"),
+               ("C", "C39", "10uF", "VSYS", "GND", C0805)])
+
+R("R20", "100k", "PWR_EN", "GND", 185, 160)
 
 # Battery divider is disconnected from VBAT whenever +3V3 is off.
 # Q4 source goes to VBAT: its body diode must NOT feed the divider when off.
@@ -101,7 +115,7 @@ row(120, 190, [("R", "R6", "1M", "VBAT_MEAS", "VBAT_SENSE"), ("R", "R7", "1M", "
 sch.add("Q3", "Transistor_FET:AO3400A", "AO3400A", "Package_TO_SOT_SMD:SOT-23",
         185, 190, {"1": "VBUS", "2": "GND", "3": "USB_PRESENT_N"}, lcsc="C20917")
 
-for i, n in enumerate(["GND", "VBUS", "VSYS"]):
+for i, n in enumerate(["GND", "VBUS"]):
     sch.pwr_flag(n, 30 + i * 15, 215)
 
 # ---------------------------------------------------------------- MCU
@@ -110,6 +124,7 @@ sch.add("U1", "RF_Module:ESP32-S3-MINI-1", "ESP32-S3-MINI-1-N8",
         "eink-pod:ESP32-S3-MINI-1", 260, 90,
         dict({"1": "GND", "3": "+3V3", "45": "EN", "4": "BOOT",
               "5": "VBAT_SENSE", "6": "USB_PRESENT_N", "8": "VOL_SENSE", "9": "VOL_EN",
+              "10": "CHG_EN1", "11": "CHG_EN2",
               "13": "BTN_MENU", "14": "BTN_PLAY", "15": "BTN_PREV", "16": "BTN_NEXT",
               "17": "BTN_SEL", "20": "EPD_SCK",
               "21": "EPD_MOSI", "22": "EPD_CS", "23": "USB_MCU_N", "24": "USB_MCU_P",
@@ -142,9 +157,11 @@ for i, (ref, n) in enumerate([("SW1", "BTN_MENU"), ("SW2", "BTN_PLAY"), ("SW3", 
 # Thumbwheel pot is powered from a GPIO only while it is read, so it draws nothing in sleep.
 sch.text("Volume thumbwheel (powered by VOL_EN only while reading)", 230, 265)
 sch.add("RV1", "Device:R_Potentiometer_MountingPin", "10k", "eink-pod:Alps_RK10J1xR_Thumbwheel",
-        250, 285, {"1": "GND", "2": "VOL_SENSE", "3": "VOL_EN", "MP": "GND"},
+        250, 285, {"1": "GND", "2": "VOL_SENSE", "3": "VOL_SUPPLY", "MP": "GND"},
         lcsc="C470766", mpn="RK10J11R0A0H")
 C("C36", "10nF", "VOL_SENSE", "GND", 270, 285)
+# Keep ADC maximum below 3.1 V including +30% pot resistance tolerance.
+R("R19", "2k", "VOL_EN", "VOL_SUPPLY", 285, 285)
 
 # ---------------------------------------------------------------- mounting holes
 for i in range(4):
@@ -160,8 +177,8 @@ sch.add("J4", "Connector_Generic_MountingPin:Conn_01x24_MountingPin", "GDEY0213B
          "15": "+3V3", "16": "+3V3", "17": "GND", "18": "EPD_VDD", "20": "EPD_VSH1",
          "21": "EPD_PREVGH", "22": "EPD_VSL", "23": "EPD_PREVGL", "24": "EPD_VCOM",
          "MP": "GND"}, lcsc="C2856831", mpn="FPC-05FB-24PH20")
-sch.add("L1", "Device:L", "10uH", "Inductor_SMD:L_Sunlord_SWPA4030S", 120, 270,
-        {"1": "+3V3", "2": "EPD_SW"}, lcsc="C38117", mpn="SWPA4030S100MT")
+sch.add("L1", "Device:L", "47uH", "Inductor_SMD:L_Sunlord_SWPA4030S", 120, 270,
+        {"1": "+3V3", "2": "EPD_SW"}, lcsc="C54731", mpn="SWPA4030S470MT")
 sch.add("Q2", "Transistor_FET:AO3400A", "AO3400A", "Package_TO_SOT_SMD:SOT-23", 150, 290,
         {"1": "EPD_GDR", "3": "EPD_SW", "2": "EPD_RESE"}, lcsc="C20917")
 sch.add("D2", "Device:D_Schottky", "B5819W", "Diode_SMD:D_SOD-123", 180, 270,
