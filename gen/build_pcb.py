@@ -13,9 +13,14 @@ KDIR = os.path.normpath(os.path.join(HERE, "..", "kicad"))
 FPDIR = os.path.expanduser("~/Applications/KiCad/KiCad.app/Contents/SharedSupport/footprints")
 PCB = os.path.join(KDIR, "eink-pod.kicad_pcb")
 
-W, H = 40.0, 78.0          # board size (mm)
+W, H = 42.0, 98.0          # board size (mm)
 OX, OY = 100.0, 100.0      # board origin on the page
 R_CORNER = 3.0
+
+# GDEY0213B74 on the front: 29.2 x 59.2 mm glass, FPC tail edge flush with the top edge
+PANEL_W, PANEL_H, PANEL_CX = 29.2, 59.2, W / 2
+# active area 23.70 x 48.55 mm, centred across, 8.0 mm below the tail edge (datasheet drawing)
+PANEL_AA = ((PANEL_CX - 11.85, 8.0), (PANEL_CX + 11.85, 56.55))
 
 
 def V(x, y):
@@ -25,41 +30,47 @@ def V(x, y):
 # ref: (x, y, rot, side)   side "F" = front (display side), "B" = back
 PLACE = {
     # front: buttons in an iPod cross + charge LED
-    "SW1": (20, 47, 0, "F"), "SW5": (20, 57, 0, "F"), "SW2": (20, 67, 0, "F"),
-    "SW3": (10, 57, 0, "F"), "SW4": (30, 57, 0, "F"),
-    "D5": (36, 75.5, 0, "F"), "R4": (36, 73, 0, "F"),
+    "SW1": (21, 65, 0, "F"), "SW5": (21, 75, 0, "F"), "SW2": (21, 85, 0, "F"),
+    "SW3": (11, 75, 0, "F"), "SW4": (31, 75, 0, "F"),
+    "D5": (31, 95.5, 0, "F"), "R4": (31, 93, 0, "F"),
 
     # back, top band: e-paper connector + boost
-    "J4": (20, 9.4, 0, "B"), "L1": (5, 12, 0, "B"),
-    "Q2": (9.45, 12, 0, "B"), "D2": (13, 14.5, 90, "B"), "D3": (5, 19, 0, "B"), "D4": (10.5, 19, 0, "B"),
-    "C26": (8.5, 16, 0, "B"),
-    "R21": (5, 8.5, 0, "B"), "R22": (9, 9.2, 0, "B"), "C27": (1.6, 17, 270, "B"),
-    "C28": (14.8, 18.5, 0, "B"), "C29": (16.9, 18.5, 0, "B"), "C30": (16, 15.5, 90, "B"),
-    "C31": (14, 21.5, 270, "B"), "C32": (23.6, 18.5, 90, "B"), "C33": (25.6, 18.5, 90, "B"),
-    "C34": (27.6, 18.5, 90, "B"), "C35": (29.6, 18.5, 90, "B"),
+    "J4": (21.2, 9.4, 0, "B"), "L1": (6.2, 12, 0, "B"),
+    "Q2": (10.65, 12, 0, "B"), "D2": (14.2, 14.5, 90, "B"), "D3": (6.2, 19, 0, "B"), "D4": (11.7, 19, 0, "B"),
+    "C26": (9.7, 16, 0, "B"),
+    "R21": (6.2, 8.5, 0, "B"), "R22": (10.2, 9.2, 0, "B"), "C27": (2.8, 17, 270, "B"),
+    "C28": (16, 18.5, 0, "B"), "C29": (18.1, 18.5, 0, "B"), "C30": (17.2, 15.5, 90, "B"),
+    "C31": (15.2, 21.5, 270, "B"), "C32": (25.6, 18.5, 90, "B"), "C33": (27.6, 18.5, 90, "B"),
+    "C34": (29.6, 18.5, 90, "B"), "C35": (31.6, 18.5, 90, "B"),
 
     # back, middle: MCU (antenna at right edge, full keepout)
-    "U1": (30.2, 30, 90, "B"),
-    "C9": (33.8, 41, 0, "B"), "C6": (30.8, 41, 0, "B"), "C7": (31.9, 39.1, 270, "B"),
-    "R10": (17.3, 35.3, 90, "B"), "C8": (14.8, 36.5, 0, "B"),
-    "SW6": (24, 43, 0, "B"), "SW7": (31, 45.5, 0, "B"),
-    "R6": (3.5, 39.5, 90, "B"), "R7": (5.5, 39.5, 90, "B"), "C5": (7.5, 39.5, 90, "B"),
-    "R8": (11.5, 39.5, 90, "B"), "R9": (3.5, 35.5, 90, "B"),
-    "Q3": (10.5, 35.5, 0, "B"), "Q4": (3.5, 31.5, 0, "B"), "Q5": (7.5, 31.5, 0, "B"),
-    "R11": (7.5, 35.5, 90, "B"),
-    "R12": (18, 28.5, 0, "B"), "R13": (18, 30.5, 0, "B"),
-    "SW8": (38.0, 58.0, 270, "B"),
+    "U1": (32.2, 30, 90, "B"),
+    "C9": (35.8, 41, 0, "B"), "C6": (32.8, 41, 0, "B"), "C7": (33.9, 39.1, 270, "B"),
+    "R10": (19.3, 35.3, 90, "B"), "C8": (16.8, 36.5, 0, "B"),
+    "SW6": (26, 43, 0, "B"), "SW7": (33, 45.5, 0, "B"),
+    "R6": (5.5, 39.5, 90, "B"), "R7": (7.5, 39.5, 90, "B"), "C5": (9.5, 39.5, 90, "B"),
+    "R8": (13.5, 39.5, 90, "B"), "R9": (5.5, 35.5, 90, "B"),
+    "Q3": (12.5, 35.5, 0, "B"), "Q4": (5.5, 31.5, 0, "B"), "Q5": (9.5, 31.5, 0, "B"),
+    "R11": (9.5, 35.5, 90, "B"),
+    "R12": (20, 28.5, 0, "B"), "R13": (20, 30.5, 0, "B"),
+    "SW8": (40, 78, 270, "B"),
 
+    # back, right edge below the antenna keepout: volume thumbwheel, knob overhangs the edge
+    "RV1": (34.1, 61.5, 90, "B"), "C36": (25, 63.5, 90, "B"),
+
+    # M2.5 mounting holes
+    "H1": (3.5, 3.5, 0, "B"), "H2": (W - 3.5, 3.5, 0, "B"),
+    "H3": (3.5, H - 3.5, 0, "B"), "H4": (W - 3.5, H - 3.5, 0, "B"),
 
     # back, bottom: power + USB
-    "J2": (4.8, 64, 0, "B"),
-    "U4": (13, 58.5, 0, "B"), "U5": (20.5, 58.5, 0, "B"), "Q1": (26.5, 58.5, 0, "B"),
-    "D1": (31.5, 58.5, 0, "B"),
-    "C1": (11, 62, 90, "B"), "C2": (13.5, 62, 90, "B"), "R3": (15.8, 62, 90, "B"),
-    "R5": (17.8, 62, 90, "B"), "C3": (20, 62, 90, "B"), "C4": (22.4, 62, 90, "B"),
-    "J1": (15, 74.3, 180, "B"), "U6": (15, 66, 270, "B"), "R1": (11, 66.3, 90, "B"), "R2": (19, 66.3, 90, "B"),
-    "TP1": (5, 46, 0, "B"), "TP2": (7.5, 46, 0, "B"), "TP3": (10, 46, 0, "B"),
-    "TP4": (12.5, 46, 0, "B"), "TP5": (15, 46, 0, "B"),
+    "J2": (6.8, 84, 0, "B"),
+    "U4": (15, 78.5, 0, "B"), "U5": (22.5, 78.5, 0, "B"), "Q1": (28.5, 78.5, 0, "B"),
+    "D1": (33.5, 78.5, 0, "B"),
+    "C1": (13, 82, 90, "B"), "C2": (15.5, 82, 90, "B"), "R3": (17.8, 82, 90, "B"),
+    "R5": (19.8, 82, 90, "B"), "C3": (22, 82, 90, "B"), "C4": (24.4, 82, 90, "B"),
+    "J1": (17, 94.3, 180, "B"), "U6": (17, 86, 270, "B"), "R1": (13, 86.3, 90, "B"), "R2": (21, 86.3, 90, "B"),
+    "TP1": (7, 46, 0, "B"), "TP2": (9.5, 46, 0, "B"), "TP3": (12, 46, 0, "B"),
+    "TP4": (14.5, 46, 0, "B"), "TP5": (17, 46, 0, "B"),
 }
 
 CLASSES = {
@@ -275,11 +286,11 @@ def main():
         raise SystemExit("no placement for: " + ", ".join(missing))
 
     # board-only placeholder carrying the e-paper panel's 3D model (no pads, not in BOM/CPL)
-    ds = load_fp("eink-pod:EPD_GDEY0154D67_3D")
+    ds = load_fp("eink-pod:EPD_GDEY0213B74_3D")
     ds.SetReference("DS1")
-    ds.SetValue("GDEY0154D67")
+    ds.SetValue("GDEY0213B74")
     board.Add(ds)
-    ds.SetPosition(V(20, 18.66))
+    ds.SetPosition(V(PANEL_CX, PANEL_H / 2))
 
     # board outline
     E = P.Edge_Cuts
@@ -293,35 +304,36 @@ def main():
     zone(board, nets["GND"], P.In1_Cu)
     zone(board, nets["+3V3"], P.In2_Cu)
 
-    # display outline (front): GDEY0154D67 31.8 x 37.32, tail edge at top
-    px0, px1, py1 = 20 - 15.9, 20 + 15.9, 37.32
+    # display outline (front): GDEY0213B74 29.2 x 59.2, tail edge at top
+    px0, px1, py1 = PANEL_CX - PANEL_W / 2, PANEL_CX + PANEL_W / 2, PANEL_H
     for layer in (P.Dwgs_User,):
         seg(board, layer, px0, 0, px1, 0); seg(board, layer, px1, 0, px1, py1)
         seg(board, layer, px1, py1, px0, py1); seg(board, layer, px0, py1, px0, 0)
-    ax0, ay0 = 20 - 13.5, py1 - 2.4 - 27.0
-    seg(board, P.Dwgs_User, ax0, ay0, ax0 + 27, ay0); seg(board, P.Dwgs_User, ax0 + 27, ay0, ax0 + 27, ay0 + 27)
-    seg(board, P.Dwgs_User, ax0 + 27, ay0 + 27, ax0, ay0 + 27); seg(board, P.Dwgs_User, ax0, ay0 + 27, ax0, ay0)
-    text(board, P.Dwgs_User, "E-PAPER 1.54in (tail wraps over top edge)", 20, 20, 1.0)
+    (ax0, ay0), (ax1, ay1) = PANEL_AA
+    seg(board, P.Dwgs_User, ax0, ay0, ax1, ay0); seg(board, P.Dwgs_User, ax1, ay0, ax1, ay1)
+    seg(board, P.Dwgs_User, ax1, ay1, ax0, ay1); seg(board, P.Dwgs_User, ax0, ay1, ax0, ay0)
+    text(board, P.Dwgs_User, "E-PAPER 2.13in (tail wraps over top edge)", PANEL_CX, 30, 1.0)
     # silkscreen corner marks for panel alignment
     for cx, cy, dx, dy in [(px0, 0.6, 1, 1), (px1, 0.6, -1, 1), (px0, py1, 1, -1), (px1, py1, -1, -1)]:
         seg(board, P.F_SilkS, cx, cy, cx + 2 * dx, cy, 0.15)
         seg(board, P.F_SilkS, cx, cy, cx, cy + 2 * dy, 0.15)
 
     # front silkscreen
-    text(board, P.F_SilkS, "MENU", 20, 43.6, 0.8)
-    text(board, P.F_SilkS, "PLAY", 23.5, 68.7, 0.8)
-    text(board, P.F_SilkS, "<<", 10, 60.2, 0.8)
-    text(board, P.F_SilkS, ">>", 30, 60.2, 0.8)
-    text(board, P.F_SilkS, "CHG", 32.5, 75.5, 0.8)
+    text(board, P.F_SilkS, "MENU", 21, 61.6, 0.8)
+    text(board, P.F_SilkS, "PLAY", 24.5, 86.7, 0.8)
+    text(board, P.F_SilkS, "<<", 11, 78.2, 0.8)
+    text(board, P.F_SilkS, ">>", 31, 78.2, 0.8)
+    text(board, P.F_SilkS, "CHG", 27.5, 95.5, 0.8)
     # back silkscreen (mirrored)
-    text(board, P.B_SilkS, "E-INK REMOTE rev B", 20, 50.5, 1.0, mirror=True, bold=True)
-    text(board, P.B_SilkS, "BOOT", 24, 45.3, 0.8, mirror=True)
-    text(board, P.B_SilkS, "RST", 31, 47.8, 0.8, mirror=True)
-    text(board, P.B_SilkS, "+", 3.8, 70.4, 1.0, mirror=True, bold=True)
-    text(board, P.B_SilkS, "-", 5.8, 70.4, 1.0, mirror=True, bold=True)
-    text(board, P.B_SilkS, "BAT", 4.8, 72.0, 0.8, mirror=True)
-    text(board, P.B_SilkS, "TX RX G 3V3 BAT", 10, 48, 0.8, mirror=True)
-    text(board, P.B_SilkS, "ON/OFF", 35.5, 52.8, 0.8, mirror=True)
+    text(board, P.B_SilkS, "E-INK REMOTE rev C", 21, 50.5, 1.0, mirror=True, bold=True)
+    text(board, P.B_SilkS, "BOOT", 26, 45.3, 0.8, mirror=True)
+    text(board, P.B_SilkS, "RST", 33, 47.8, 0.8, mirror=True)
+    text(board, P.B_SilkS, "+", 5.8, 90.4, 1.0, mirror=True, bold=True)
+    text(board, P.B_SilkS, "-", 7.8, 90.4, 1.0, mirror=True, bold=True)
+    text(board, P.B_SilkS, "BAT", 6.8, 92.0, 0.8, mirror=True)
+    text(board, P.B_SilkS, "TX RX G 3V3 BAT", 12, 48, 0.8, mirror=True)
+    text(board, P.B_SilkS, "ON/OFF", 37.5, 72.8, 0.8, mirror=True)
+    text(board, P.B_SilkS, "VOL", 31, 53.5, 0.8, mirror=True)
 
     P.SaveBoard(PCB, board)
     write_stackup(PCB)

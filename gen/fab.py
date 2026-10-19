@@ -46,7 +46,7 @@ def main():
         w = csv.writer(g)
         w.writerow(["Designator", "Mid X", "Mid Y", "Layer", "Rotation"])
         for r in csv.DictReader(f):
-            if r["Ref"].startswith("TP"):
+            if r["Ref"].startswith(("TP", "H")):
                 continue
             w.writerow([r["Ref"], r["PosX"] + "mm", r["PosY"] + "mm",
                         "Top" if r["Side"] == "top" else "Bottom", r["Rot"]])
@@ -56,7 +56,7 @@ def main():
     design = json.load(open(os.path.join(KDIR, "design.json")))
     groups = {}
     for c in design["components"]:
-        if c["ref"].startswith("TP") or c.get("dnp"):
+        if c["ref"].startswith(("TP", "H")) or c.get("dnp"):
             continue
         key = (c["footprint"].split(":")[1], c.get("lcsc") or c["value"])
         g = groups.setdefault(key, {"refs": [], "values": []})

@@ -17,7 +17,8 @@ LCSC_R = {"22": "C25092", "10k": "C25744", "5.1k": "C25905", "1M": "C26083", "10
 LCSC_C = {("100nF", C0402): "C1525", ("1uF", C0402): "C52923",
           ("2.2uF", C0402): "C12530", ("2.2nF", C0402): "C1531",
           ("10uF", C0603): "C19702", ("10uF", C0805): "C15850", ("22uF", C0603): "C59461",
-          ("1uF 50V", C0603): "C15849", ("4.7uF 25V", C0805): "C1779"}
+          ("1uF 50V", C0603): "C15849", ("4.7uF 25V", C0805): "C1779",
+          ("10nF", C0402): "C15195"}
 
 sch = Schematic("eink-pod", "E-ink Pod - ESP32-S3 e-paper Spotify remote", Lib())
 
@@ -108,7 +109,7 @@ sch.text("ESP32-S3-MINI-1", 230, 20)
 sch.add("U1", "RF_Module:ESP32-S3-MINI-1", "ESP32-S3-MINI-1-N8",
         "eink-pod:ESP32-S3-MINI-1", 260, 90,
         dict({"1": "GND", "3": "+3V3", "45": "EN", "4": "BOOT",
-              "5": "VBAT_SENSE", "6": "USB_PRESENT_N",
+              "5": "VBAT_SENSE", "6": "USB_PRESENT_N", "8": "VOL_SENSE", "9": "VOL_EN",
               "13": "BTN_MENU", "14": "BTN_PLAY", "15": "BTN_PREV", "16": "BTN_NEXT",
               "17": "BTN_SEL", "20": "EPD_SCK",
               "21": "EPD_MOSI", "22": "EPD_CS", "23": "USB_MCU_N", "24": "USB_MCU_P",
@@ -137,9 +138,22 @@ for i, (ref, n) in enumerate([("SW1", "BTN_MENU"), ("SW2", "BTN_PLAY"), ("SW3", 
     sch.add(ref, "Switch:SW_Push", n.split("_")[1], "Button_Switch_SMD:SW_SPST_TS-1088-xR020",
             240, 215 + i * 10, {"1": n, "2": "GND"}, lcsc="C720477")
 
+# ---------------------------------------------------------------- volume wheel
+# Thumbwheel pot is powered from a GPIO only while it is read, so it draws nothing in sleep.
+sch.text("Volume thumbwheel (powered by VOL_EN only while reading)", 230, 265)
+sch.add("RV1", "Device:R_Potentiometer_MountingPin", "10k", "eink-pod:Alps_RK10J1xR_Thumbwheel",
+        250, 285, {"1": "GND", "2": "VOL_SENSE", "3": "VOL_EN", "MP": "GND"},
+        lcsc="C470766", mpn="RK10J11R0A0H")
+C("C36", "10nF", "VOL_SENSE", "GND", 270, 285)
+
+# ---------------------------------------------------------------- mounting holes
+for i in range(4):
+    sch.add("H%d" % (i + 1), "Mechanical:MountingHole", "M2.5", "MountingHole:MountingHole_2.7mm_M2.5",
+            300 + i * 10, 285, {})
+
 # ---------------------------------------------------------------- e-paper
-sch.text("1.54in e-paper GDEY0154D67 (SSD1681) + gate-voltage boost", 20, 240)
-sch.add("J4", "Connector_Generic_MountingPin:Conn_01x24_MountingPin", "GDEY0154D67",
+sch.text("2.13in e-paper GDEY0213B74 (SSD1680) + gate-voltage boost", 20, 240)
+sch.add("J4", "Connector_Generic_MountingPin:Conn_01x24_MountingPin", "GDEY0213B74",
         "eink-pod:FPC-05FB-24PH20", 60, 320,
         {"2": "EPD_GDR", "3": "EPD_RESE", "5": "EPD_VSH2", "8": "GND", "9": "EPD_BUSY",
          "10": "EPD_RST", "11": "EPD_DC", "12": "EPD_CS", "13": "EPD_SCK", "14": "EPD_MOSI",

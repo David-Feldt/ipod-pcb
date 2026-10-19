@@ -1,8 +1,8 @@
 C7 to MCU supply pad: 1.62 mm
 C6 to MCU supply pad: 4.42 mm
 C9 to MCU supply pad: 4.16 mm
-USB_DP: 48.12 mm total copper, 2 vias
-USB_DN: 44.94 mm total copper, 2 vias
+USB_DP: 68.12 mm total copper, 2 vias
+USB_DN: 64.94 mm total copper, 2 vias
 USB_MCU_P: 2.41 mm total copper, 0 vias
 USB_MCU_N: 2.35 mm total copper, 0 vias
 PASS: sense isolation, capacitor placement, fixed routes, USB branches/vias, ground reference

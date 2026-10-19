@@ -1,10 +1,12 @@
 # E-ink Remote
 
-A pocket Spotify remote: ESP32-S3-MINI-1-N8, 1.54-inch e-paper panel, five buttons,
-USB-C and a 1S LiPo, on a 40 × 78 mm four-layer PCB. Playback happens on another
-Spotify device; this board has no audio or microSD hardware.
+A pocket Spotify remote: ESP32-S3-MINI-1-N8, 2.13-inch portrait e-paper panel, five
+buttons, a volume thumbwheel, USB-C and a 1S LiPo, on a 42 × 98 mm four-layer PCB with
+four M2.5 mounting holes. Playback happens on another Spotify device; this board has
+no audio or microSD hardware.
 
-See `DESIGN.md` for the GPIO map, power architecture and revision B changes.
+This is revision C. The earlier 1.54-inch, 40 × 78 mm version is tagged `v1-1.54in`
+in git. See `DESIGN.md` for the GPIO map, power architecture and revision notes.
 
 ![Back of board](renders/back.png)
 
@@ -63,7 +65,12 @@ preview. DS1 is a mechanical display model and is excluded from assembly files.
   active-high `VBUS_DET` logic. Disable internal pulls; R8 is the external pull-up.
 - Battery voltage is twice the calibrated GPIO1 ADC voltage. Wait at least
   250 ms after power-on for the switched divider and its 100 nF filter to settle.
-- Use the `GxEPD2_154_GDEY0154D67` panel driver and the GPIO map in `DESIGN.md`.
+- Use GxEPD2's GDEY0213B74 driver (`GxEPD2_213_GDEY0213B74`; confirm the class name
+  in the library version you install) and the GPIO map in `DESIGN.md`.
+- Volume wheel: drive GPIO5 (`VOL_EN`) high, wait ~1 ms, read GPIO4 (`VOL_SENSE`) with
+  the ADC, then drive GPIO5 low again. The pot draws nothing while GPIO5 is low.
+  The wheel is absolute (270° travel), so send Spotify a new volume only when the
+  wheel moves; a volume change made on the phone will not move the wheel.
 - Buttons use internal pull-ups; configure RTC pull-ups and wake behavior for
   deep sleep. BOOT and RESET remain accessible for USB recovery/flashing.
 - Use a protected 1S LiPo whose manufacturer allows 500 mA charging. Verify the
@@ -71,8 +78,10 @@ preview. DS1 is a mechanical display model and is excluded from assembly files.
 - Test USB in both orientations, Wi-Fi during low battery and screen refresh,
   off/sleep current, and charging temperature before relying on runtime estimates.
 - Fit the actual display flex, battery and enclosure before ordering a batch.
-  The PCB has no dedicated mounting holes; the enclosure must support button
-  forces. Keep the battery and conductive enclosure/display features away from
+  Four 2.7 mm unplated M2.5 holes sit 3.5 mm in from each corner. Screw heads or
+  bosses on the front must stay within 4.5 mm diameter at the top two holes to clear
+  the display glass. Use a nylon screw in the top-right hole, which is closest to the
+  antenna. Keep the battery and conductive enclosure/display features away from
   the antenna region, then test radio performance in the assembled device.
 
 Firmware has not been implemented in this repository.

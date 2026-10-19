@@ -150,7 +150,7 @@ class Schematic:
         if mirror:
             node.append([S("mirror"), S(mirror)])
         node += [[S("unit"), unit], [S("exclude_from_sim"), S("no")],
-                 [S("in_bom"), S("no") if ref.startswith(("#", "TP")) else S("yes")],
+                 [S("in_bom"), S("no") if ref.startswith(("#", "TP", "H")) else S("yes")],
                  [S("on_board"), S("no") if ref.startswith("#") else S("yes")],
                  [S("dnp"), S("yes") if dnp else S("no")], [S("uuid"), sid]]
         for i, (k, v, hide) in enumerate(props):

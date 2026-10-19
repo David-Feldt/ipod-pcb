@@ -1,7 +1,8 @@
 # E-ink Remote — hardware design
 
-A pocket Spotify remote: ESP32-S3 (Wi-Fi), 1.54" e-ink, 5 iPod-style buttons,
-LiPo battery, USB-C (charging + firmware). Music plays on your phone, computer or
+A pocket Spotify remote: ESP32-S3 (Wi-Fi), 2.13" portrait e-ink, 5 iPod-style
+buttons, a volume thumbwheel, LiPo battery, USB-C (charging + firmware). The board
+is 42 × 98 mm with four M2.5 mounting holes. Music plays on your phone, computer or
 speaker; this device shows what's playing and controls it through Spotify's
 official Web API. No audio hardware on board.
 
@@ -11,7 +12,9 @@ official Web API. No audio hardware on board.
 |---|---|---|
 | MCU | ESP32-S3-MINI-1-N8 module | Pre-certified Wi-Fi + antenna, native USB, no RF layout to get wrong |
 | Antenna | At the right board edge, Espressif's full keepout (no copper on any layer) | Wi-Fi range is now the core feature |
-| Display | GoodDisplay GDEY0154D67, 1.54" 200x200, bare panel on 24-pin FPC | Zero power while showing now-playing / album art |
+| Display | GoodDisplay GDEY0213B74, 2.13" 122x250 portrait, bare panel on 24-pin FPC | Zero power while showing now-playing; room for album art plus title, artist and volume |
+| Volume | Alps RK10J11R0A0H 10k thumbwheel pot on the back, knob edge overhangs the right board edge by ~1.5 mm | Bluetooth-speaker style wheel; powered from a GPIO only while read |
+| Mounting | Four 2.7 mm NPTH (M2.5) holes, 3.5 mm from each corner | Board is wide enough that the holes clear the display glass |
 | Power | USB-C -> MCP73831 charger -> LiPo; P-FET power path; AP2112K 3.3V LDO | Simple, cheap, JLC-assemblable; LDO covers ~350 mA Wi-Fi bursts |
 | Bulk caps | 22 µF + 10 µF + 100 nF at the module, 10 µF at the LDO | Wi-Fi TX current spikes |
 | On/off | Slide switch on LDO EN; Q4/Q5 disconnect battery sensing when 3.3 V is off | Avoids feeding an unpowered ADC through the battery divider |
@@ -37,6 +40,8 @@ that gives weeks of normal use. Staying awake continuously gives ~10–20 hours.
 |---|---|---|
 | VBAT_SENSE | 1 | ADC1_CH0, switched 1M/1M divider; VBAT = 2 × calibrated ADC voltage; wait at least 250 ms after power-on |
 | USB_PRESENT_N | 2 | Low = USB plugged in; high = absent. Disable internal pulls; R8 supplies the pull-up |
+| VOL_SENSE | 4 | ADC1_CH3, thumbwheel wiper, 10 nF to GND |
+| VOL_EN | 5 | Drive high to power the thumbwheel, low otherwise |
 | BTN_MENU | 9 | to GND, internal pull-up, wake |
 | BTN_PLAY | 10 | to GND, internal pull-up, wake |
 | BTN_PREV | 11 | to GND, internal pull-up, wake |
@@ -51,16 +56,34 @@ that gives weeks of normal use. Staying awake continuously gives ~10–20 hours.
 | EPD_RST | 47 | |
 | EPD_BUSY | 48 | |
 | BOOT | 0 | button to GND |
-| spare | 4–8, 14, 15, 38–42 | free for later (e.g. a capacitive touch wheel on GPIO 4–8, 14) |
+| spare | 6–8, 14, 15, 38–42 | free for later |
 | avoid | 3, 45, 46 (strapping), 26–37 (module flash) | |
 
 ## Display connection
 
-The panel sits on the front, face up, with its FPC tail edge flush with the board's
-top edge. The 14.3 mm tail wraps over the top edge to J4 on the back (cable entry
-5.5 mm in from the edge). J4 is a dual-contact connector, so it mates whichever way
-the tail's contacts face. The tail's pin 1 lands on the +X side (right, seen from
-the front), which is where J4's pin 1 is.
+The panel sits on the front, face up and portrait, with its FPC tail edge flush with
+the board's top edge. The glass is 29.2 × 59.2 mm, and the 23.7 × 48.55 mm active area
+starts 8.0 mm below the tail edge. The 14.3 mm tail wraps over the top edge to J4 on
+the back (cable entry 5.5 mm in from the edge). Per the datasheet drawing, the tail is
+0.2 mm off centre toward pin 1, so J4 sits at x = 21.2 mm. J4 is a dual-contact
+connector, so it mates whichever way the tail's contacts face. The tail's pin 1 lands
+on the +X side (right, seen from the front), which is where J4's pin 1 is. The panel
+uses GoodDisplay's standard 24-pin pinout and the same boost circuit as the 1.54-inch
+panel, so the display electronics are unchanged.
+
+## Revision C changes
+
+- 2.13-inch GDEY0213B74 panel, portrait. Board grows from 40 × 78 to 42 × 98 mm.
+  Back-side parts move 2 mm right, so the antenna stays at the right edge. The power
+  and USB group and the front buttons move 20 mm down, below the panel.
+- RV1 volume thumbwheel at the right edge, below the antenna keepout. The knob is
+  plastic, and its metal lugs are outside the keepout. The pot is wired 1 = GND,
+  2 = wiper (`VOL_SENSE`), 3 = `VOL_EN`; its frame and tabs are grounded. The
+  enclosure needs a slot in the right wall at y ≈ 54–69 mm so the wheel edge
+  can be reached.
+- H1–H4: M2.5 mounting holes. The top-right hole is about 4 mm from the antenna
+  keepout; use a nylon screw there.
+- C36 10 nF filters the wiper for the ADC.
 
 ## Revision B circuit and layout changes
 
