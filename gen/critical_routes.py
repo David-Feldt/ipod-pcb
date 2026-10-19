@@ -6,6 +6,7 @@ USB trunk: F.Cu over In1.GND, 0.25 mm width / 0.15 mm edge gap.
 Nominal stackup target: JLC04161H-7628; confirm 90 ohm with the fabricator.
 """
 import pcbnew as P
+from debug_features import POINTS, PROBE_ANCHORS
 
 USB_WIDTH = 0.25
 USB_GAP = 0.15
@@ -92,8 +93,8 @@ def route_critical(board, collect=None):
     wire("PWR_L1", [xy("U5", 4), (30.4, 78.5), (31.4, 79.5), xy("L2", 1)], width=0.3)
     wire("PWR_L2", [xy("U5", 2), (30.4, 77.5), (31.4, 76.5), xy("L2", 2)], width=0.3)
     wire("VSYS", [xy("U5", 5), (29.5, 79.3), xy("C3", 1)], width=0.3)
-    wire("+3V3", [xy("U5", 1), (29.5, 76.7), xy("C4", 1)], width=0.3)
-    wire("+3V3", [xy("U5", 10), (26.5, 76.7), xy("C37", 1), xy("C4", 1)], width=0.25)
+    wire("REG_3V3", [xy("U5", 1), (29.5, 76.7), xy("C4", 1)], width=0.3)
+    wire("REG_3V3", [xy("U5", 10), (26.5, 76.7), xy("C37", 1), xy("C4", 1)], width=0.25)
     wire("VSYS", [xy("U5", 8), (25.8, 78), xy("C38", 1)], width=0.2)
     wire("VSYS", [xy("C3", 1), (25,80.55), xy("C38", 1)], width=0.4)
     # Direct copper into PGND and exposed pad; the thermal pad reaches In1.GND.
@@ -109,7 +110,7 @@ def route_critical(board, collect=None):
     # Complete VSYS explicitly. Leaving branches of this protected power network
     # to Freerouting can trigger exponential cycle cleanup in version 2.4.1.
     wire("VSYS", [xy("C3", 1), (31,80.55), (31,81.5), (36,81.5), (36,75.75), xy("SW8", 1)], width=0.4)
-    wire("VSYS", [(31,81.5), (31,89.5), (29,91.5)], width=0.4)
+    wire("VSYS", [(31,81.5), (31,83.5), (30.65,83.85), (30.65,89.5), (29,91.5)], width=0.4)
     via("VSYS", (29,91.5))
     wire("VSYS", [(29,91.5), xy("R4", 1)], P.F_Cu, 0.4)
 
@@ -117,9 +118,20 @@ def route_critical(board, collect=None):
     wire("EPD_SW", [xy("L1", 2), xy("Q2", 3), (13.35, 12), xy("D2", 2)], width=0.3)
     wire("EPD_SW", [xy("Q2", 3), (12.15, 12.5625), (12.15, 14.8), (8.75, 14.8), xy("C26", 1)], width=0.3)
     wire("EPD_RESE", [xy("Q2", 2), (9.7125, 9.2225), xy("R22", 1)], width=0.25)
-    wire("+3V3", [xy("L1", 1), (2.8, 13.9), xy("C27", 1)], width=0.4)
+    wire("EPD_BOOST_IN", [xy("L1", 1), (2.8, 13.9), xy("C27", 1)], width=0.4)
     wire("EPD_X", [xy("C26", 2), (10.65, 17.3), (8.95, 19), xy("D3", 2), xy("D4", 1)], width=0.3)
     wire("EPD_PREVGH", [xy("D2", 1), (15.3, 16.15), (15.425, 16.275), xy("C30", 1)], width=0.3)
     wire("EPD_PREVGL", [xy("D4", 2), (14.7, 19), (15.2, 19.5), xy("C31", 1)], width=0.3)
 
+    wire("VSYS", [(36,81.5),xy("TP8",1)], width=0.4)
+
+    # Links keep the charger/regulator capacitors on their own source side.
+    wire("VBAT_RAW", [xy("J2",1),xy("R23",1)], width=0.4)
+    wire("VBAT_RAW", [xy("R23",1),xy("TP6",1)], width=0.4)
+    wire("VBAT", [xy("R23",2),xy("TP5",1)], width=0.4)
+    wire("REG_3V3", [xy("C37",1),xy("R24",1)], width=0.4)
+    wire("REG_3V3", [xy("R24",1),(24.5,75.45),(24.5,73),xy("TP10",1)], width=0.3)
+    wire("EPD_BOOST_IN", [xy("R25",2),(2.8,12),xy("L1",1)], width=0.4)
+    for ref,(component,pin) in PROBE_ANCHORS.items():
+        wire(POINTS[ref][0],[xy(component,pin),xy(ref,1)],width=0.15)
     return len(board.GetTracks())

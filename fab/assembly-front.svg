@@ -2,7 +2,7 @@
 <rect x="-10" y="-10" width="100%" height="100%" fill="white"/>
 <style>text{font-family:Arial,sans-serif;font-size:1.5px} .small{font-size:1.1px}</style>
 <rect x="0" y="0" width="42.0" height="98.0" rx="3" fill="#f4f7f4" stroke="#222" stroke-width=".2"/>
-<text x="0" y="-5">REV D — FRONT</text>
+<text x="0" y="-5">REV E — FRONT</text>
 <text x="0" y="-2.5">Red dot = pad 1 / USB A1; compare JLC preview</text>
 <rect x="29.775" y="95.025" width="0.875" height="0.950" fill="#c6c6c6"/>
 <circle cx="30.213" cy="95.500" r=".22" fill="#d02020"/>

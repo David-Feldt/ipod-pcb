@@ -150,7 +150,7 @@ class Schematic:
         if mirror:
             node.append([S("mirror"), S(mirror)])
         node += [[S("unit"), unit], [S("exclude_from_sim"), S("no")],
-                 [S("in_bom"), S("no") if ref.startswith(("#", "TP", "H")) else S("yes")],
+                 [S("in_bom"), S("no") if dnp or ref.startswith(("#", "TP", "H")) else S("yes")],
                  [S("on_board"), S("no") if ref.startswith("#") else S("yes")],
                  [S("dnp"), S("yes") if dnp else S("no")], [S("uuid"), sid]]
         for i, (k, v, hide) in enumerate(props):
@@ -216,7 +216,7 @@ class Schematic:
         root = [S("kicad_sch"), [S("version"), 20231120], [S("generator"), "eeschema"],
                 [S("generator_version"), "8.0"], [S("uuid"), self.root_uuid],
                 [S("paper"), self.paper],
-                [S("title_block"), [S("title"), self.title], [S("rev"), "D"],
+                [S("title_block"), [S("title"), self.title], [S("rev"), "E"],
                  [S("company"), "E-ink Remote"]],
                 [S("lib_symbols")] + list(self.lib_symbols.values())]
         root += self.items

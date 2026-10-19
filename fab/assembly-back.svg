@@ -2,7 +2,7 @@
 <rect x="-10" y="-10" width="100%" height="100%" fill="white"/>
 <style>text{font-family:Arial,sans-serif;font-size:1.5px} .small{font-size:1.1px}</style>
 <rect x="0" y="0" width="42.0" height="98.0" rx="3" fill="#f4f7f4" stroke="#222" stroke-width=".2"/>
-<text x="0" y="-5">REV D — BACK (mirrored physical view)</text>
+<text x="0" y="-5">REV E — BACK (mirrored physical view)</text>
 <text x="0" y="-2.5">Red dot = pad 1 / USB A1; compare JLC preview</text>
 <rect x="26.525" y="79.550" width="1.450" height="1.000" fill="#c6c6c6"/>
 <circle cx="27.250" cy="80.050" r=".22" fill="#d02020"/>
@@ -252,6 +252,18 @@
 <circle cx="32.310" cy="9.200" r=".22" fill="#d02020"/>
 <rect x="31.020" y="8.880" width="0.540" height="0.640" fill="#c6c6c6"/>
 <text class="small" text-anchor="middle" x="31.800" y="9.200">R22</text>
+<rect x="33.900" y="91.800" width="1.025" height="1.400" fill="#c6c6c6"/>
+<circle cx="34.412" cy="92.500" r=".22" fill="#d02020"/>
+<rect x="32.075" y="91.800" width="1.025" height="1.400" fill="#c6c6c6"/>
+<text class="small" text-anchor="middle" x="33.500" y="92.500">R23</text>
+<rect x="17.575" y="74.750" width="1.025" height="1.400" fill="#c6c6c6"/>
+<circle cx="18.088" cy="75.450" r=".22" fill="#d02020"/>
+<rect x="19.400" y="74.750" width="1.025" height="1.400" fill="#c6c6c6"/>
+<text class="small" text-anchor="middle" x="19.000" y="75.450">R24</text>
+<rect x="38.500" y="8.375" width="1.400" height="1.025" fill="#c6c6c6"/>
+<circle cx="39.200" cy="8.888" r=".22" fill="#d02020"/>
+<rect x="38.500" y="10.200" width="1.400" height="1.025" fill="#c6c6c6"/>
+<text class="small" text-anchor="middle" x="39.200" y="9.800">R25</text>
 <rect x="29.180" y="81.240" width="0.640" height="0.540" fill="#c6c6c6"/>
 <circle cx="29.500" cy="81.510" r=".22" fill="#d02020"/>
 <rect x="29.180" y="80.220" width="0.640" height="0.540" fill="#c6c6c6"/>

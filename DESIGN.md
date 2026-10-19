@@ -33,6 +33,24 @@ official Web API. No audio hardware on board.
 These figures are estimates, not runtime measurements. Battery runtime depends on Wi-Fi
 association time, refresh cadence, firmware, cell capacity and converter losses.
 
+## Revision E debug additions
+
+The three normally fitted 0805 zero-ohm links are R23 (VBAT_RAW to VBAT),
+R24 (REG_3V3 to +3V3) and R25 (+3V3 to EPD_BOOST_IN). J2 pin 1 is now VBAT_RAW;
+all battery-fed circuits, including the divider, are downstream of R23. U5's
+VOUT/FB and C4/C37 stay on REG_3V3. L1/C27 use EPD_BOOST_IN. No power trace or
+plane bypasses these links.
+
+J3 exposes GND/3V3/TX/RX/EN/BOOT for manual UART recovery. J5 exposes the six
+display signals plus GND/3V3 in the DESPI-C02 manual's order. Both connectors
+are deliberately DNP. TP6–TP30 provide additional power, sensing, local boost
+and spare GPIO access. GPIO8/14/15 now end at TP19/TP20/TP21; GPIO6/7 remain
+charger controls. See `DEBUG.md` for procedures, pinouts and limitations.
+
+The board outline, display and wheel positions, mounting holes, and existing
+buttons remain unchanged. Additional through-hole debug connectors fit outside
+the display glass projection; leave them unpopulated for normal assembly.
+
 ## Revision D display correction
 
 L1 changes from 10 µH to 47 µH (`SWPA4030S470MT`, `C54731`) to match the
@@ -94,7 +112,8 @@ The wheel remains an absolute control; its application behavior is a firmware ta
 | EPD_RST | 47 | |
 | EPD_BUSY | 48 | |
 | BOOT | 0 | button to GND |
-| spare | 8, 14, 15, 38–42 | free for later |
+| spare access | 8, 14, 15 | TP19/TP20/TP21 |
+| spare | 38–42 | unbroken-out module pins |
 | avoid | 3, 45, 46 (strapping), 26–37 (module flash) | |
 
 ## Display connection
@@ -107,7 +126,7 @@ the back (cable entry 5.5 mm in from the edge). Per the datasheet drawing, the t
 connector, so it mates whichever way the tail's contacts face. The tail's pin 1 lands
 on the +X side (right, seen from the front), which is where J4's pin 1 is. The panel
 uses GoodDisplay's standard 24-pin pinout and the same boost circuit as the 1.54-inch
-panel, so the display electronics are unchanged.
+panel, so the display boost and its revision D correction are documented above.
 
 ## Revision C changes
 

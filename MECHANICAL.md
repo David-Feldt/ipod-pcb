@@ -1,4 +1,4 @@
-# Revision D mechanical interface
+# Revision E mechanical interface
 
 All x/y dimensions are millimetres from the PCB's top-left corner, viewed from
 the display/front side. The board is 42 × 98 × 1.6 mm. These are drawing-derived
@@ -44,3 +44,8 @@ The 3D flex is schematic geometry, not a bend simulation. The actual 14.3 mm tai
 one prototype. The battery has no specified enclosure pocket yet: choose the pack
 and support it on an insulating tray above component height without loading solder
 joints or crossing the antenna region. A battery must not rest directly on components.
+
+Revision E adds unpopulated 2.54 mm debug footprints: J3 is a horizontal six-pin
+row below the buttons; J5 is an eight-pin vertical row along the left edge,
+outside the glass projection. Optional headers fit on the back and require
+additional enclosure clearance; their bodies are not part of the assembled BOM.

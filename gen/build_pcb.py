@@ -5,8 +5,10 @@ planes and silkscreen, and saves kicad/eink-pod.kicad_pcb (unrouted).
 """
 import json
 import os
+import uuid
 
 import pcbnew as P
+from debug_features import POINTS
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 KDIR = os.path.normpath(os.path.join(HERE, "..", "kicad"))
@@ -76,12 +78,17 @@ PLACE = {
     "R20": (22.5, 80.5, 90, "B"), "C38": (25, 78, 90, "B"), "R19": (25, 60, 90, "B"),
     "J1": (17, 94.3, 180, "B"), "U6": (17, 86, 270, "B"), "R1": (13, 86.3, 90, "B"), "R2": (21, 86.3, 90, "B"),
     "TP1": (7, 46, 0, "B"), "TP2": (9.5, 46, 0, "B"), "TP3": (12, 46, 0, "B"),
-    "TP4": (14.5, 46, 0, "B"), "TP5": (17, 46, 0, "B"),
+    "TP4": (14.5, 46, 0, "B"), "TP5": (8.5, 90.3, 0, "B"),
+    "R23": (8.5, 92.5, 0, "B"), "R24": (23, 75.45, 180, "B"),
+    "R25": (2.8, 9.8, 270, "B"),
+    "J3": (24.3, 87.5, 270, "B"), "J5": (3, 47, 180, "B"),
 }
+
+PLACE.update({ref:(x,y,0,"B") for ref,(_,x,y,_) in POINTS.items()})
 
 CLASSES = {
     # name: (track, clearance, via_d, via_drill, nets)
-    "Power": (0.4, 0.2, 0.6, 0.3, ["VBUS", "VSYS", "VBAT"]),
+    "Power": (0.4, 0.2, 0.6, 0.3, ["VBUS", "VSYS", "VBAT", "VBAT_RAW", "REG_3V3", "EPD_BOOST_IN"]),
     "Supply": (0.25, 0.15, 0.5, 0.3, ["GND", "+3V3"]),
     "HV": (0.25, 0.2, 0.5, 0.3, ["EPD_SW", "EPD_PREVGH", "EPD_PREVGL", "EPD_X"]),
 }
@@ -140,6 +147,7 @@ def text(board, layer, s, x, y, size=1.0, mirror=False, bold=False):
     t.SetTextSize(P.VECTOR2I_MM(size, size)); t.SetTextThickness(P.FromMM(size * (0.2 if bold else 0.15)))
     t.SetMirrored(mirror)
     board.Add(t)
+    return t
 
 
 def outline_poly(inset=0.0):
@@ -226,7 +234,34 @@ def finish_silkscreen(board):
                         P.ToMM(box.GetBottom()) > OY + H - 0.2):
                     item.SetLayer(P.B_Fab)
         if fp.GetReference() == 'U4':
-            fp.Reference().SetPosition(V(17, 73))
+            fp.Reference().SetPosition(V(15, 71.5))
+
+
+def debug_silkscreen(board):
+    """Readable labels for service connections; dense HV probes use debug-map.svg."""
+    footprints = list(board.GetFootprints())
+    labels = [
+        ("UART 3V3 ONLY",30.65,93),
+        ("BAT LINK",8.5,95.5), ("3V3",22.8,77.4), ("BOOST LINK",5.4,6.5),
+        ("HV PROBES",18,24),
+        ("BAT+",3,90.4), ("BAT",10.5,90.3), ("5V",24,95.5),
+        ("SYS",34,84.8), ("G",34,72.3), ("REG",23,71.6), ("EN",20.5,69.1),
+        ("CHG",18,71.6), ("VOL",23,65), ("BAT_ADC",9.5,43.4),
+        ("USB_N",14.8,43.4), ("EN",20,40), ("IO0",22,44.5), ("G",18.5,44.5),
+        ("IO8",8,53.2), ("IO14",11,53.2), ("IO15",14,53.2),
+    ]
+    labels += [(name,24.3+i*2.54,89.5) for i,name in enumerate(["G","3V3","TX","RX","EN","IO0"])]
+    labels += [(name,6.3,47.5+i*2.54) for i,name in enumerate(["BUSY","RST","DC","CS","SCK","MOSI","G","3V3"])]
+    ids=[str(uuid.uuid5(uuid.NAMESPACE_URL,"eink-pod/debug-silk/%d"%i)) for i in range(100)]
+    for item in list(board.GetDrawings()):
+        if item.m_Uuid.AsString() in ids:
+            board.Remove(item)
+    for i,(name,x,y) in enumerate(labels):
+        t=text(board,P.B_SilkS,name,x,y,0.8,mirror=True)
+        t.SetUuid(P.KIID(ids[i]))
+    for fp in footprints:
+        if fp.GetReference() in ("J3","J5"):
+            fp.Reference().SetLayer(P.B_Fab)
 
 
 def main():
@@ -276,6 +311,9 @@ def main():
         fp = load_fp(c["footprint"])
         fp.SetReference(ref)
         fp.SetValue(c["value"])
+        if c.get("dnp"):
+            fp.SetAttributes(fp.GetAttributes() | P.FP_DNP | P.FP_EXCLUDE_FROM_POS_FILES | P.FP_EXCLUDE_FROM_BOM)
+            fp.Models().clear()
         fp.SetPath(P.KIID_PATH("/" + c["uuid"]))
         fp.SetSheetname("Root")
         fp.SetSheetfile("eink-pod.kicad_sch")
@@ -341,22 +379,22 @@ def main():
 
     # front silkscreen
     text(board, P.F_SilkS, "MENU", 21, 61.6, 0.8)
-    text(board, P.F_SilkS, "PLAY", 24.5, 86.7, 0.8)
+    text(board, P.F_SilkS, "PLAY", 21, 82.5, 0.8)
     text(board, P.F_SilkS, "<<", 11, 78.2, 0.8)
     text(board, P.F_SilkS, ">>", 31, 78.2, 0.8)
     text(board, P.F_SilkS, "CHG", 27.5, 95.5, 0.8)
     # back silkscreen (mirrored)
-    text(board, P.B_SilkS, "E-INK REMOTE rev D", 21, 50.5, 1.0, mirror=True, bold=True)
+    text(board, P.B_SilkS, "E-INK REMOTE rev E", 18, 56.5, 1.0, mirror=True, bold=True)
     text(board, P.B_SilkS, "BOOT", 26, 45.3, 0.8, mirror=True)
     text(board, P.B_SilkS, "RST", 33, 47.8, 0.8, mirror=True)
-    text(board, P.B_SilkS, "+", 5.8, 90.4, 1.0, mirror=True, bold=True)
-    text(board, P.B_SilkS, "-", 7.8, 90.4, 1.0, mirror=True, bold=True)
-    text(board, P.B_SilkS, "BAT", 6.8, 92.0, 0.8, mirror=True)
-    text(board, P.B_SilkS, "TX RX G 3V3 BAT", 12, 48, 0.8, mirror=True)
+    text(board, P.B_SilkS, "+", 5.8, 77.5, 1.0, mirror=True, bold=True)
+    text(board, P.B_SilkS, "-", 7.8, 77.5, 1.0, mirror=True, bold=True)
+    text(board, P.B_SilkS, "TX RX G 3V3", 12, 48, 0.8, mirror=True)
     text(board, P.B_SilkS, "ON/OFF", 37.5, 72.8, 0.8, mirror=True)
     text(board, P.B_SilkS, "VOL", 31, 53.5, 0.8, mirror=True)
 
     finish_silkscreen(board)
+    debug_silkscreen(board)
     P.SaveBoard(PCB, board)
     write_stackup(PCB)
     print("saved", PCB, "footprints:", len(board.GetFootprints()))

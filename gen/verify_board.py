@@ -6,6 +6,7 @@ USB/boost routes, if sense isolation changes, or local decoupling moves away.
 import math
 import os
 import pcbnew as P
+from debug_features import POINTS, PROGRAM, DISPLAY, PROBE_ANCHORS
 
 from critical_routes import route_critical
 
@@ -42,21 +43,46 @@ def verify():
         "U4": {1: "BAT_TS", 2: "VBAT", 3: "VBAT", 4: "GND", 5: "CHG_EN2", 6: "CHG_EN1",
                8: "GND", 9: "CHG_STAT", 10: "VSYS", 11: "VSYS", 12: "CHG_ILIM", 13: "VBUS",
                16: "CHG_PROG", 17: "GND"},
-        "U5": {1: "+3V3", 2: "PWR_L2", 3: "GND", 4: "PWR_L1", 5: "VSYS", 6: "PWR_EN",
-               7: "GND", 8: "VSYS", 9: "GND", 10: "+3V3", 11: "GND"},
+        "U5": {1: "REG_3V3", 2: "PWR_L2", 3: "GND", 4: "PWR_L1", 5: "VSYS", 6: "PWR_EN",
+               7: "GND", 8: "VSYS", 9: "GND", 10: "REG_3V3", 11: "GND"},
         "L2": {1: "PWR_L1", 2: "PWR_L2"},
         "R3": {1: "CHG_PROG", 2: "CHG_PROG_MID"}, "R14": {1: "CHG_PROG_MID", 2: "GND"},
         "R15": {1: "CHG_ILIM", 2: "GND"}, "R16": {1: "BAT_TS", 2: "GND"},
         "R17": {1: "CHG_EN1", 2: "GND"}, "R18": {1: "CHG_EN2", 2: "GND"},
         "R4": {1: "VSYS", 2: "LED_A"}, "R19": {1: "VOL_EN", 2: "VOL_SUPPLY"}, "R20": {1: "PWR_EN", 2: "GND"},
         "RV1": {1: "GND", 2: "VOL_SENSE", 3: "VOL_SUPPLY"},
-        "J2": {1: "VBAT", 2: "GND"}, "SW8": {1: "VSYS", 2: "PWR_EN", 3: "GND"},
+        "J2": {1: "VBAT_RAW", 2: "GND"}, "SW8": {1: "VSYS", 2: "PWR_EN", 3: "GND"},
         "J4": {2: "EPD_GDR", 3: "EPD_RESE", 5: "EPD_VSH2", 8: "GND", 9: "EPD_BUSY",
                10: "EPD_RST", 11: "EPD_DC", 12: "EPD_CS", 13: "EPD_SCK", 14: "EPD_MOSI",
                15: "+3V3", 16: "+3V3", 17: "GND", 18: "EPD_VDD", 20: "EPD_VSH1",
                21: "EPD_PREVGH", 22: "EPD_VSL", 23: "EPD_PREVGL", 24: "EPD_VCOM"},
     })
     expected_nets["U1"].update({8: "VOL_SENSE", 9: "VOL_EN", 10: "CHG_EN1", 11: "CHG_EN2"})
+    expected_nets.update({
+        "R23": {1:"VBAT_RAW",2:"VBAT"}, "R24": {1:"REG_3V3",2:"+3V3"},
+        "R25": {1:"+3V3",2:"EPD_BOOST_IN"}, "L1": {1:"EPD_BOOST_IN",2:"EPD_SW"},
+        "C27": {1:"EPD_BOOST_IN",2:"GND"}, "C4": {1:"REG_3V3",2:"GND"},
+        "C37": {1:"REG_3V3",2:"GND"},
+        "J3": dict(enumerate(PROGRAM,1)), "J5": dict(enumerate(DISPLAY,1)),
+    })
+    expected_nets["U1"].update({12:"SPARE_GPIO8",18:"SPARE_GPIO14",19:"SPARE_GPIO15"})
+    expected_nets.update({ref:{1:data[0]} for ref,data in POINTS.items()})
+    for ref in ("R23","R24","R25"):
+        assert fps[ref].GetValue()=="0R"
+    for ref in ("J3","J5"):
+        assert fps[ref].GetAttributes() & P.FP_DNP, ref
+        assert fps[ref].GetAttributes() & P.FP_EXCLUDE_FROM_POS_FILES, ref
+    # There must be no parallel path bypassing a removable power link.
+    for net,refs in {
+        "VBAT_RAW":{"J2","R23","TP6"},
+        "REG_3V3":{"U5","C4","C37","R24","TP10"},
+        "EPD_BOOST_IN":{"R25","L1","C27"},
+    }.items():
+        actual={r for r,f in fps.items() if any(p.GetNetname()==net for p in f.Pads())}
+        assert actual==refs,(net,actual,refs)
+    for ref,(anchor,pin) in PROBE_ANCHORS.items():
+        assert math.dist(point(pad(ref,1).GetPosition()),point(pad(anchor,pin).GetPosition()))<2.5,ref
+    print("PASS: power isolation boundaries, manual UART/header pinouts, DNP headers, local boost probes and spare GPIOs")
     for ref, val in {"L1": "47uH", "U4": "BQ24074RGTR", "U5": "TPS63031DSKR", "R3": "2k", "R14": "2k",
                      "R15": "5.1k", "R16": "10k", "R17": "100k", "R18": "100k", "R19": "2k", "L2": "2.2uH"}.items():
         assert fps[ref].GetValue() == val, (ref, val)
@@ -148,7 +174,16 @@ def verify():
         for t in actual_tracks:
             if t["net"] != "GND" and t["layer"] in (P.F_Cu, P.B_Cu):
                 assert seg_distance(center, t["start"], t["end"]) >= 2.25 + P.ToMM(t["width"])/2, (ref, t["net"], "signal under screw head")
-    print("PASS: no signal tracks under 4.5 mm mounting heads")
+        for f in fps.values():
+            for p in f.Pads():
+                if p.GetNetname() and p.GetNetname() != "GND" and (p.IsOnLayer(P.F_Cu) or p.IsOnLayer(P.B_Cu)):
+                    bb=p.GetBoundingBox()
+                    radius=math.hypot(P.ToMM(bb.GetWidth()),P.ToMM(bb.GetHeight()))/2
+                    assert math.dist(center,point(p.GetPosition()))>=2.25+radius,(ref,f.GetReference(),"pad under screw head")
+        for v in actual_vias:
+            if v["net"] != "GND":
+                assert math.dist(center,v["pos"])>=2.55,(ref,v["net"],"via under screw head")
+    print("PASS: no signal copper under 4.5 mm mounting heads")
     # No extra branches on the USB data nets; two layer changes per wire.
     for net in ["USB_DP", "USB_DN", "USB_MCU_P", "USB_MCU_N"]:
         actual_len = sum(t["length"] for t in actual_tracks if t["net"] == net)

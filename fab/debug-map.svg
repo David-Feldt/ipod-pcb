@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150mm" height="118mm" viewBox="-10 -10 150 118">
+<rect x="-10" y="-10" width="100%" height="100%" fill="white"/>
+<style>text{font-family:Arial,sans-serif;font-size:1.5px} .small{font-size:1.1px}</style>
+<rect x="0" y="0" width="42.0" height="98.0" rx="3" fill="#f4f7f4" stroke="#222" stroke-width=".2"/>
+<text x="0" y="-5">REV E — DEBUG ACCESS — BACK VIEW (mirrored)</text>
+<circle cx="17.700" cy="87.500" r=".45" fill="#06a"/>
+<circle cx="15.160" cy="87.500" r=".45" fill="#b20"/>
+<circle cx="12.620" cy="87.500" r=".45" fill="#b20"/>
+<circle cx="10.080" cy="87.500" r=".45" fill="#b20"/>
+<circle cx="7.540" cy="87.500" r=".45" fill="#b20"/>
+<circle cx="5.000" cy="87.500" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="17.700" y="86.400">J3</text>
+<circle cx="39.000" cy="47.000" r=".45" fill="#06a"/>
+<circle cx="39.000" cy="49.540" r=".45" fill="#b20"/>
+<circle cx="39.000" cy="52.080" r=".45" fill="#b20"/>
+<circle cx="39.000" cy="54.620" r=".45" fill="#b20"/>
+<circle cx="39.000" cy="57.160" r=".45" fill="#b20"/>
+<circle cx="39.000" cy="59.700" r=".45" fill="#b20"/>
+<circle cx="39.000" cy="62.240" r=".45" fill="#b20"/>
+<circle cx="39.000" cy="64.780" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="39.000" y="45.900">J5</text>
+<circle cx="34.412" cy="92.500" r=".45" fill="#b20"/>
+<circle cx="32.588" cy="92.500" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="33.500" y="94.200">R23</text>
+<circle cx="18.088" cy="75.450" r=".45" fill="#b20"/>
+<circle cx="19.912" cy="75.450" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="19.000" y="77.150">R24</text>
+<circle cx="39.200" cy="8.888" r=".45" fill="#b20"/>
+<circle cx="39.200" cy="10.713" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="39.200" y="11.500">R25</text>
+<circle cx="35.000" cy="46.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="35.000" y="44.900">TP1</text>
+<circle cx="19.000" cy="73.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="19.000" y="71.900">TP10</text>
+<circle cx="21.500" cy="70.500" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="21.500" y="69.400">TP11</text>
+<circle cx="24.000" cy="73.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="24.000" y="71.900">TP12</text>
+<circle cx="19.000" cy="63.500" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="19.000" y="62.400">TP13</text>
+<circle cx="32.500" cy="42.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="32.500" y="40.900">TP14</text>
+<circle cx="28.500" cy="42.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="28.500" y="40.900">TP15</text>
+<circle cx="22.000" cy="38.500" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="22.000" y="37.400">TP16</text>
+<circle cx="20.000" cy="43.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="20.000" y="41.900">TP17</text>
+<circle cx="23.500" cy="43.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="23.500" y="41.900">TP18</text>
+<circle cx="34.000" cy="51.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="34.000" y="49.900">TP19</text>
+<circle cx="32.500" cy="46.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="32.500" y="44.900">TP2</text>
+<circle cx="31.000" cy="51.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="31.000" y="49.900">TP20</text>
+<circle cx="28.000" cy="51.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="28.000" y="49.900">TP21</text>
+<circle cx="29.600" cy="11.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="29.600" y="9.900">TP22</text>
+<circle cx="33.100" cy="13.500" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="33.100" y="12.400">TP23</text>
+<circle cx="33.300" cy="10.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="33.300" y="8.900">TP24</text>
+<circle cx="23.000" cy="16.300" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="23.000" y="18.000">TP25</text>
+<circle cx="28.500" cy="22.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="28.500" y="20.900">TP26</text>
+<circle cx="16.400" cy="21.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="16.400" y="19.900">TP27</text>
+<circle cx="12.400" cy="21.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="12.400" y="19.900">TP28</text>
+<circle cx="21.000" cy="16.300" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="21.000" y="15.200">TP29</text>
+<circle cx="30.000" cy="46.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="30.000" y="44.900">TP3</text>
+<circle cx="30.000" cy="24.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="30.000" y="22.900">TP30</text>
+<circle cx="27.500" cy="46.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="27.500" y="44.900">TP4</text>
+<circle cx="33.500" cy="90.300" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="33.500" y="89.200">TP5</text>
+<circle cx="39.000" cy="88.700" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="39.000" y="87.600">TP6</text>
+<circle cx="18.000" cy="94.000" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="18.000" y="92.900">TP7</text>
+<circle cx="8.000" cy="83.500" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="8.000" y="82.400">TP8</text>
+<circle cx="8.000" cy="70.500" r=".45" fill="#b20"/>
+<text class="small" text-anchor="middle" x="8.000" y="69.400">TP9</text>
+<text x="46" y="0.00">TP1: TXD0</text>
+<text x="46" y="3.00">TP2: RXD0</text>
+<text x="46" y="6.00">TP3: GND</text>
+<text x="46" y="9.00">TP4: +3V3</text>
+<text x="46" y="12.00">TP5: VBAT</text>
+<text x="46" y="15.00">TP6: VBAT_RAW</text>
+<text x="46" y="18.00">TP7: VBUS</text>
+<text x="46" y="21.00">TP8: VSYS</text>
+<text x="46" y="24.00">TP9: GND</text>
+<text x="46" y="27.00">TP10: REG_3V3</text>
+<text x="46" y="30.00">TP11: PWR_EN</text>
+<text x="46" y="33.00">TP12: CHG_STAT</text>
+<text x="46" y="36.00">TP13: VOL_SENSE</text>
+<text x="46" y="39.00">TP14: VBAT_SENSE</text>
+<text x="46" y="42.00">TP15: USB_PRESENT_N</text>
+<text x="46" y="45.00">TP16: EN</text>
+<text x="46" y="48.00">TP17: BOOT</text>
+<text x="46" y="51.00">TP18: GND</text>
+<text x="46" y="54.00">TP19: SPARE_GPIO8</text>
+<text x="46" y="57.00">TP20: SPARE_GPIO14</text>
+<text x="46" y="60.00">TP21: SPARE_GPIO15</text>
+<text x="46" y="63.00">TP22: EPD_SW</text>
+<text x="46" y="66.00">TP23: EPD_GDR</text>
+<text x="46" y="69.00">TP24: EPD_RESE</text>
+<text x="46" y="72.00">TP25: EPD_PREVGH</text>
+<text x="46" y="75.00">TP26: EPD_PREVGL</text>
+<text x="46" y="78.00">TP27: EPD_VSH1</text>
+<text x="46" y="81.00">TP28: EPD_VSL</text>
+<text x="46" y="84.00">TP29: GND</text>
+<text x="46" y="87.00">TP30: GND</text>
+<text x="92" y="0">J3: UART MANUAL DNP</text>
+<text x="92" y="3">1: GND</text>
+<text x="92" y="6">2: +3V3</text>
+<text x="92" y="9">3: TXD0</text>
+<text x="92" y="12">4: RXD0</text>
+<text x="92" y="15">5: EN</text>
+<text x="92" y="18">6: BOOT</text>
+<text x="92" y="26">J5: DESPI-C02 DNP</text>
+<text x="92" y="29">1: EPD_BUSY</text>
+<text x="92" y="32">2: EPD_RST</text>
+<text x="92" y="35">3: EPD_DC</text>
+<text x="92" y="38">4: EPD_CS</text>
+<text x="92" y="41">5: EPD_SCK</text>
+<text x="92" y="44">6: EPD_MOSI</text>
+<text x="92" y="47">7: GND</text>
+<text x="92" y="50">8: +3V3</text>
+<text x="92" y="58">R23: 0R</text>
+<text x="92" y="61">1: VBAT_RAW</text>
+<text x="92" y="64">2: VBAT</text>
+<text x="92" y="70">R24: 0R</text>
+<text x="92" y="73">1: REG_3V3</text>
+<text x="92" y="76">2: +3V3</text>
+<text x="92" y="82">R25: 0R</text>
+<text x="92" y="85">1: +3V3</text>
+<text x="92" y="88">2: EPD_BOOST_IN</text>
+<text x="46" y="99">TP22–TP28: high-voltage / switching probes. Use local GND.</text>
+<text x="46" y="103">Blue = header pin 1. J3/J5 NOT FITTED; J3 uses EN/IO0.</text>
+</svg>

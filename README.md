@@ -5,7 +5,7 @@ buttons, a volume thumbwheel, USB-C and a 1S LiPo, on a 42 × 98 mm four-layer P
 four M2.5 mounting holes. Playback happens on another Spotify device; this board has
 no audio or microSD hardware.
 
-This is revision D, an unbuilt prototype design. The earlier 1.54-inch, 40 × 78 mm version is tagged `v1-1.54in`
+This is revision E, an unbuilt prototype design. The earlier 1.54-inch, 40 × 78 mm version is tagged `v1-1.54in`
 in git. See `DESIGN.md` for the GPIO map, power architecture and revision notes.
 
 ## Repository and branches
@@ -80,6 +80,14 @@ Use `fab/assembly-pin1.csv` and the assembly maps to check pin orientation;
 CPL angles use KiCad conventions and still need the JLC order preview check.
 **Select epoxy-filled and copper-capped vias:** this design has vias in thermal
 pads; ordinary tenting is not an equivalent process.
+
+## Prototype debug access
+
+Revision E adds three removable power links, an unpopulated manual UART header,
+an unpopulated DESPI-C02 fallback/bus-probe header, local boost probes, power and
+sensing pads, and GPIO8/14/15 access. See `DEBUG.md` and `fab/debug-map.svg`.
+J3/J5 are excluded from assembly; R23/R24/R25 are normally fitted. The board
+remains 42 × 98 mm.
 
 ## Firmware and bring-up
 

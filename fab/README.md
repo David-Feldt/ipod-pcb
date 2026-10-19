@@ -1,4 +1,4 @@
-# Revision D fabrication notes
+# Revision E fabrication notes
 
 Generated from `kicad/eink-pod.kicad_pcb`; regenerate with `./build.sh` after
 circuit or placement changes. The archive contains copper, masks, paste,
@@ -31,3 +31,7 @@ battery protection, thermal behavior, RF performance or USB signal integrity.
 
 See `../MECHANICAL.md` for cable/panel/wheel dimensions and `../BRINGUP.md` for
 prototype acceptance. JLC stock is not reserved by assigning an LCSC number.
+
+Revision E adds three assembled 0805 zero-ohm links (R23–R25, C17477). J3/J5
+are DNP debug headers, excluded from BOM/CPL. Test pads require no components.
+Use `debug-map.svg` and `debug-access.csv` with `../DEBUG.md` for probe access.

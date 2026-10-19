@@ -1,9 +1,9 @@
-# Revision D prototype acceptance
+# Revision E prototype acceptance
 
 This repository contains hardware, not application firmware. Passing ERC/DRC does
 not prove an assembled board works. Validate one assembly before a larger batch.
 
-1. Inspect U4/U5 pin 1, J4 orientation, Q2–Q5, USB-C, LED polarity, wheel seating
+1. Confirm R23/R24/R25 are fitted and J3/J5 are unpopulated. Inspect U4/U5 pin 1, J4 orientation, Q2–Q5, USB-C, LED polarity, wheel seating
    and the filled/capped thermal pads. Compare `fab/assembly-pin1.csv` and drawings.
 2. With no power, check for hard shorts on VBUS, VBAT, VSYS and 3V3. J2 pin 1 is
    positive, pin 2 is ground. Check the actual battery lead with a meter before
@@ -37,3 +37,7 @@ not prove an assembled board works. Validate one assembly before a larger batch.
 Record measured results, instrument conditions and firmware revision. No bench
 results have been recorded yet. Cell temperature sensing is absent (fixed TS bias);
 charge only within the selected pack's allowed ambient temperature range.
+
+For current measurement, external 3.3 V power, manual UART recovery and the
+external display adapter, follow `DEBUG.md`; opening a link changes which
+supply/test pad is connected to each circuit.

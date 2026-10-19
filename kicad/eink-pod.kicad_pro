@@ -390,6 +390,18 @@
       {
         "netclass": "HV",
         "pattern": "EPD_X"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "VBAT_RAW"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "REG_3V3"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "EPD_BOOST_IN"
       }
     ]
   },

@@ -1,8 +1,8 @@
 (export
 	(version "E")
 	(design
-		(source "/private/tmp/ipod-pcb-213-fixes/kicad/eink-pod.kicad_sch")
-		(date "2026-10-18T22:03:01")
+		(source "/Users/david/Projects/2026/ipod-pcb/kicad/eink-pod.kicad_sch")
+		(date "2026-10-18T22:54:53")
 		(tool "Eeschema 10.0.7")
 		(sheet
 			(number "1")
@@ -11,7 +11,7 @@
 			(title_block
 				(title "E-ink Pod - ESP32-S3 e-paper Spotify remote")
 				(company "E-ink Remote")
-				(rev "D")
+				(rev "E")
 				(date)
 				(source "eink-pod.kicad_sch")
 				(comment
@@ -99,7 +99,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a77635bb-f63c-4be7-9303-4be0a0d540db")
+			(tstamps "32026f34-c9e2-40b3-9eca-625f500ed1d2")
 			(units
 				(unit
 					(name "A")
@@ -159,7 +159,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "dfa0da8d-2ee5-49cb-88dc-6541d8621ad3")
+			(tstamps "7eefd469-c3bf-4b36-9b03-5e0a7286787f")
 			(units
 				(unit
 					(name "A")
@@ -219,7 +219,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a36853f2-6b12-4b6a-890d-52c2317af080")
+			(tstamps "3c328a11-b51e-44b5-8419-539dba6419d8")
 			(units
 				(unit
 					(name "A")
@@ -279,7 +279,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c597efc4-843f-428e-9235-7238c6ea736d")
+			(tstamps "15bd34d4-f135-4ea9-8fb4-83eabe70b069")
 			(units
 				(unit
 					(name "A")
@@ -339,7 +339,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8500bba1-6819-4d79-a722-7c82506fd3dc")
+			(tstamps "437fb313-3d07-400d-b877-073b75701708")
 			(units
 				(unit
 					(name "A")
@@ -399,7 +399,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0288a5a8-7017-4275-aca1-96b95daf5638")
+			(tstamps "17c816a4-a79d-4013-9f9e-2fbcc8e07d16")
 			(units
 				(unit
 					(name "A")
@@ -459,7 +459,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ad171431-d32f-436e-be74-ea39409d31d4")
+			(tstamps "83ca2325-8cc7-4589-9269-937d3ea6e8e9")
 			(units
 				(unit
 					(name "A")
@@ -519,7 +519,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e816cdc3-0ea1-4219-82eb-2e50fcba8140")
+			(tstamps "15db1732-b91c-44fe-8b2b-e90b31db54bd")
 			(units
 				(unit
 					(name "A")
@@ -579,7 +579,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "62709ba8-f953-432f-a68d-5ec0f4ff67da")
+			(tstamps "53b28169-8fd1-47d8-8dce-732276aed7b8")
 			(units
 				(unit
 					(name "A")
@@ -639,7 +639,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3c1f1836-6f1d-42a5-87d7-f146ced72dad")
+			(tstamps "76da1db8-45e2-4daa-9bac-44129663a08e")
 			(units
 				(unit
 					(name "A")
@@ -699,7 +699,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "7ee2e429-f073-48cd-a815-f5e24bef3d91")
+			(tstamps "f4d02dac-000c-4ad0-bc20-37e92c7d4584")
 			(units
 				(unit
 					(name "A")
@@ -759,7 +759,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "691879b8-5aa1-40e8-9743-5c6b4b3b0408")
+			(tstamps "bb560485-3749-45de-9315-edd2b9217cfe")
 			(units
 				(unit
 					(name "A")
@@ -819,7 +819,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "295252d0-23c4-46c4-b591-657c2f6315b7")
+			(tstamps "9e1ae429-e255-4429-9cb3-7aa9fa3acc2c")
 			(units
 				(unit
 					(name "A")
@@ -879,7 +879,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e6b37c5e-37a9-4733-b59e-2ad206fea13f")
+			(tstamps "938601f9-6056-4720-8385-8a5c02191217")
 			(units
 				(unit
 					(name "A")
@@ -939,7 +939,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3cb14edb-0640-428a-a5c6-651d918344fe")
+			(tstamps "67498219-baf4-4b47-8bb9-e792f47c8462")
 			(units
 				(unit
 					(name "A")
@@ -999,7 +999,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8a8f7742-f9dc-4402-a000-d6e2d00ef5f3")
+			(tstamps "1a65029d-53d2-4c43-bbb0-5c76f97d4b40")
 			(units
 				(unit
 					(name "A")
@@ -1059,7 +1059,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0b1c4011-f5c8-47a6-a073-11bd5cc159f7")
+			(tstamps "3567f117-3251-4e1a-af2d-f4dc831b1f43")
 			(units
 				(unit
 					(name "A")
@@ -1119,7 +1119,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2aca794c-39cf-42bd-9f7a-98ee62caa81a")
+			(tstamps "603a7ec9-7600-4545-a85b-64614cb6498b")
 			(units
 				(unit
 					(name "A")
@@ -1179,7 +1179,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4c5e0c2b-b465-4def-8b60-b132bcffdead")
+			(tstamps "9bbb1680-4c4c-49aa-a2a9-74f4274357c8")
 			(units
 				(unit
 					(name "A")
@@ -1239,7 +1239,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "20333bd2-ad15-4301-b7a1-1acd3186fe3a")
+			(tstamps "85bf4f9b-2dba-46e7-868a-44283c9a26c5")
 			(units
 				(unit
 					(name "A")
@@ -1299,7 +1299,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bd559b6d-77bc-481f-9861-9c04f8cab475")
+			(tstamps "42370326-226a-43b9-940f-2ba2b9ffa4ad")
 			(units
 				(unit
 					(name "A")
@@ -1359,7 +1359,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "10237677-55e0-4929-b627-36e9a31ec631")
+			(tstamps "dea482d9-03bb-4475-9f62-8c741e80ee9f")
 			(units
 				(unit
 					(name "A")
@@ -1419,7 +1419,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "13f6ebf9-5b71-4aa6-935f-280c04b373a0")
+			(tstamps "125833a5-8cb0-4eee-8d66-09d869599d67")
 			(units
 				(unit
 					(name "A")
@@ -1479,7 +1479,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b997146b-3d5d-491e-bf3d-7c3e2832515e")
+			(tstamps "2e45705c-91be-400e-a8cd-6ff8a4d31033")
 			(units
 				(unit
 					(name "A")
@@ -1539,7 +1539,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2c9af9b2-1080-4b17-b8c2-c6bed4ce9862")
+			(tstamps "d4ac24fc-2c4f-417d-a39d-23f1ca466f13")
 			(units
 				(unit
 					(name "A")
@@ -1599,7 +1599,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "53f7b943-53fb-48b1-8439-760219e0f0a3")
+			(tstamps "5971f307-c01a-42bb-af23-1ea5327da0b2")
 			(units
 				(unit
 					(name "A")
@@ -1659,7 +1659,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5c11748d-a212-4803-8732-bb998ace8cbe")
+			(tstamps "842457bb-eb7e-4ead-842b-e67e02940358")
 			(units
 				(unit
 					(name "A")
@@ -1716,7 +1716,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9b291a45-3701-4c6c-a026-1e30a0e0512e")
+			(tstamps "2d225daa-57fe-44e6-947a-3a24dd310e3e")
 			(units
 				(unit
 					(name "A")
@@ -1766,7 +1766,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4e79e938-76aa-4b52-831b-71fadf750077")
+			(tstamps "4a26c007-efe3-439f-b084-fdd072d88352")
 			(units
 				(unit
 					(name "A")
@@ -1816,7 +1816,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a199cd6d-1970-4406-bb61-a566afa1c781")
+			(tstamps "b465ffbd-1abc-4bde-aad7-e115fde99e5d")
 			(units
 				(unit
 					(name "A")
@@ -1866,7 +1866,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5167331e-897f-4195-9c80-bae63f47d44c")
+			(tstamps "ccd52401-fcd7-418a-9821-3eeb1b3fb251")
 			(units
 				(unit
 					(name "A")
@@ -1925,7 +1925,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6d060efc-22a7-4dfc-bf5e-47c113032362")
+			(tstamps "7e82a0d8-a062-4b17-8a4f-e7d1269f82be")
 			(units
 				(unit
 					(name "A")
@@ -2036,7 +2036,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "005c57bd-bf1b-4a59-a7a9-6c865fadf67e")
+			(tstamps "56d87b6f-b698-4db8-b8f0-7e72685b0fb3")
 			(units
 				(unit
 					(name "A")
@@ -2049,6 +2049,78 @@
 						)
 						(pin
 							(num "MP")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J3")
+			(value "UART MANUAL DNP")
+			(footprint "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
+			(fields
+				(field
+					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector_Generic")
+				(part "Conn_01x06")
+				(description "Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "dnp")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "d73bf2d5-bd17-4aa7-9f66-860b7c14c1a2")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "6")
 						)
 					)
 				)
@@ -2105,7 +2177,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bc5628a9-a2e0-414c-aaf1-bc58b6725dcb")
+			(tstamps "f519dbf5-c1a5-41c8-9f9c-59dd71cb68fd")
 			(units
 				(unit
 					(name "A")
@@ -2190,6 +2262,84 @@
 			)
 		)
 		(comp
+			(ref "J5")
+			(value "DESPI-C02 DNP")
+			(footprint "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical")
+			(fields
+				(field
+					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector_Generic")
+				(part "Conn_01x08")
+				(description "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "dnp")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "bfc64196-27d8-42d9-83be-e02f9b5d8e9a")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "8")
+						)
+					)
+				)
+			)
+		)
+		(comp
 			(ref "L1")
 			(value "47uH")
 			(footprint "Inductor_SMD:L_Sunlord_SWPA4030S")
@@ -2240,7 +2390,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bbb5e5a0-5f31-4952-905a-2f87e91ce07b")
+			(tstamps "232fd123-a341-4a9f-af66-1fc8a26386d4")
 			(units
 				(unit
 					(name "A")
@@ -2306,7 +2456,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c0ebc73d-5f90-4ac6-8f8d-4d6cf4310d9d")
+			(tstamps "ae7fb29d-5377-4213-b5ff-6a12e38a69f2")
 			(units
 				(unit
 					(name "A")
@@ -2366,7 +2516,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4162d407-dc85-4d82-a741-71ba86d60d37")
+			(tstamps "fde1e1a9-7812-4d82-984d-1353c071fab5")
 			(units
 				(unit
 					(name "A")
@@ -2429,7 +2579,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "a7af4dfd-5c24-4d83-8ca2-2fadbe03a9d2")
+			(tstamps "02c3d71e-fe8e-451c-8413-2a8300bf9ed4")
 			(units
 				(unit
 					(name "A")
@@ -2492,7 +2642,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "32dbeb8b-3a92-427b-94e6-c1303150e7e8")
+			(tstamps "b03d9231-8e3f-4da4-9769-0ac069070811")
 			(units
 				(unit
 					(name "A")
@@ -2555,7 +2705,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "338d848c-036d-4685-8a3d-a176435e0358")
+			(tstamps "085749d2-0a24-4eb4-bfc3-c33f88bd5e4d")
 			(units
 				(unit
 					(name "A")
@@ -2618,7 +2768,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "da1f02bb-6524-45c6-8081-f230029a66d2")
+			(tstamps "78a2bc3d-7449-481a-82da-25f03e67bb15")
 			(units
 				(unit
 					(name "A")
@@ -2678,7 +2828,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "88044a6b-7f9f-4180-b428-f0119c31bbec")
+			(tstamps "4e038877-ccd5-42f3-817b-cdd6636d7aa9")
 			(units
 				(unit
 					(name "A")
@@ -2738,7 +2888,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "38eb3e2b-814c-4142-8f84-2712f594273d")
+			(tstamps "1823b92e-ec95-4579-a27c-0a2fc023d852")
 			(units
 				(unit
 					(name "A")
@@ -2798,7 +2948,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6f7c029e-552e-47c4-a928-77c18ef92952")
+			(tstamps "3c17c67e-ef43-4624-8483-e606a4517a42")
 			(units
 				(unit
 					(name "A")
@@ -2858,7 +3008,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e9da5215-16a2-44dc-8ff8-2d2cf0abf6ad")
+			(tstamps "68d060bf-7bfa-42d3-ad4c-ec179d70576b")
 			(units
 				(unit
 					(name "A")
@@ -2918,7 +3068,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5bddff46-db13-4da4-a83f-4c8db7c21a6e")
+			(tstamps "38dd5213-d7bb-48b5-8dd5-0149725971de")
 			(units
 				(unit
 					(name "A")
@@ -2978,7 +3128,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "9318627c-b51e-4cdd-9cc1-4da25093e74c")
+			(tstamps "d89a1410-39bd-4485-8875-d10a85b147b9")
 			(units
 				(unit
 					(name "A")
@@ -3038,7 +3188,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b581a1f4-0a7b-4005-a11b-29c2a7d02aa4")
+			(tstamps "bc21ef89-b154-472d-8518-d53db445094b")
 			(units
 				(unit
 					(name "A")
@@ -3098,7 +3248,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0a2b7f4f-2898-43ba-b2de-8760ba7306a8")
+			(tstamps "e44a8127-f44f-49b5-962b-5d46b03be342")
 			(units
 				(unit
 					(name "A")
@@ -3158,7 +3308,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "f5cf7279-6e4f-4bd4-86ce-f2ea8ffe9853")
+			(tstamps "8a71825b-c6dc-463d-8581-d3e3e0a4fd3d")
 			(units
 				(unit
 					(name "A")
@@ -3218,7 +3368,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "312b455a-c103-496b-86ec-5a0c8c03a04e")
+			(tstamps "c238f82a-e71d-481a-b3f4-8c1a7aa56dcf")
 			(units
 				(unit
 					(name "A")
@@ -3278,7 +3428,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b8fdbcd4-d237-44b5-b952-9fa5098eaf24")
+			(tstamps "a44779ec-11fc-4297-ba76-7c75180169d9")
 			(units
 				(unit
 					(name "A")
@@ -3338,7 +3488,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4d96e258-76c8-4fbb-baa8-c736e107243d")
+			(tstamps "2dc5e927-4b7d-4418-9852-db766953e42b")
 			(units
 				(unit
 					(name "A")
@@ -3398,7 +3548,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6879d734-92ad-414f-9328-547432af3330")
+			(tstamps "cf7556dc-acf4-47c3-97ba-8f7a39ae107e")
 			(units
 				(unit
 					(name "A")
@@ -3458,7 +3608,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "ce1a738c-1fe0-40b3-ad09-5839445d90c9")
+			(tstamps "e4954c18-322d-4c95-8b41-fe146ffb6b1e")
 			(units
 				(unit
 					(name "A")
@@ -3518,7 +3668,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "3ad7d2f3-1dc9-450b-9d11-72444ef8afa6")
+			(tstamps "20ea14a2-5c4c-4cf0-84a0-d4ab433d740d")
 			(units
 				(unit
 					(name "A")
@@ -3578,7 +3728,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "4d63a448-92da-4c5c-b975-210c4fe4b76e")
+			(tstamps "5d69c86e-9ff5-4fe3-b130-612a33ddab11")
 			(units
 				(unit
 					(name "A")
@@ -3638,7 +3788,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "c59f5e86-9e37-411a-a5df-59538f7d2332")
+			(tstamps "3b826c08-6551-4982-9272-089a124f8d32")
 			(units
 				(unit
 					(name "A")
@@ -3698,7 +3848,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e82c1428-99d1-4f2b-967a-ed2059d9fadc")
+			(tstamps "b50b85e8-4be1-4c6b-bfd5-ad30635d3846")
 			(units
 				(unit
 					(name "A")
@@ -3758,7 +3908,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0bb4e137-9031-40a7-9ea4-1caddace6e69")
+			(tstamps "b50766b5-a328-4ccd-b45c-9b727654ac54")
 			(units
 				(unit
 					(name "A")
@@ -3818,7 +3968,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "74bc060c-c16f-4fa8-a965-ae0e19aaf78b")
+			(tstamps "84213473-a110-4ba2-9bb6-e00c0b777f4b")
 			(units
 				(unit
 					(name "A")
@@ -3878,7 +4028,205 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "175fbcee-164d-4899-be88-acaffaaa84ab")
+			(tstamps "9ade5be1-8500-4b73-a966-9d4468343870")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R23")
+			(value "0R")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "LCSC") "C17477")
+				(field
+					(name "MPN") "0805W8F0000T5E")
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "LCSC")
+				(value "C17477")
+			)
+			(property
+				(name "MPN")
+				(value "0805W8F0000T5E")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "83fd235e-7aba-43b4-9669-5b2de70a7f90")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R24")
+			(value "0R")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "LCSC") "C17477")
+				(field
+					(name "MPN") "0805W8F0000T5E")
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "LCSC")
+				(value "C17477")
+			)
+			(property
+				(name "MPN")
+				(value "0805W8F0000T5E")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "07e50023-dab1-4418-b024-edbd7a524433")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R25")
+			(value "0R")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "LCSC") "C17477")
+				(field
+					(name "MPN") "0805W8F0000T5E")
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "LCSC")
+				(value "C17477")
+			)
+			(property
+				(name "MPN")
+				(value "0805W8F0000T5E")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "50648452-d92e-42b3-84ca-30a503da83e1")
 			(units
 				(unit
 					(name "A")
@@ -3944,7 +4292,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "1af340d8-e78d-447d-8534-29d1e1b8b628")
+			(tstamps "7641d1d9-d3d5-4ab7-89b1-62cda9c26a60")
 			(units
 				(unit
 					(name "A")
@@ -4006,7 +4354,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "2024271f-75f4-4dbe-a0aa-832028083b33")
+			(tstamps "f2dcab47-1fb9-46f6-96b0-7968b58e04a2")
 			(units
 				(unit
 					(name "A")
@@ -4062,7 +4410,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6b203fb9-dc24-4345-aea6-edf64d5fb437")
+			(tstamps "ba871d56-7218-4d92-a153-d5640801b2c0")
 			(units
 				(unit
 					(name "A")
@@ -4118,7 +4466,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "5f5b3bc6-fd92-42f5-a6b9-16ccb36cfed7")
+			(tstamps "898088d1-41bc-4105-a5a5-44e0b66ad902")
 			(units
 				(unit
 					(name "A")
@@ -4174,7 +4522,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "37d27398-5ef6-4a0b-b850-022cff5b8322")
+			(tstamps "1354b8fa-a6a6-4e99-bbe1-54a9dac860fa")
 			(units
 				(unit
 					(name "A")
@@ -4230,7 +4578,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8f6be577-3fa2-4d80-8cd5-aa620107b8f4")
+			(tstamps "659f7357-59ff-4e23-9b47-3e2f776f4bf4")
 			(units
 				(unit
 					(name "A")
@@ -4286,7 +4634,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "75dbefe4-d58a-42f9-8794-b508ae50bf14")
+			(tstamps "49341d5b-5be4-4324-bf9b-ef05da8802a0")
 			(units
 				(unit
 					(name "A")
@@ -4342,7 +4690,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "17d29018-3f05-4026-897b-5b43ae47c74b")
+			(tstamps "32cf9fce-a9ee-4c43-b8c4-18e0327673c3")
 			(units
 				(unit
 					(name "A")
@@ -4398,7 +4746,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "b725ac08-561c-4360-b3bd-efb3459f57bf")
+			(tstamps "41952f5e-118c-451b-a233-b8eacdf96744")
 			(units
 				(unit
 					(name "A")
@@ -4458,7 +4806,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "cc0f2d9a-5787-45b7-ab07-c5a72f233cc6")
+			(tstamps "e54a1337-2e05-4d7f-86cf-fb4014a5fb2b")
 			(units
 				(unit
 					(name "A")
@@ -4512,7 +4860,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "6cbd2695-1340-4f51-ada7-f4060d818bd9")
+			(tstamps "1233180a-28f3-47e4-97cc-1a55137a552a")
 			(units
 				(unit
 					(name "A")
@@ -4566,7 +4914,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "8e0cde7a-5629-4375-8678-9727f60d8736")
+			(tstamps "74961759-501d-41bf-bb90-91c9f269cb45")
 			(units
 				(unit
 					(name "A")
@@ -4620,7 +4968,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e827d211-22d6-4ef0-822d-eea31a020dbd")
+			(tstamps "daa28150-f92a-4fc2-862e-bb64f478512e")
 			(units
 				(unit
 					(name "A")
@@ -4674,7 +5022,1357 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "753ad8bb-c2d3-4e6b-a9c6-c87a7f208883")
+			(tstamps "fdf81406-c363-4533-8003-7b942d6b4c57")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP6")
+			(value "VBAT_RAW")
+			(footprint "TestPoint:TestPoint_Pad_D1.0mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.0mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "87450947-0f18-4493-825e-6e2ddff5bcdb")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP7")
+			(value "VBUS")
+			(footprint "TestPoint:TestPoint_Pad_D1.0mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.0mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "9c9f12ff-c587-4c7a-a5f3-ed9843919c38")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP8")
+			(value "VSYS")
+			(footprint "TestPoint:TestPoint_Pad_D1.0mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.0mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "6b787dc7-5f9c-4243-b0ae-12b3141fd5ad")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP9")
+			(value "GND")
+			(footprint "TestPoint:TestPoint_Pad_D1.5mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.5mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "b2070704-50ec-4949-b387-5648b82a2570")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP10")
+			(value "REG_3V3")
+			(footprint "TestPoint:TestPoint_Pad_D1.0mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.0mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "a327534c-c829-4d7b-9178-d49bfdb0785b")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP11")
+			(value "PWR_EN")
+			(footprint "TestPoint:TestPoint_Pad_D1.0mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.0mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "bedd49e2-0bc1-4cfe-83dd-639e7d468847")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP12")
+			(value "CHG_STAT")
+			(footprint "TestPoint:TestPoint_Pad_D1.0mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.0mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "3bf45744-353d-43e6-a481-5345a5ae0bdc")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP13")
+			(value "VOL_SENSE")
+			(footprint "TestPoint:TestPoint_Pad_D1.0mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.0mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "5507dabb-f9b3-4d67-9b88-a741206e8048")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP14")
+			(value "VBAT_SENSE")
+			(footprint "TestPoint:TestPoint_Pad_D1.0mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.0mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "d851f028-b308-4985-845f-17bb1b928faa")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP15")
+			(value "USB_PRESENT_N")
+			(footprint "TestPoint:TestPoint_Pad_D1.0mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.0mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "16b49554-768d-4211-a2a0-9be2f6a41f6e")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP16")
+			(value "EN")
+			(footprint "TestPoint:TestPoint_Pad_D1.0mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.0mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "f06a41e8-209b-40d4-b0fe-1d32ac675582")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP17")
+			(value "BOOT")
+			(footprint "TestPoint:TestPoint_Pad_D1.0mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.0mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "af516577-c178-4728-8ea8-7b83bd245dff")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP18")
+			(value "GND")
+			(footprint "TestPoint:TestPoint_Pad_D1.5mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.5mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "860dd97f-cd2a-4182-a3d5-b4f7349046ef")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP19")
+			(value "SPARE_GPIO8")
+			(footprint "TestPoint:TestPoint_Pad_D1.0mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.0mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "280f5de6-e484-49b1-aedc-0eab63d00bed")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP20")
+			(value "SPARE_GPIO14")
+			(footprint "TestPoint:TestPoint_Pad_D1.0mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.0mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "7a964cb0-db22-40d3-acc0-29acb70cca24")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP21")
+			(value "SPARE_GPIO15")
+			(footprint "TestPoint:TestPoint_Pad_D1.0mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.0mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "8f33e112-ac93-46ca-86fe-9e1d882ac19f")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP22")
+			(value "EPD_SW")
+			(footprint "eink-pod:Probe_D0.6mm")
+			(fields
+				(field
+					(name "Footprint") "eink-pod:Probe_D0.6mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "16d68cd5-8567-4d6a-8b81-3924e6d37e1d")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP23")
+			(value "EPD_GDR")
+			(footprint "eink-pod:Probe_D0.6mm")
+			(fields
+				(field
+					(name "Footprint") "eink-pod:Probe_D0.6mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "261cba6d-37a2-4758-9543-2ee93e314e99")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP24")
+			(value "EPD_RESE")
+			(footprint "eink-pod:Probe_D0.6mm")
+			(fields
+				(field
+					(name "Footprint") "eink-pod:Probe_D0.6mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "b450c336-5b40-46e2-8280-3250b9832109")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP25")
+			(value "EPD_PREVGH")
+			(footprint "eink-pod:Probe_D0.6mm")
+			(fields
+				(field
+					(name "Footprint") "eink-pod:Probe_D0.6mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "1c467b1b-fcc3-4463-b465-b94e5dbc05e1")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP26")
+			(value "EPD_PREVGL")
+			(footprint "eink-pod:Probe_D0.6mm")
+			(fields
+				(field
+					(name "Footprint") "eink-pod:Probe_D0.6mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "e96e7925-5bb6-4c10-bee4-f75a9c945bdc")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP27")
+			(value "EPD_VSH1")
+			(footprint "eink-pod:Probe_D0.6mm")
+			(fields
+				(field
+					(name "Footprint") "eink-pod:Probe_D0.6mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "68914e10-64dc-4a2f-a8f1-9495f1714947")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP28")
+			(value "EPD_VSL")
+			(footprint "eink-pod:Probe_D0.6mm")
+			(fields
+				(field
+					(name "Footprint") "eink-pod:Probe_D0.6mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "a0c0a7e7-0844-437b-84d1-1f60b3de9b8d")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP29")
+			(value "GND")
+			(footprint "TestPoint:TestPoint_Pad_D1.5mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.5mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "c04de466-d3d8-4240-82b7-e304a06b13f9")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "TP30")
+			(value "GND")
+			(footprint "TestPoint:TestPoint_Pad_D1.5mm")
+			(fields
+				(field
+					(name "Footprint") "TestPoint:TestPoint_Pad_D1.5mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector")
+				(part "TestPoint")
+				(description "test point")
+			)
+			(property
+				(name "Sheetname")
+				(value "eink-pod")
+			)
+			(property
+				(name "Sheetfile")
+				(value "eink-pod.kicad_sch")
+			)
+			(property
+				(name "exclude_from_bom")
+			)
+			(property
+				(name "ki_keywords")
+				(value "test point tp")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Pin* Test*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "53a88a81-f7e8-401e-bcbd-ec92afa93857")
 			(units
 				(unit
 					(name "A")
@@ -4731,7 +6429,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "26be95c4-1b6f-4042-9d51-c5baaeb8f45b")
+			(tstamps "a55d13f6-2aaf-4196-983c-c39e0e27e1c3")
 			(units
 				(unit
 					(name "A")
@@ -4986,7 +6684,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "0b65a29a-5a07-426f-9364-a5e041edb346")
+			(tstamps "970faf34-0add-4963-84bd-a4df643d562c")
 			(units
 				(unit
 					(name "A")
@@ -5097,7 +6795,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "44301773-ab98-4cb8-a1ad-a49434e98186")
+			(tstamps "9e50fc3e-1e73-4340-9be7-754a0755a5d9")
 			(units
 				(unit
 					(name "A")
@@ -5184,7 +6882,7 @@
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "bc64ca19-16d7-4ec0-ad87-916052fb6a90")
+			(tstamps "4b86b173-d3e4-4424-8e23-e7bb857df962")
 			(units
 				(unit
 					(name "A")
@@ -5458,6 +7156,124 @@
 				(pin
 					(num "SH")
 					(name "SHIELD")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Connector_Generic")
+			(part "Conn_01x06")
+			(description "Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			(footprints
+				(fp "Connector*:*_1x??_*")
+			)
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "Conn_01x06")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description") "Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "Pin_1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "Pin_2")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "Pin_3")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "Pin_4")
+					(type "passive")
+				)
+				(pin
+					(num "5")
+					(name "Pin_5")
+					(type "passive")
+				)
+				(pin
+					(num "6")
+					(name "Pin_6")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Connector_Generic")
+			(part "Conn_01x08")
+			(description "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			(footprints
+				(fp "Connector*:*_1x??_*")
+			)
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "Conn_01x08")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description") "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "Pin_1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "Pin_2")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "Pin_3")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "Pin_4")
+					(type "passive")
+				)
+				(pin
+					(num "5")
+					(name "Pin_5")
+					(type "passive")
+				)
+				(pin
+					(num "6")
+					(name "Pin_6")
+					(type "passive")
+				)
+				(pin
+					(num "7")
+					(name "Pin_7")
+					(type "passive")
+				)
+				(pin
+					(num "8")
+					(name "Pin_8")
 					(type "passive")
 				)
 			)
@@ -6535,6 +8351,10 @@
 			(uri "${KICAD10_SYMBOL_DIR}/Connector.kicad_sym")
 		)
 		(library
+			(logical "Connector_Generic")
+			(uri "${KICAD10_SYMBOL_DIR}/Connector_Generic.kicad_sym")
+		)
+		(library
 			(logical "Connector_Generic_MountingPin")
 			(uri "${KICAD10_SYMBOL_DIR}/Connector_Generic_MountingPin.kicad_sym")
 		)
@@ -6573,22 +8393,7 @@
 			(name "+3V3")
 			(class "Supply")
 			(node
-				(ref "C27")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
 				(ref "C28")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "C37")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "C4")
 				(pin "1")
 				(pintype "passive")
 			)
@@ -6608,6 +8413,12 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "J3")
+				(pin "2")
+				(pinfunction "Pin_2_2")
+				(pintype "passive")
+			)
+			(node
 				(ref "J4")
 				(pin "15")
 				(pinfunction "Pin_15_15")
@@ -6620,9 +8431,9 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "L1")
-				(pin "1")
-				(pinfunction "1_1")
+				(ref "J5")
+				(pin "8")
+				(pinfunction "Pin_8_8")
 				(pintype "passive")
 			)
 			(node
@@ -6642,6 +8453,16 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "R24")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R25")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
 				(ref "R8")
 				(pin "1")
 				(pintype "passive")
@@ -6657,18 +8478,6 @@
 				(pin "3")
 				(pinfunction "3V3_3")
 				(pintype "power_in")
-			)
-			(node
-				(ref "U5")
-				(pin "1")
-				(pinfunction "VOUT_1")
-				(pintype "power_out")
-			)
-			(node
-				(ref "U5")
-				(pin "10")
-				(pinfunction "FB_10")
-				(pintype "input")
 			)
 		)
 		(net
@@ -6714,7 +8523,19 @@
 			(name "BOOT")
 			(class "Default")
 			(node
+				(ref "J3")
+				(pin "6")
+				(pinfunction "Pin_6_6")
+				(pintype "passive")
+			)
+			(node
 				(ref "SW6")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "TP17")
 				(pin "1")
 				(pinfunction "1_1")
 				(pintype "passive")
@@ -6945,6 +8766,12 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "TP12")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
 				(ref "U4")
 				(pin "9")
 				(pinfunction "~{CHG}_9")
@@ -6961,12 +8788,24 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "J3")
+				(pin "5")
+				(pinfunction "Pin_5_5")
+				(pintype "passive")
+			)
+			(node
 				(ref "R10")
 				(pin "2")
 				(pintype "passive")
 			)
 			(node
 				(ref "SW7")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "TP16")
 				(pin "1")
 				(pinfunction "1_1")
 				(pintype "passive")
@@ -6980,12 +8819,39 @@
 		)
 		(net
 			(code "19")
+			(name "EPD_BOOST_IN")
+			(class "Power")
+			(node
+				(ref "C27")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "L1")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R25")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "20")
 			(name "EPD_BUSY")
 			(class "Default")
 			(node
 				(ref "J4")
 				(pin "9")
 				(pinfunction "Pin_9_9")
+				(pintype "passive")
+			)
+			(node
+				(ref "J5")
+				(pin "1")
+				(pinfunction "Pin_1_1")
 				(pintype "passive")
 			)
 			(node
@@ -6996,13 +8862,19 @@
 			)
 		)
 		(net
-			(code "20")
+			(code "21")
 			(name "EPD_CS")
 			(class "Default")
 			(node
 				(ref "J4")
 				(pin "12")
 				(pinfunction "Pin_12_12")
+				(pintype "passive")
+			)
+			(node
+				(ref "J5")
+				(pin "4")
+				(pinfunction "Pin_4_4")
 				(pintype "passive")
 			)
 			(node
@@ -7013,13 +8885,19 @@
 			)
 		)
 		(net
-			(code "21")
+			(code "22")
 			(name "EPD_DC")
 			(class "Default")
 			(node
 				(ref "J4")
 				(pin "11")
 				(pinfunction "Pin_11_11")
+				(pintype "passive")
+			)
+			(node
+				(ref "J5")
+				(pin "3")
+				(pinfunction "Pin_3_3")
 				(pintype "passive")
 			)
 			(node
@@ -7030,7 +8908,7 @@
 			)
 		)
 		(net
-			(code "22")
+			(code "23")
 			(name "EPD_GDR")
 			(class "Default")
 			(node
@@ -7050,15 +8928,27 @@
 				(pin "1")
 				(pintype "passive")
 			)
+			(node
+				(ref "TP23")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
 		)
 		(net
-			(code "23")
+			(code "24")
 			(name "EPD_MOSI")
 			(class "Default")
 			(node
 				(ref "J4")
 				(pin "14")
 				(pinfunction "Pin_14_14")
+				(pintype "passive")
+			)
+			(node
+				(ref "J5")
+				(pin "6")
+				(pinfunction "Pin_6_6")
 				(pintype "passive")
 			)
 			(node
@@ -7069,7 +8959,7 @@
 			)
 		)
 		(net
-			(code "24")
+			(code "25")
 			(name "EPD_PREVGH")
 			(class "HV")
 			(node
@@ -7089,9 +8979,15 @@
 				(pinfunction "Pin_21_21")
 				(pintype "passive")
 			)
+			(node
+				(ref "TP25")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
 		)
 		(net
-			(code "25")
+			(code "26")
 			(name "EPD_PREVGL")
 			(class "HV")
 			(node
@@ -7111,9 +9007,15 @@
 				(pinfunction "Pin_23_23")
 				(pintype "passive")
 			)
+			(node
+				(ref "TP26")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
 		)
 		(net
-			(code "26")
+			(code "27")
 			(name "EPD_RESE")
 			(class "Default")
 			(node
@@ -7133,15 +9035,27 @@
 				(pin "1")
 				(pintype "passive")
 			)
+			(node
+				(ref "TP24")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
 		)
 		(net
-			(code "27")
+			(code "28")
 			(name "EPD_RST")
 			(class "Default")
 			(node
 				(ref "J4")
 				(pin "10")
 				(pinfunction "Pin_10_10")
+				(pintype "passive")
+			)
+			(node
+				(ref "J5")
+				(pin "2")
+				(pinfunction "Pin_2_2")
 				(pintype "passive")
 			)
 			(node
@@ -7152,13 +9066,19 @@
 			)
 		)
 		(net
-			(code "28")
+			(code "29")
 			(name "EPD_SCK")
 			(class "Default")
 			(node
 				(ref "J4")
 				(pin "13")
 				(pinfunction "Pin_13_13")
+				(pintype "passive")
+			)
+			(node
+				(ref "J5")
+				(pin "5")
+				(pinfunction "Pin_5_5")
 				(pintype "passive")
 			)
 			(node
@@ -7169,7 +9089,7 @@
 			)
 		)
 		(net
-			(code "29")
+			(code "30")
 			(name "EPD_SW")
 			(class "HV")
 			(node
@@ -7195,9 +9115,15 @@
 				(pinfunction "D_3")
 				(pintype "passive")
 			)
+			(node
+				(ref "TP22")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
 		)
 		(net
-			(code "30")
+			(code "31")
 			(name "EPD_VCOM")
 			(class "Default")
 			(node
@@ -7213,7 +9139,7 @@
 			)
 		)
 		(net
-			(code "31")
+			(code "32")
 			(name "EPD_VDD")
 			(class "Default")
 			(node
@@ -7229,7 +9155,7 @@
 			)
 		)
 		(net
-			(code "32")
+			(code "33")
 			(name "EPD_VSH1")
 			(class "Default")
 			(node
@@ -7243,9 +9169,15 @@
 				(pinfunction "Pin_20_20")
 				(pintype "passive")
 			)
+			(node
+				(ref "TP27")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
 		)
 		(net
-			(code "33")
+			(code "34")
 			(name "EPD_VSH2")
 			(class "Default")
 			(node
@@ -7261,7 +9193,7 @@
 			)
 		)
 		(net
-			(code "34")
+			(code "35")
 			(name "EPD_VSL")
 			(class "Default")
 			(node
@@ -7275,9 +9207,15 @@
 				(pinfunction "Pin_22_22")
 				(pintype "passive")
 			)
+			(node
+				(ref "TP28")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
 		)
 		(net
-			(code "35")
+			(code "36")
 			(name "EPD_X")
 			(class "HV")
 			(node
@@ -7299,7 +9237,7 @@
 			)
 		)
 		(net
-			(code "36")
+			(code "37")
 			(name "GND")
 			(class "Supply")
 			(node
@@ -7461,6 +9399,12 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "J3")
+				(pin "1")
+				(pinfunction "Pin_1_1")
+				(pintype "passive")
+			)
+			(node
 				(ref "J4")
 				(pin "17")
 				(pinfunction "Pin_17_17")
@@ -7476,6 +9420,12 @@
 				(ref "J4")
 				(pin "MP")
 				(pinfunction "MountPin_MP")
+				(pintype "passive")
+			)
+			(node
+				(ref "J5")
+				(pin "7")
+				(pinfunction "Pin_7_7")
 				(pintype "passive")
 			)
 			(node
@@ -7616,7 +9566,31 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "TP18")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "TP29")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
 				(ref "TP3")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "TP30")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "TP9")
 				(pin "1")
 				(pinfunction "1_1")
 				(pintype "passive")
@@ -7815,7 +9789,7 @@
 			)
 		)
 		(net
-			(code "37")
+			(code "38")
 			(name "LED_A")
 			(class "Default")
 			(node
@@ -7831,7 +9805,7 @@
 			)
 		)
 		(net
-			(code "38")
+			(code "39")
 			(name "PWR_EN")
 			(class "Default")
 			(node
@@ -7846,6 +9820,12 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "TP11")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
 				(ref "U5")
 				(pin "6")
 				(pinfunction "EN_6")
@@ -7853,7 +9833,7 @@
 			)
 		)
 		(net
-			(code "39")
+			(code "40")
 			(name "PWR_L1")
 			(class "Default")
 			(node
@@ -7870,7 +9850,7 @@
 			)
 		)
 		(net
-			(code "40")
+			(code "41")
 			(name "PWR_L2")
 			(class "Default")
 			(node
@@ -7887,9 +9867,53 @@
 			)
 		)
 		(net
-			(code "41")
+			(code "42")
+			(name "REG_3V3")
+			(class "Power")
+			(node
+				(ref "C37")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C4")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R24")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "TP10")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "1")
+				(pinfunction "VOUT_1")
+				(pintype "power_out")
+			)
+			(node
+				(ref "U5")
+				(pin "10")
+				(pinfunction "FB_10")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "43")
 			(name "RXD0")
 			(class "Default")
+			(node
+				(ref "J3")
+				(pin "4")
+				(pinfunction "Pin_4_4")
+				(pintype "passive")
+			)
 			(node
 				(ref "TP2")
 				(pin "1")
@@ -7904,9 +9928,66 @@
 			)
 		)
 		(net
-			(code "42")
+			(code "44")
+			(name "SPARE_GPIO8")
+			(class "Default")
+			(node
+				(ref "TP19")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "12")
+				(pinfunction "IO8_12")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "45")
+			(name "SPARE_GPIO14")
+			(class "Default")
+			(node
+				(ref "TP20")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "18")
+				(pinfunction "IO14_18")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "46")
+			(name "SPARE_GPIO15")
+			(class "Default")
+			(node
+				(ref "TP21")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "19")
+				(pinfunction "IO15_19")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "47")
 			(name "TXD0")
 			(class "Default")
+			(node
+				(ref "J3")
+				(pin "3")
+				(pinfunction "Pin_3_3")
+				(pintype "passive")
+			)
 			(node
 				(ref "TP1")
 				(pin "1")
@@ -7921,7 +10002,7 @@
 			)
 		)
 		(net
-			(code "43")
+			(code "48")
 			(name "USB_DN")
 			(class "Default")
 			(node
@@ -7955,7 +10036,7 @@
 			)
 		)
 		(net
-			(code "44")
+			(code "49")
 			(name "USB_DP")
 			(class "Default")
 			(node
@@ -7989,7 +10070,7 @@
 			)
 		)
 		(net
-			(code "45")
+			(code "50")
 			(name "USB_MCU_N")
 			(class "Default")
 			(node
@@ -8005,7 +10086,7 @@
 			)
 		)
 		(net
-			(code "46")
+			(code "51")
 			(name "USB_MCU_P")
 			(class "Default")
 			(node
@@ -8021,7 +10102,7 @@
 			)
 		)
 		(net
-			(code "47")
+			(code "52")
 			(name "USB_PRESENT_N")
 			(class "Default")
 			(node
@@ -8036,6 +10117,12 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "TP15")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
 				(ref "U1")
 				(pin "6")
 				(pinfunction "IO2_6")
@@ -8043,7 +10130,7 @@
 			)
 		)
 		(net
-			(code "48")
+			(code "53")
 			(name "VBAT")
 			(class "Power")
 			(node
@@ -8052,15 +10139,14 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "J2")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-			(node
 				(ref "Q4")
 				(pin "2")
 				(pinfunction "S_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R23")
+				(pin "2")
 				(pintype "passive")
 			)
 			(node
@@ -8088,7 +10174,7 @@
 			)
 		)
 		(net
-			(code "49")
+			(code "54")
 			(name "VBAT_MEAS")
 			(class "Default")
 			(node
@@ -8104,7 +10190,29 @@
 			)
 		)
 		(net
-			(code "50")
+			(code "55")
+			(name "VBAT_RAW")
+			(class "Power")
+			(node
+				(ref "J2")
+				(pin "1")
+				(pinfunction "Pin_1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R23")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "TP6")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "56")
 			(name "VBAT_SENSE")
 			(class "Default")
 			(node
@@ -8123,6 +10231,12 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "TP14")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
 				(ref "U1")
 				(pin "5")
 				(pinfunction "IO1_5")
@@ -8130,7 +10244,7 @@
 			)
 		)
 		(net
-			(code "51")
+			(code "57")
 			(name "VBUS")
 			(class "Power")
 			(node
@@ -8174,6 +10288,12 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "TP7")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
 				(ref "U4")
 				(pin "13")
 				(pinfunction "IN_13")
@@ -8187,7 +10307,7 @@
 			)
 		)
 		(net
-			(code "52")
+			(code "58")
 			(name "VOL_EN")
 			(class "Default")
 			(node
@@ -8203,7 +10323,7 @@
 			)
 		)
 		(net
-			(code "53")
+			(code "59")
 			(name "VOL_SENSE")
 			(class "Default")
 			(node
@@ -8218,6 +10338,12 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "TP13")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
 				(ref "U1")
 				(pin "8")
 				(pinfunction "IO4_8")
@@ -8225,7 +10351,7 @@
 			)
 		)
 		(net
-			(code "54")
+			(code "60")
 			(name "VOL_SUPPLY")
 			(class "Default")
 			(node
@@ -8241,7 +10367,7 @@
 			)
 		)
 		(net
-			(code "55")
+			(code "61")
 			(name "VSYS")
 			(class "Power")
 			(node
@@ -8271,6 +10397,12 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "TP8")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
 				(ref "U4")
 				(pin "10")
 				(pinfunction "OUT_10")
@@ -8296,7 +10428,7 @@
 			)
 		)
 		(net
-			(code "56")
+			(code "62")
 			(name "unconnected-(J1-SBU1-PadA8)")
 			(class "Default")
 			(node
@@ -8307,7 +10439,7 @@
 			)
 		)
 		(net
-			(code "57")
+			(code "63")
 			(name "unconnected-(J1-SBU2-PadB8)")
 			(class "Default")
 			(node
@@ -8318,7 +10450,7 @@
 			)
 		)
 		(net
-			(code "58")
+			(code "64")
 			(name "unconnected-(J4-Pin_1-Pad1)")
 			(class "Default")
 			(node
@@ -8329,7 +10461,7 @@
 			)
 		)
 		(net
-			(code "59")
+			(code "65")
 			(name "unconnected-(J4-Pin_4-Pad4)")
 			(class "Default")
 			(node
@@ -8340,7 +10472,7 @@
 			)
 		)
 		(net
-			(code "60")
+			(code "66")
 			(name "unconnected-(J4-Pin_6-Pad6)")
 			(class "Default")
 			(node
@@ -8351,7 +10483,7 @@
 			)
 		)
 		(net
-			(code "61")
+			(code "67")
 			(name "unconnected-(J4-Pin_7-Pad7)")
 			(class "Default")
 			(node
@@ -8362,7 +10494,7 @@
 			)
 		)
 		(net
-			(code "62")
+			(code "68")
 			(name "unconnected-(J4-Pin_19-Pad19)")
 			(class "Default")
 			(node
@@ -8373,7 +10505,7 @@
 			)
 		)
 		(net
-			(code "63")
+			(code "69")
 			(name "unconnected-(U1-IO3-Pad7)")
 			(class "Default")
 			(node
@@ -8384,40 +10516,7 @@
 			)
 		)
 		(net
-			(code "64")
-			(name "unconnected-(U1-IO8-Pad12)")
-			(class "Default")
-			(node
-				(ref "U1")
-				(pin "12")
-				(pinfunction "IO8_12")
-				(pintype "bidirectional+no_connect")
-			)
-		)
-		(net
-			(code "65")
-			(name "unconnected-(U1-IO14-Pad18)")
-			(class "Default")
-			(node
-				(ref "U1")
-				(pin "18")
-				(pinfunction "IO14_18")
-				(pintype "bidirectional+no_connect")
-			)
-		)
-		(net
-			(code "66")
-			(name "unconnected-(U1-IO15-Pad19)")
-			(class "Default")
-			(node
-				(ref "U1")
-				(pin "19")
-				(pinfunction "IO15_19")
-				(pintype "bidirectional+no_connect")
-			)
-		)
-		(net
-			(code "67")
+			(code "70")
 			(name "unconnected-(U1-IO26-Pad26)")
 			(class "Default")
 			(node
@@ -8428,7 +10527,7 @@
 			)
 		)
 		(net
-			(code "68")
+			(code "71")
 			(name "unconnected-(U1-IO33-Pad28)")
 			(class "Default")
 			(node
@@ -8439,7 +10538,7 @@
 			)
 		)
 		(net
-			(code "69")
+			(code "72")
 			(name "unconnected-(U1-IO34-Pad29)")
 			(class "Default")
 			(node
@@ -8450,7 +10549,7 @@
 			)
 		)
 		(net
-			(code "70")
+			(code "73")
 			(name "unconnected-(U1-IO35-Pad31)")
 			(class "Default")
 			(node
@@ -8461,7 +10560,7 @@
 			)
 		)
 		(net
-			(code "71")
+			(code "74")
 			(name "unconnected-(U1-IO36-Pad32)")
 			(class "Default")
 			(node
@@ -8472,7 +10571,7 @@
 			)
 		)
 		(net
-			(code "72")
+			(code "75")
 			(name "unconnected-(U1-IO37-Pad33)")
 			(class "Default")
 			(node
@@ -8483,7 +10582,7 @@
 			)
 		)
 		(net
-			(code "73")
+			(code "76")
 			(name "unconnected-(U1-IO38-Pad34)")
 			(class "Default")
 			(node
@@ -8494,7 +10593,7 @@
 			)
 		)
 		(net
-			(code "74")
+			(code "77")
 			(name "unconnected-(U1-IO39-Pad35)")
 			(class "Default")
 			(node
@@ -8505,7 +10604,7 @@
 			)
 		)
 		(net
-			(code "75")
+			(code "78")
 			(name "unconnected-(U1-IO40-Pad36)")
 			(class "Default")
 			(node
@@ -8516,7 +10615,7 @@
 			)
 		)
 		(net
-			(code "76")
+			(code "79")
 			(name "unconnected-(U1-IO41-Pad37)")
 			(class "Default")
 			(node
@@ -8527,7 +10626,7 @@
 			)
 		)
 		(net
-			(code "77")
+			(code "80")
 			(name "unconnected-(U1-IO42-Pad38)")
 			(class "Default")
 			(node
@@ -8538,7 +10637,7 @@
 			)
 		)
 		(net
-			(code "78")
+			(code "81")
 			(name "unconnected-(U1-IO45-Pad41)")
 			(class "Default")
 			(node
@@ -8549,7 +10648,7 @@
 			)
 		)
 		(net
-			(code "79")
+			(code "82")
 			(name "unconnected-(U1-IO46-Pad44)")
 			(class "Default")
 			(node
@@ -8560,7 +10659,7 @@
 			)
 		)
 		(net
-			(code "80")
+			(code "83")
 			(name "unconnected-(U4-ITERM-Pad15)")
 			(class "Default")
 			(node
@@ -8571,7 +10670,7 @@
 			)
 		)
 		(net
-			(code "81")
+			(code "84")
 			(name "unconnected-(U4-TMR-Pad14)")
 			(class "Default")
 			(node
@@ -8582,7 +10681,7 @@
 			)
 		)
 		(net
-			(code "82")
+			(code "85")
 			(name "unconnected-(U4-~{PGOOD}-Pad7)")
 			(class "Default")
 			(node

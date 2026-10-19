@@ -2,6 +2,7 @@
 import os
 
 from schbuilder import Lib, Schematic
+from debug_features import POINTS, PROGRAM, DISPLAY
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "kicad")
@@ -79,21 +80,21 @@ sch.add("D5", "Device:LED", "red", "LED_SMD:LED_0603_1608Metric", 170, 65,
         {"2": "LED_A", "1": "CHG_STAT"}, lcsc="C2286")
 sch.add("J2", "Connector_Generic_MountingPin:Conn_01x02_MountingPin", "LiPo 1S PROTECTED",
         "Connector_JST:JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal", 195, 50,
-        {"1": "VBAT", "2": "GND", "MP": "GND"}, lcsc="C295747", mpn="S2B-PH-SM4-TB")
+        {"1": "VBAT_RAW", "2": "GND", "MP": "GND"}, lcsc="C295747", mpn="S2B-PH-SM4-TB")
 
 # Buck-boost keeps 3.3 V regulated below the battery's 3.5 V region.
 sch.add("U5", "Regulator_Switching:TPS63031DSK", "TPS63031DSKR",
         "Package_SON:WSON-10-1EP_2.5x2.5mm_P0.5mm_EP1.2x2mm", 55, 140,
-        {"1": "+3V3", "2": "PWR_L2", "3": "GND", "4": "PWR_L1", "5": "VSYS",
-         "6": "PWR_EN", "7": "GND", "8": "VSYS", "9": "GND", "10": "+3V3", "11": "GND"},
+        {"1": "REG_3V3", "2": "PWR_L2", "3": "GND", "4": "PWR_L1", "5": "VSYS",
+         "6": "PWR_EN", "7": "GND", "8": "VSYS", "9": "GND", "10": "REG_3V3", "11": "GND"},
         lcsc="C15516", mpn="TPS63031DSKR")
 sch.add("L2", "Device:L", "2.2uH", "Inductor_SMD:L_Sunlord_SWPA4030S", 90, 135,
         {"1": "PWR_L1", "2": "PWR_L2"}, lcsc="C36409", mpn="SWPA4030S2R2MT")
 sch.add("SW8", "Switch:SW_SPDT", "POWER", "Button_Switch_SMD:SW_SPDT_Shouhan_MSK12C02",
         105, 160, {"2": "PWR_EN", "1": "VSYS", "3": "GND"}, lcsc="C431540")
 row(125, 140, [("C", "C3", "10uF", "VSYS", "GND", C0805),
-               ("C", "C4", "10uF", "+3V3", "GND", C0805),
-               ("C", "C37", "10uF", "+3V3", "GND", C0805),
+               ("C", "C4", "10uF", "REG_3V3", "GND", C0805),
+               ("C", "C37", "10uF", "REG_3V3", "GND", C0805),
                ("C", "C38", "100nF", "VSYS", "GND"),
                ("C", "C39", "10uF", "VSYS", "GND", C0805)])
 
@@ -115,7 +116,7 @@ row(120, 190, [("R", "R6", "1M", "VBAT_MEAS", "VBAT_SENSE"), ("R", "R7", "1M", "
 sch.add("Q3", "Transistor_FET:AO3400A", "AO3400A", "Package_TO_SOT_SMD:SOT-23",
         185, 190, {"1": "VBUS", "2": "GND", "3": "USB_PRESENT_N"}, lcsc="C20917")
 
-for i, n in enumerate(["GND", "VBUS"]):
+for i, n in enumerate(["GND", "VBUS", "+3V3"]):
     sch.pwr_flag(n, 30 + i * 15, 215)
 
 # ---------------------------------------------------------------- MCU
@@ -125,6 +126,7 @@ sch.add("U1", "RF_Module:ESP32-S3-MINI-1", "ESP32-S3-MINI-1-N8",
         dict({"1": "GND", "3": "+3V3", "45": "EN", "4": "BOOT",
               "5": "VBAT_SENSE", "6": "USB_PRESENT_N", "8": "VOL_SENSE", "9": "VOL_EN",
               "10": "CHG_EN1", "11": "CHG_EN2",
+              "12": "SPARE_GPIO8", "18": "SPARE_GPIO14", "19": "SPARE_GPIO15",
               "13": "BTN_MENU", "14": "BTN_PLAY", "15": "BTN_PREV", "16": "BTN_NEXT",
               "17": "BTN_SEL", "20": "EPD_SCK",
               "21": "EPD_MOSI", "22": "EPD_CS", "23": "USB_MCU_N", "24": "USB_MCU_P",
@@ -178,7 +180,7 @@ sch.add("J4", "Connector_Generic_MountingPin:Conn_01x24_MountingPin", "GDEY0213B
          "21": "EPD_PREVGH", "22": "EPD_VSL", "23": "EPD_PREVGL", "24": "EPD_VCOM",
          "MP": "GND"}, lcsc="C2856831", mpn="FPC-05FB-24PH20")
 sch.add("L1", "Device:L", "47uH", "Inductor_SMD:L_Sunlord_SWPA4030S", 120, 270,
-        {"1": "+3V3", "2": "EPD_SW"}, lcsc="C54731", mpn="SWPA4030S470MT")
+        {"1": "EPD_BOOST_IN", "2": "EPD_SW"}, lcsc="C54731", mpn="SWPA4030S470MT")
 sch.add("Q2", "Transistor_FET:AO3400A", "AO3400A", "Package_TO_SOT_SMD:SOT-23", 150, 290,
         {"1": "EPD_GDR", "3": "EPD_SW", "2": "EPD_RESE"}, lcsc="C20917")
 sch.add("D2", "Device:D_Schottky", "B5819W", "Diode_SMD:D_SOD-123", 180, 270,
@@ -189,7 +191,7 @@ sch.add("D4", "Device:D_Schottky", "B5819W", "Diode_SMD:D_SOD-123", 180, 320,
         {"2": "EPD_PREVGL", "1": "EPD_X"}, lcsc="C8598")
 row(110, 345, [("R", "R21", "1M", "EPD_GDR", "GND"), ("R", "R22", "2.2", "EPD_RESE", "GND"),
                ("C", "C26", "4.7uF 25V", "EPD_SW", "EPD_X", C0805),
-               ("C", "C27", "10uF", "+3V3", "GND", C0603), ("C", "C28", "1uF", "+3V3", "GND"),
+               ("C", "C27", "10uF", "EPD_BOOST_IN", "GND", C0603), ("C", "C28", "1uF", "+3V3", "GND"),
                ("C", "C29", "1uF", "EPD_VDD", "GND")])
 row(110, 375, [("C", "C30", "1uF 50V", "EPD_PREVGH", "GND", C0603),
                ("C", "C31", "1uF 50V", "EPD_PREVGL", "GND", C0603),
@@ -197,6 +199,23 @@ row(110, 375, [("C", "C30", "1uF 50V", "EPD_PREVGH", "GND", C0603),
                ("C", "C33", "1uF 50V", "EPD_VSH2", "GND", C0603),
                ("C", "C34", "1uF 50V", "EPD_VSL", "GND", C0603),
                ("C", "C35", "1uF 50V", "EPD_VCOM", "GND", C0603)])
+
+# Debug access and removable power-domain links. Headers are deliberately DNP.
+sch.text("Prototype debug / removable links (headers NOT FITTED)", 350, 20)
+for i,(ref,a,b) in enumerate([("R23","VBAT_RAW","VBAT"),
+                             ("R24","REG_3V3","+3V3"),
+                             ("R25","+3V3","EPD_BOOST_IN")]):
+    sch.add(ref,"Device:R","0R","Resistor_SMD:R_0805_2012Metric",360+i*45,40,
+            {"1":a,"2":b},lcsc="C17477",mpn="0805W8F0000T5E")
+for ref,pins,y in [("J3",PROGRAM,80),("J5",DISPLAY,125)]:
+    sch.add(ref,"Connector_Generic:Conn_01x%02d"%len(pins),
+            "UART MANUAL DNP" if ref=="J3" else "DESPI-C02 DNP",
+            "Connector_PinHeader_2.54mm:PinHeader_1x%02d_P2.54mm_Vertical"%len(pins),
+            375,y,{str(i+1):n for i,n in enumerate(pins)},dnp=True)
+for i,(ref,(net,x,y,diameter)) in enumerate(POINTS.items()):
+    fp=("eink-pod:Probe_D0.6mm" if diameter==0.6 else
+        "TestPoint:TestPoint_Pad_D%.1fmm"%diameter)
+    sch.add(ref,"Connector:TestPoint",net,fp,350+(i%4)*55,190+(i//4)*22,{"1":net})
 
 os.makedirs(OUT, exist_ok=True)
 sch.save(os.path.join(OUT, "eink-pod.kicad_sch"))
