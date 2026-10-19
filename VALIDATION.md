@@ -29,7 +29,8 @@ checks in `MECHANICAL.md`, `fab/README.md` and `BRINGUP.md`. Select epoxy-filled
 copper-capped vias for assembly. Firmware has not been implemented.
 
 Revision E also verifies DNP header attributes and pinouts, the three spare GPIOs,
-short local boost-probe connections, and that tracks, pads and vias clear the
+short local boost-probe connections, at least 0.5 mm from J3/J5 header pads to
+any battery, USB or system power copper, and that tracks, pads and vias clear the
 4.5 mm mounting heads. The PCB outline remains 42 × 98 mm. J3/J5 and all test
 pads are absent from the assembly BOM/CPL; the three links are present.
 

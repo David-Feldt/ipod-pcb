@@ -6,6 +6,7 @@ C6 to MCU supply pad: 4.42 mm
 C9 to MCU supply pad: 4.16 mm
 PASS: power-path topology, default USB100 straps, buck-boost, wheel range, panel pinout and geometry
 PASS: no signal copper under 4.5 mm mounting heads
+PASS: power nets clear J3/J5 header pads by 0.85 mm
 USB_DP: 68.12 mm total copper, 2 vias
 USB_DN: 64.94 mm total copper, 2 vias
 USB_MCU_P: 2.41 mm total copper, 0 vias

@@ -186,6 +186,27 @@ def verify():
             if v["net"] != "GND":
                 assert math.dist(center,v["pos"])>=2.55,(ref,v["net"],"via under screw head")
     print("PASS: no signal copper under 4.5 mm mounting heads")
+    # Hand-soldered debug headers: a bridge must not reach battery/system power.
+    power = {"VBUS", "VSYS", "VBAT", "VBAT_RAW", "REG_3V3", "EPD_BOOST_IN"}
+    def rect_distance(p, r):
+        return math.hypot(max(r[0]-p[0], 0, p[0]-r[2]), max(r[1]-p[1], 0, p[1]-r[3]))
+    header_gaps = []
+    for ref in ("J3", "J5"):
+        for p in fps[ref].Pads():
+            bb = p.GetBoundingBox()
+            r = (P.ToMM(bb.GetLeft()), P.ToMM(bb.GetTop()), P.ToMM(bb.GetRight()), P.ToMM(bb.GetBottom()))
+            for t in actual_tracks:
+                if t["net"] in power:
+                    a, b = t["start"], t["end"]
+                    n = max(1, int(math.dist(a, b) / 0.02))
+                    d = min(rect_distance((a[0]+(b[0]-a[0])*i/n, a[1]+(b[1]-a[1])*i/n), r)
+                            for i in range(n+1)) - P.ToMM(t["width"])/2
+                    assert d >= 0.5, (ref, p.GetNumber(), t["net"], "power track beside header", d)
+                    header_gaps.append(d)
+            for v in actual_vias:
+                if v["net"] in power:
+                    assert rect_distance(v["pos"], r) - 0.3 >= 0.5, (ref, p.GetNumber(), v["net"], "power via beside header")
+    print("PASS: power nets clear J3/J5 header pads by %.2f mm" % min(header_gaps))
     # No extra branches on the USB data nets; two layer changes per wire.
     for net in ["USB_DP", "USB_DN", "USB_MCU_P", "USB_MCU_N"]:
         actual_len = sum(t["length"] for t in actual_tracks if t["net"] == net)

@@ -5,8 +5,9 @@ not prove an assembled board works. Validate one assembly before a larger batch.
 
 1. Confirm R23/R24/R25 are fitted and J3/J5 are unpopulated. Inspect U4/U5 pin 1, J4 orientation, Q2–Q5, USB-C, LED polarity, wheel seating
    and the filled/capped thermal pads. Compare `fab/assembly-pin1.csv` and drawings.
-2. With no power, check for hard shorts on VBUS, VBAT, VSYS and 3V3. J2 pin 1 is
-   positive, pin 2 is ground. Check the actual battery lead with a meter before
+2. With no power, check for hard shorts on VBUS, VBAT_RAW, VBAT, VSYS, REG_3V3,
+   3V3 and EPD_BOOST_IN, and that each of R23/R24/R25 reads near 0 ohms across its
+   pads. J2 pin 1 is positive, pin 2 is ground. Check the actual battery lead with a meter before
    plugging it in; JST housings alone do not establish polarity.
 3. Start with a current-limited bench source at J2, 3.8 V and 100 mA, USB absent,
    switch OFF. Verify no sustained 3V3 output. Increase the current limit to 1 A

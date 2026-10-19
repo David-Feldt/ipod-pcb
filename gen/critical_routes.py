@@ -110,7 +110,8 @@ def route_critical(board, collect=None):
     # Complete VSYS explicitly. Leaving branches of this protected power network
     # to Freerouting can trigger exponential cycle cleanup in version 2.4.1.
     wire("VSYS", [xy("C3", 1), (31,80.55), (31,81.5), (36,81.5), (36,75.75), xy("SW8", 1)], width=0.4)
-    wire("VSYS", [(31,81.5), (31,83.5), (30.65,83.85), (30.65,89.5), (29,91.5)], width=0.4)
+    # Pass outside the J3 header row: hand-fitted pins must not sit beside VSYS.
+    wire("VSYS", [(36,81.5), (39.4,84.9), (39.4,89.8), (30.7,89.8), (29,91.5)], width=0.4)
     via("VSYS", (29,91.5))
     wire("VSYS", [(29,91.5), xy("R4", 1)], P.F_Cu, 0.4)
 
@@ -118,6 +119,13 @@ def route_critical(board, collect=None):
     wire("EPD_SW", [xy("L1", 2), xy("Q2", 3), (13.35, 12), xy("D2", 2)], width=0.3)
     wire("EPD_SW", [xy("Q2", 3), (12.15, 12.5625), (12.15, 14.8), (8.75, 14.8), xy("C26", 1)], width=0.3)
     wire("EPD_RESE", [xy("Q2", 2), (9.7125, 9.2225), xy("R22", 1)], width=0.25)
+    # Sense return to the panel; Freerouting cannot reliably find this channel.
+    wire("EPD_RESE", [xy("R22", 1), (9.69, 9.1015), (12.1707, 6.6208), (24.1822, 6.6208),
+                      (25.5993, 8.0379)], width=0.2)
+    via("EPD_RESE", (25.5993, 8.0379))
+    wire("EPD_RESE", [(25.5993, 8.0379), (25.5993, 9.8622)], P.F_Cu, 0.2)
+    via("EPD_RESE", (25.5993, 9.8622))
+    wire("EPD_RESE", [(25.5993, 9.8622), (25.9054, 10.1683), xy("J4", 3)], width=0.2)
     wire("EPD_BOOST_IN", [xy("L1", 1), (2.8, 13.9), xy("C27", 1)], width=0.4)
     wire("EPD_X", [xy("C26", 2), (10.65, 17.3), (8.95, 19), xy("D3", 2), xy("D4", 1)], width=0.3)
     wire("EPD_PREVGH", [xy("D2", 1), (15.3, 16.15), (15.425, 16.275), xy("C30", 1)], width=0.3)
@@ -129,6 +137,10 @@ def route_critical(board, collect=None):
     wire("VBAT_RAW", [xy("J2",1),xy("R23",1)], width=0.4)
     wire("VBAT_RAW", [xy("R23",1),xy("TP6",1)], width=0.4)
     wire("VBAT", [xy("R23",2),xy("TP5",1)], width=0.4)
+    # Battery feed to the sense switch runs below and outside J5, not between its pins.
+    wire("VBAT", [xy("C2",1), (10.8,75.75), (10.8,69.3), (10,68.5), (1.9,68.5), (1.1,67.7),
+                  (1.1,37.66), (3.11,35.66), (5.15,35.66), xy("R9",1)], width=0.4)
+    wire("VBAT", [(3.11,35.66), (2.75,35.3), (2.75,32), (4.2,30.55), xy("Q4",2)], width=0.4)
     wire("REG_3V3", [xy("C37",1),xy("R24",1)], width=0.4)
     wire("REG_3V3", [xy("R24",1),(24.5,75.45),(24.5,73),xy("TP10",1)], width=0.3)
     wire("EPD_BOOST_IN", [xy("R25",2),(2.8,12),xy("L1",1)], width=0.4)

@@ -387,8 +387,9 @@ def main():
     text(board, P.B_SilkS, "E-INK REMOTE rev E", 18, 56.5, 1.0, mirror=True, bold=True)
     text(board, P.B_SilkS, "BOOT", 26, 45.3, 0.8, mirror=True)
     text(board, P.B_SilkS, "RST", 33, 47.8, 0.8, mirror=True)
-    text(board, P.B_SilkS, "+", 5.8, 77.5, 1.0, mirror=True, bold=True)
-    text(board, P.B_SilkS, "-", 7.8, 77.5, 1.0, mirror=True, bold=True)
+    # Battery polarity beside J2's signal pads; "-" sits left of TP5.
+    text(board, P.B_SilkS, "+", 5.8, 90.4, 1.0, mirror=True, bold=True)
+    text(board, P.B_SilkS, "-", 7.3, 90.4, 1.0, mirror=True, bold=True)
     text(board, P.B_SilkS, "TX RX G 3V3", 12, 48, 0.8, mirror=True)
     text(board, P.B_SilkS, "ON/OFF", 37.5, 72.8, 0.8, mirror=True)
     text(board, P.B_SilkS, "VOL", 31, 53.5, 0.8, mirror=True)
