@@ -17,6 +17,18 @@ nominals, not measurements of purchased parts. Print `fab/mechanical.svg` at 100
 | Hole centers | (3.5,3.5), (38.5,3.5), (3.5,94.5), (38.5,94.5) |
 | Hole diameter | 2.7 NPTH, M2.5 screws |
 | Top screw head/boss diameter | maximum 4.5; 0.65 nominal glass clearance |
+| Button center pitch | 10.00 from the center button in all four directions |
+| Glass to front component courtyard | 4.05 minimum |
+| Glass to front copper land | 0.80 minimum (wheel mounting slot) |
+| Glass to antenna keepout | 1.85 minimum |
+| Wheel courtyard to antenna keepout | 1.50 minimum |
+
+`gen/verify_spacing.py` measures these clearances on the routed board and runs
+as part of `gen/verify_board.py`. It explicitly checks the display's fabrication
+outline because the padless display model has no courtyard. It requires at least
+0.25 mm from the glass to front component courtyards and front copper lands,
+and preserves the mounting-head and antenna margins above. These checks use
+nominal two-dimensional envelopes; they do not validate enclosure or flex height.
 
 The Good Display page-7 drawing is rotated clockwise so the tail exits at the
 PCB top. Its cable edge is 8.15 mm from the glass's right side in this orientation;

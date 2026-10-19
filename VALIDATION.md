@@ -10,6 +10,7 @@ Validated 2026-10-18 against the final routed PCB and generated schematic.
 | Generator / routed-board geometry and text | Match within 0.001 mm |
 | Schematic / PCB parity | 0 differences |
 | Critical circuit, isolation links and geometry verification | PASS |
+| Display spacing, 10 mm button pitch, mounting heads and antenna margins | PASS |
 | BOM / placement consistency | 74 assembled components, all with LCSC IDs |
 
 The full DRC report contains two footprint-library mismatch warnings. U1 and
@@ -31,3 +32,12 @@ Revision E also verifies DNP header attributes and pinouts, the three spare GPIO
 short local boost-probe connections, and that tracks, pads and vias clear the
 4.5 mm mounting heads. The PCB outline remains 42 × 98 mm. J3/J5 and all test
 pads are absent from the assembly BOM/CPL; the three links are present.
+
+Spacing was rechecked against the routed board with zone refill and full DRC.
+No copper, courtyard or silkscreen spacing violations were found under the
+configured rules (0.15 mm global copper clearance, 0.30 mm copper-to-edge,
+0.25 mm hole clearance). The silkscreen rule checks overlap with a 0 mm minimum;
+this does not certify a fabricator-specific silkscreen margin. Explicit display
+checks now cover its missing courtyard: the minimum glass gaps are 4.05 mm to
+front component courtyards, 0.80 mm to front lands and 0.65 mm to 4.5 mm mounting
+heads. See `MECHANICAL.md` for the nominal dimensions and physical fit limits.

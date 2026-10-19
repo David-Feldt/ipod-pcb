@@ -9,6 +9,7 @@ import pcbnew as P
 from debug_features import POINTS, PROGRAM, DISPLAY, PROBE_ANCHORS
 
 from critical_routes import route_critical
+from verify_spacing import verify_spacing
 
 PCB = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "kicad", "eink-pod.kicad_pcb"))
 
@@ -20,6 +21,7 @@ def point(p):
 def verify():
     board = P.LoadBoard(PCB)
     fps = {f.GetReference(): f for f in board.GetFootprints()}
+    verify_spacing(board)
 
     def pad(ref, number):
         return next(p for p in fps[ref].Pads() if p.GetNumber() == str(number))

@@ -1,3 +1,5 @@
+PASS: 10 mm button pitch; glass gaps: 4.05 mm to front courtyards, 0.80 mm to front lands, 0.65 mm to 4.5 mm mounting heads
+PASS: glass and wheel courtyard clear antenna keepout by at least 1.85 / 1.50 mm
 PASS: power isolation boundaries, manual UART/header pinouts, DNP headers, local boost probes and spare GPIOs
 C7 to MCU supply pad: 1.62 mm
 C6 to MCU supply pad: 4.42 mm
