@@ -12,14 +12,15 @@ in git. See `DESIGN.md` for the GPIO map, power architecture and revision notes.
 
 The central repository is https://github.com/David-Feldt/ipod-pcb. Use one local
 checkout named `ipod-pcb`, with `origin` pointing to that GitHub repository.
-The current 2.13-inch design lives on `portrait-2.13`, tracking
-`origin/portrait-2.13`. The older 1.54-inch design remains on `main` and at the
-`v1-1.54in` tag. Separate local folders are not needed for each screen size.
+The current 2.13-inch design lives on `main`, tracking `origin/main`.
+The older 1.54-inch design is preserved at the `v1-1.54in` tag.
+The `portrait-2.13` branch is retained as the development history of the
+2.13-inch revision. Separate local folders are not needed for each screen size.
 
 For a new checkout:
 
 ```sh
-git clone --branch portrait-2.13 https://github.com/David-Feldt/ipod-pcb.git
+git clone --branch main https://github.com/David-Feldt/ipod-pcb.git
 cd ipod-pcb
 ```
 
