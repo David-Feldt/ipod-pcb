@@ -64,6 +64,10 @@ def route_critical(board, collect=None):
     # supply on F.Cu. The data routes otherwise enclose this pad on B.Cu.
     wire("VBUS", [xy("U6", 5), (17, 88.1)], width=0.3)
     via("VBUS", (17, 88.1))
+    # Opposite U6: bypass its rail locally instead of through the charger feed.
+    wire("VBUS", [(17, 88.1), xy("C40", 1)], P.F_Cu, 0.3)
+    wire("GND", [xy("C40", 2), (17, 86)], P.F_Cu, 0.3)
+    via("GND", (17, 86))
     via("VBUS", (19.45, 88.8))
     wire("VBUS", [(17, 88.1), (18.75, 88.1), (19.45, 88.8)], P.F_Cu, 0.4)
     wire("VBUS", [(19.45, 88.8), xy("J1", "A4")], width=0.3)

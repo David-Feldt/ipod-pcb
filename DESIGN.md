@@ -47,6 +47,13 @@ are deliberately DNP. TP6–TP30 provide additional power, sensing, local boost
 and spare GPIO access. GPIO8/14/15 now end at TP19/TP20/TP21; GPIO6/7 remain
 charger controls. See `DEBUG.md` for procedures, pinouts and limitations.
 
+The review follow-up gives TP1–TP4 individual back-side TX/RX/G/3V3 labels
+aligned to their pads. C40 is a 100 nF front-side bypass opposite U6's VBUS
+pin, connected by a short fixed route through the existing VBUS via and a local
+ground via. A via-only keepout protects the long USB pair's inner ground
+reference from unrelated via antipads. Verification samples the filled ground
+at both trace edges and the center, with only local USB via antipads exempted.
+
 The board outline, display and wheel positions, mounting holes, and existing
 buttons remain unchanged. Additional through-hole debug connectors fit outside
 the display glass projection; leave them unpopulated for normal assembly.

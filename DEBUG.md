@@ -3,7 +3,7 @@
 The board remains 42 × 98 mm. J3/J5 are unpopulated 2.54 mm through-hole
 footprints, excluded from JLC BOM and placement files. Their holes can be used
 for temporary wires, probes or hand-fitted headers. Fit headers on the back.
-The only additional assembled components are R23/R24/R25: three 0805 zero-ohm
+The additional debug components are R23/R24/R25: three 0805 zero-ohm
 links, UNI-ROYAL 0805W8F0000T5E, LCSC C17477.
 
 See `fab/debug-map.svg` for a mirrored back view and `fab/debug-access.csv` for
@@ -16,6 +16,8 @@ J3 pin order: 1 GND, 2 3V3, 3 TXD0 (board output), 4 RXD0 (board input),
 not a generic FTDI cable pinout and not a DTR/RTS auto-reset interface.
 
 Use a 3.3 V logic USB-UART adapter; connect adapter RX to board TX and vice versa.
+The original test pads provide TP1/TX = TXD0, TP2/RX = RXD0, TP3/G = ground,
+and TP4/3V3 = the system supply. Each now has its own aligned silkscreen label.
 Use board battery power, or a suitable external 3.3 V supply with R24 removed.
 Leave adapter power disconnected when the board is already powered. A small
 USB-UART adapter's 3.3 V output is not assumed capable of supplying Wi-Fi peaks.

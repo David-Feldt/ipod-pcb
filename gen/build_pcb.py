@@ -35,6 +35,7 @@ PLACE = {
     "SW1": (21, 65, 0, "F"), "SW5": (21, 75, 0, "F"), "SW2": (21, 85, 0, "F"),
     "SW3": (11, 75, 0, "F"), "SW4": (31, 75, 0, "F"),
     "D5": (31, 95.5, 0, "F"), "R4": (31, 93, 0, "F"),
+    "C40": (17, 87.2, 90, "F"),
 
     # back, top band: e-paper connector + boost
     "J4": (21.2, 9.4, 0, "B"), "L1": (6.2, 12, 0, "B"),
@@ -363,6 +364,22 @@ def main():
     zone(board, nets["GND"], P.In1_Cu)
     zone(board, nets["+3V3"], P.In2_Cu)
 
+    # Keep unrelated via antipads away from the long USB pair's reference copper.
+    # Only vias are prohibited; signals on the outer layers and plane fills remain allowed.
+    usb_reference = P.ZONE(board)
+    usb_reference.SetLayer(P.In1_Cu)
+    usb_reference.SetIsRuleArea(True)
+    usb_reference.SetDoNotAllowVias(True)
+    usb_reference.SetDoNotAllowTracks(False)
+    usb_reference.SetDoNotAllowPads(False)
+    usb_reference.SetDoNotAllowZoneFills(False)
+    usb_reference.SetDoNotAllowFootprints(False)
+    ol = usb_reference.Outline()
+    ol.NewOutline()
+    for x, y in [(15.8, 32.3), (17.5, 32.3), (17.5, 82.7), (15.8, 82.7)]:
+        ol.Append(P.FromMM(OX + x), P.FromMM(OY + y))
+    board.Add(usb_reference)
+
     # display outline (front): GDEY0213B74 29.2 x 59.2, tail edge at top
     px0, px1, py1 = PANEL_CX - PANEL_W / 2, PANEL_CX + PANEL_W / 2, PANEL_H
     for layer in (P.Dwgs_User,):
@@ -390,7 +407,9 @@ def main():
     # Battery polarity beside J2's signal pads; "-" sits left of TP5.
     text(board, P.B_SilkS, "+", 5.8, 90.4, 1.0, mirror=True, bold=True)
     text(board, P.B_SilkS, "-", 7.3, 90.4, 1.0, mirror=True, bold=True)
-    text(board, P.B_SilkS, "TX RX G 3V3", 12, 48, 0.8, mirror=True)
+    for ref, label in [("TP1", "TX"), ("TP2", "RX"), ("TP3", "G"), ("TP4", "3V3")]:
+        x, y, _, _ = PLACE[ref]
+        text(board, P.B_SilkS, label, x, y - 1.3, 0.8, mirror=True)
     text(board, P.B_SilkS, "ON/OFF", 37.5, 72.8, 0.8, mirror=True)
     text(board, P.B_SilkS, "VOL", 31, 53.5, 0.8, mirror=True)
 

@@ -12,7 +12,8 @@ silkscreen, board outline and drill files. Do not order from stale exports.
   0.15 mm edge gap on the long parallel section, 0.15 mm short connector
   neckdowns. Outer GND pours use 0.25 mm clearance. Impedance must be confirmed
   by the fabricator; the routing geometry is not a measured certification.
-- Both-side assembly unless the seven front components are hand-soldered.
+- Both-side assembly unless the eight front components are hand-soldered
+  (SW1–SW5, D5, R4 and C40). C40 is the local USB ESD bypass and must be fitted.
 - BQ24074 power-path charger, TPS63031 buck-boost, 223 mA nominal charge current.
 - Select epoxy-filled and copper-capped vias. Thermal pads contain vias; ordinary
   tenting is not sufficient for the specified assembly.

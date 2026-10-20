@@ -23,7 +23,10 @@ not prove an assembled board works. Validate one assembly before a larger batch.
    a battery using a bench supply as a substitute cell that cannot sink current.
 6. Test USB flashing in both cable orientations. Hold BOOT, tap RESET, release
    BOOT for ROM recovery. Native USB is GPIO19/20; UART fallback is TP1/TP2 with
-   TP3 ground, using 3.3 V logic only.
+   TP3 ground, using 3.3 V logic only. TP1/TX is the board's TXD0 (connect to
+   adapter RX); TP2/RX is the board's RXD0 (connect to adapter TX). TP4/3V3 is a
+   power rail, not a UART signal; leave the adapter's power output disconnected
+   when the board is powered from USB or battery.
 7. Fit the panel with power OFF and pin 1 aligned per `MECHANICAL.md`. Use a
    GDEY0213B74/SSD1680 driver with the pin map in `DESIGN.md`; perform full black,
    white and checkerboard refreshes. Check BUSY returns and boost voltages match

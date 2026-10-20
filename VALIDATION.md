@@ -1,6 +1,6 @@
 # Revision E validation
 
-Validated 2026-10-18 against the final routed PCB and generated schematic.
+Validated 2026-10-19 against the final routed PCB and generated schematic.
 
 | Check | Result |
 |---|---|
@@ -11,7 +11,10 @@ Validated 2026-10-18 against the final routed PCB and generated schematic.
 | Schematic / PCB parity | 0 differences |
 | Critical circuit, isolation links and geometry verification | PASS |
 | Display spacing, 10 mm button pitch, mounting heads and antenna margins | PASS |
-| BOM / placement consistency | 74 assembled components, all with LCSC IDs |
+| Individual TP1–TP4 UART silkscreen labels and pad nets | PASS |
+| Local C40 USB ESD bypass and protected routes | PASS |
+| Filled ground under USB centers and edges | 6594 samples pass |
+| BOM / placement consistency | 75 assembled components, all with LCSC IDs |
 
 The full DRC report contains two footprint-library mismatch warnings. U1 and
 J1 have overhanging silkscreen outline segments moved to the fabrication layer
@@ -42,3 +45,15 @@ this does not certify a fabricator-specific silkscreen margin. Explicit display
 checks now cover its missing courtyard: the minimum glass gaps are 4.05 mm to
 front component courtyards, 0.80 mm to front lands and 0.65 mm to 4.5 mm mounting
 heads. See `MECHANICAL.md` for the nominal dimensions and physical fit limits.
+
+The October 19 review follow-up replaces the reversed combined UART legend with
+individual mirrored labels above TP1–TP4. C40 adds 100 nF of local VBUS bypassing
+opposite U6; its fixed planar supply path is about 1.38 mm through one via,
+with a separate local ground via. This is a layout improvement, not an ESD test.
+
+The USB reference check now samples actual filled In1.GND at the trace center
+and both edges every 0.05 mm. Only the 0.60 mm radius around that signal's own
+transition vias is exempt, to allow their antipads. The stronger check exposed
+a small EPD_MOSI via antipad intrusion beneath a USB trace edge on the previous
+board. A via-only keepout now protects the long trunk. This sampling verifies
+copper coverage; it does not calculate impedance or certify USB signal integrity.

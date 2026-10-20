@@ -1,6 +1,8 @@
 PASS: 10 mm button pitch; glass gaps: 4.05 mm to front courtyards, 0.80 mm to front lands, 0.65 mm to 4.5 mm mounting heads
 PASS: glass and wheel courtyard clear antenna keepout by at least 1.85 / 1.50 mm
+PASS: TP1–TP4 have individual mirrored TX/RX/G/3V3 labels aligned to their pads
 PASS: power isolation boundaries, manual UART/header pinouts, DNP headers, local boost probes and spare GPIOs
+PASS: 100 nF C40 bypass sits opposite U6; local supply/ground routes are protected
 C7 to MCU supply pad: 1.62 mm
 C6 to MCU supply pad: 4.42 mm
 C9 to MCU supply pad: 4.16 mm
@@ -11,4 +13,5 @@ USB_DP: 68.12 mm total copper, 2 vias
 USB_DN: 64.94 mm total copper, 2 vias
 USB_MCU_P: 2.41 mm total copper, 0 vias
 USB_MCU_N: 2.35 mm total copper, 0 vias
+PASS: filled In1.GND covers USB centers/edges at 6594 samples, excluding local via antipads
 PASS: sense isolation, capacitor placement, fixed routes, USB branches/vias, ground reference

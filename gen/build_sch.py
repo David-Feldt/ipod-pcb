@@ -56,6 +56,8 @@ sch.add("U6", "Power_Protection:USBLC6-2SC6", "USBLC6-2SC6",
         "Package_TO_SOT_SMD:SOT-23-6", 90, 60,
         {"1": "USB_DP", "6": "USB_DP", "3": "USB_DN", "4": "USB_DN",
          "2": "GND", "5": "VBUS"}, lcsc="C7519")
+# Local ESD rail bypass, mounted opposite U6 near its VBUS escape via.
+C("C40", "100nF", "VBUS", "GND", 100, 95)
 
 # Integrated power path: USB input is limited independently of charge current.
 # Reset defaults to USB100. Firmware may select USB500 only after enumeration.

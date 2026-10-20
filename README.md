@@ -73,7 +73,7 @@ and confirm it with the fabricator for the actual stackup and copper pours.
 DRC does not verify impedance. See `fab/README.md` for ordering notes.
 
 Assembly is on both sides. To use bottom-side assembly only, hand-solder
-SW1–SW5, D5 and R4 on the front. Check every assembly rotation, especially the
+SW1–SW5, D5, R4 and C40 on the front. Check every assembly rotation, especially the
 MOSFETs, USB-C connector, FPC connector and slide switch, in the assembler's
 preview. DS1 is a mechanical display model and is excluded from assembly files.
 Use `fab/assembly-pin1.csv` and the assembly maps to check pin orientation;

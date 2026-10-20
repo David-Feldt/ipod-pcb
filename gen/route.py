@@ -28,7 +28,9 @@ def stitch(board, gnd, step=2.5, keep=0.55):
     for z in board.Zones():
         if z.GetNetname() == "GND" and z.GetLayer() in (P.F_Cu, P.B_Cu) and not z.GetIsRuleArea():
             fills[z.GetLayer()] = z.GetFilledPolysList(z.GetLayer())
-    keepouts = [z for fp in board.GetFootprints() for z in fp.Zones() if z.GetIsRuleArea()]
+    keepouts = [z for z in board.Zones() if z.GetIsRuleArea() and z.GetDoNotAllowVias()]
+    keepouts += [z for fp in board.GetFootprints() for z in fp.Zones()
+                 if z.GetIsRuleArea() and z.GetDoNotAllowVias()]
     vias = [(P.ToMM(v.GetPosition().x), P.ToMM(v.GetPosition().y))
             for v in board.GetTracks() if v.GetClass() == "PCB_VIA"]
     holes = [(P.ToMM(pd.GetPosition().x), P.ToMM(pd.GetPosition().y))

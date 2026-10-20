@@ -18,16 +18,73 @@ def point(p):
     return (P.ToMM(p.x), P.ToMM(p.y))
 
 
+def verify_uart_labels(board):
+    fps = {f.GetReference(): f for f in board.GetFootprints()}
+    labels = [t for t in board.GetDrawings() if isinstance(t, P.PCB_TEXT)]
+    assert not any(t.GetText() == "TX RX G 3V3" for t in labels), "Reversed combined UART label"
+    for ref, net, label in [("TP1", "TXD0", "TX"), ("TP2", "RXD0", "RX"),
+                            ("TP3", "GND", "G"), ("TP4", "+3V3", "3V3")]:
+        p = next(iter(fps[ref].Pads()))
+        assert p.GetNetname() == net, (ref, "UART pad net")
+        x, y = point(p.GetPosition())
+        matches = [t for t in labels if t.GetLayer() == P.B_SilkS
+                   and math.dist(point(t.GetPosition()), (x, y - 1.3)) < 0.001]
+        assert len(matches) == 1 and matches[0].GetText() == label and matches[0].IsMirrored(), \
+            (ref, "missing, incorrect or unmirrored UART label")
+    print("PASS: TP1–TP4 have individual mirrored TX/RX/G/3V3 labels aligned to their pads")
+
+
+def verify_usb_reference(board):
+    """Sample filled In1 ground beneath the USB trace center and both edges.
+
+    Resolution is 0.05 mm along each segment. Only the immediate 0.60 mm
+    radius around each signal's own transition vias is exempt (antipads).
+    This checks copper coverage, not impedance or high-frequency return loss.
+    """
+    tracks = list(board.GetTracks())
+    assert not any(not isinstance(t, P.PCB_VIA) and t.GetLayer() == P.In1_Cu
+                   for t in tracks), "Signal routing in ground plane"
+    fills = [z.GetFilledPolysList(P.In1_Cu) for z in board.Zones()
+             if not z.GetIsRuleArea() and z.GetLayer() == P.In1_Cu and z.GetNetname() == "GND"]
+    assert fills and any(f.OutlineCount() for f in fills), "Missing filled ground plane"
+    checked = 0
+    for net in ("USB_DP", "USB_DN"):
+        vias = [point(t.GetPosition()) for t in tracks
+                if isinstance(t, P.PCB_VIA) and t.GetNetname() == net]
+        segments = [t for t in tracks if not isinstance(t, P.PCB_VIA)
+                    and t.GetLayer() == P.F_Cu and t.GetNetname() == net]
+        assert segments, (net, "missing front USB trunk")
+        for t in segments:
+            a, b = point(t.GetStart()), point(t.GetEnd())
+            length = math.dist(a, b)
+            if length == 0:
+                continue
+            nx, ny = -(b[1] - a[1]) / length, (b[0] - a[0]) / length
+            steps = max(1, math.ceil(length / 0.05))
+            for i in range(steps + 1):
+                for offset in (-P.ToMM(t.GetWidth()) / 2, 0, P.ToMM(t.GetWidth()) / 2):
+                    q = (a[0] + (b[0] - a[0]) * i / steps + nx * offset,
+                         a[1] + (b[1] - a[1]) * i / steps + ny * offset)
+                    if any(math.dist(q, v) <= 0.60 for v in vias):
+                        continue
+                    assert any(f.Contains(P.VECTOR2I_MM(*q)) for f in fills), \
+                        (net, "ground-plane void beneath USB", q)
+                    checked += 1
+    print("PASS: filled In1.GND covers USB centers/edges at %d samples, excluding local via antipads" % checked)
+
+
 def verify():
     board = P.LoadBoard(PCB)
     fps = {f.GetReference(): f for f in board.GetFootprints()}
     verify_spacing(board)
+    verify_uart_labels(board)
 
     def pad(ref, number):
         return next(p for p in fps[ref].Pads() if p.GetNumber() == str(number))
 
     # Body-diode orientation and domain boundaries are intentional.
     expected_nets = {
+        "C40": {1: "VBUS", 2: "GND"},
         "Q3": {1: "VBUS", 2: "GND", 3: "USB_PRESENT_N"},
         "Q4": {1: "BAT_SENSE_GATE", 2: "VBAT", 3: "VBAT_MEAS"},
         "Q5": {1: "+3V3", 2: "GND", 3: "BAT_SENSE_GATE"},
@@ -97,8 +154,11 @@ def verify():
         for num, net in pins.items():
             assert pad(ref, num).GetNetname() == net, (ref, num, net)
     for ref, value in {"R6": "1M", "R7": "1M", "R8": "100k", "R9": "1M",
-                       "R11": "1M", "R12": "22", "R13": "22", "C5": "100nF"}.items():
+                       "R11": "1M", "R12": "22", "R13": "22", "C5": "100nF", "C40": "100nF"}.items():
         assert fps[ref].GetValue() == value, (ref, value)
+    assert math.dist(point(pad("U6", 5).GetPosition()), point(pad("C40", 1).GetPosition())) < 1.0
+    assert fps["C40"].GetLayer() == P.F_Cu, "ESD bypass must stay opposite U6"
+    print("PASS: 100 nF C40 bypass sits opposite U6; local supply/ground routes are protected")
     for ref, limit in [("C7", 2.0), ("C6", 5.0), ("C9", 5.0)]:
         distance = math.dist(point(pad("U1", 3).GetPosition()), point(pad(ref, 1).GetPosition()))
         assert distance <= limit, (ref, distance, limit)
@@ -215,9 +275,7 @@ def verify():
         nv = sum(v["net"] == net for v in actual_vias)
         assert nv == (2 if net in ("USB_DP", "USB_DN") else 0), (net, nv)
         print("%s: %.2f mm total copper, %d vias" % (net, actual_len, nv))
-    # The USB trunk references an unbroken ground plane, not inner signal tracks.
-    assert not any(t["layer"] == P.In1_Cu for t in actual_tracks), "Signal routing in ground plane"
-    assert any(z.GetLayer() == P.In1_Cu and z.GetNetname() == "GND" for z in board.Zones())
+    verify_usb_reference(board)
     print("PASS: sense isolation, capacitor placement, fixed routes, USB branches/vias, ground reference")
 
 

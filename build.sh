@@ -19,6 +19,7 @@ python3 gen/build_sch.py
 "$KC" pcb drc --severity-all --schematic-parity -o kicad/drc-all.rpt kicad/eink-pod.kicad_pcb
 "$KPY" -u gen/verify_board.py > kicad/verification.txt
 cat kicad/verification.txt
+"$KPY" -B gen/test_review_checks.py
 python3 gen/fab.py
 "$KPY" gen/release.py
 echo "OK: ERC + electrical DRC clean; see drc-all.rpt for warnings. Outputs in fab/"
