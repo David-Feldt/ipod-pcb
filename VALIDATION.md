@@ -31,6 +31,16 @@ rotations, actual display-flex fit and battery lead polarity require the
 checks in `MECHANICAL.md`, `fab/README.md` and `BRINGUP.md`. Select epoxy-filled,
 copper-capped vias for assembly. Firmware has not been implemented.
 
+The pre-order gate (`./check-order.sh`) reruns ERC, DRC/parity and circuit/layout
+checks without regenerating the board. Export validation now checks each exact
+LCSC assignment, value and footprint, duplicate references, and CPL coordinates,
+side and rotation against the PCB. The manifest also covers generator sources,
+design rules and assembly/mechanical references. Fault-injection tests in
+`gen/test_release_checks.py` exercise stale files, wrong BOM assignments and
+placements, incomplete archives, unreviewed DRC findings and stale sign-offs.
+Supplier and physical reviews remain pending in `order-review.json`; automated
+success alone does not authorize a prototype order.
+
 Revision E also verifies DNP header attributes and pinouts, the three spare GPIOs,
 short local boost-probe connections, at least 0.5 mm from J3/J5 header pads to
 any battery, USB or system power copper, and that tracks, pads and vias clear the

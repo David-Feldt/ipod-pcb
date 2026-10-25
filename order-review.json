@@ -1,0 +1,40 @@
+{
+  "release_sha256": "38e062ea73ddf83fbbf1776b23b3f5727411f6d16b3efda149deab955f685272",
+  "checks": {
+    "fabricator": {
+      "status": "pending",
+      "description": "Supplier confirms stackup, 90-ohm USB target, filled/capped vias and manufacturing preview",
+      "evidence": "",
+      "reviewer": "",
+      "date": ""
+    },
+    "assembly": {
+      "status": "pending",
+      "description": "Supplier preview checked against pin-1 maps; exact parts available; assembly side plan confirmed",
+      "evidence": "",
+      "reviewer": "",
+      "date": ""
+    },
+    "display_fit": {
+      "status": "pending",
+      "description": "Actual display/flex fit checked, or explicitly accepted as a first-prototype experiment",
+      "evidence": "",
+      "reviewer": "",
+      "date": ""
+    },
+    "battery_fit": {
+      "status": "pending",
+      "description": "Exact protected pack selected; charge rating, lead polarity and insulated placement checked",
+      "evidence": "",
+      "reviewer": "",
+      "date": ""
+    },
+    "prototype_plan": {
+      "status": "pending",
+      "description": "Small prototype quantity chosen and BRINGUP.md test equipment/firmware plan prepared",
+      "evidence": "",
+      "reviewer": "",
+      "date": ""
+    }
+  }
+}

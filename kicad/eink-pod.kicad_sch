@@ -7357,6 +7357,339 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Transistor_FET:Si1308EDL"
+			(property "ki_fp_filters" "SOT?323*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "Q"
+				(at 5.08 1.905 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "Si1308EDL"
+				(at 5.08 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Package_TO_SOT_SMD:SOT-323_SC-70"
+				(at 5.08 -1.905 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(justify left)
+				)
+			)
+			(property "Datasheet" "https://www.vishay.com/docs/63399/si1308edl.pdf"
+				(at 5.08 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Description" "30V Vds, 1.4A Id, N-Channel MOSFET, SC-70"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "N-Channel MOSFET"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "Si1308EDL_0_1"
+				(polyline
+					(pts
+						(xy 0.254 1.905)
+						(xy 0.254 -1.905)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.254 0)
+						(xy -2.54 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 2.286)
+						(xy 0.762 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 0.508)
+						(xy 0.762 -0.508)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 -1.27)
+						(xy 0.762 -2.286)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 -1.778)
+						(xy 3.302 -1.778)
+						(xy 3.302 1.778)
+						(xy 0.762 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.016 0)
+						(xy 2.032 0.381)
+						(xy 2.032 -0.381)
+						(xy 1.016 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(circle
+					(center 1.651 0)
+					(radius 2.794)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 2.54)
+						(xy 2.54 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.54 1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(circle
+					(center 2.54 -1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 -2.54)
+						(xy 2.54 0)
+						(xy 0.762 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.921 0.381)
+						(xy 3.683 0.381)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.302 0.381)
+						(xy 2.921 -0.254)
+						(xy 3.683 -0.254)
+						(xy 3.302 0.381)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Si1308EDL_1_1"
+				(pin input line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "G"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 -5.08 90)
+					(length 2.54)
+					(name "S"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 5.08 270)
+					(length 2.54)
+					(name "D"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(text "USB-C, charger, power path, 3.3 V"
 		(exclude_from_sim no)
@@ -9739,7 +10072,7 @@
 				)
 			)
 		)
-		(property "Value" "10uF"
+		(property "Value" "4.7uF 25V"
 			(at 115.57 102.87 0)
 			(effects
 				(font
@@ -9765,7 +10098,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C15850"
+		(property "LCSC" "C1779"
 			(at 115.57 105.41 0)
 			(effects
 				(font
@@ -18651,7 +18984,7 @@
 				)
 			)
 		)
-		(property "Value" "47uH"
+		(property "Value" "68uH"
 			(at 119.38 267.97 0)
 			(effects
 				(font
@@ -18677,7 +19010,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C54731"
+		(property "LCSC" "C83473"
 			(at 119.38 270.51 0)
 			(effects
 				(font
@@ -18686,7 +19019,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "SWPA4030S470MT"
+		(property "MPN" "SWPA4030S680MT"
 			(at 119.38 270.51 0)
 			(effects
 				(font
@@ -18775,7 +19108,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Transistor_FET:AO3400A")
+		(lib_id "Transistor_FET:Si1308EDL")
 		(at 149.86 289.56 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -18791,7 +19124,7 @@
 				)
 			)
 		)
-		(property "Value" "AO3400A"
+		(property "Value" "Si1308EDL-T1-GE3"
 			(at 149.86 287.02 0)
 			(effects
 				(font
@@ -18799,7 +19132,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-323_SC-70"
 			(at 149.86 289.56 0)
 			(effects
 				(font
@@ -18808,7 +19141,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.vishay.com/docs/63399/si1308edl.pdf"
 			(at 149.86 289.56 0)
 			(effects
 				(font
@@ -18817,7 +19150,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C20917"
+		(property "LCSC" "C469327"
 			(at 149.86 289.56 0)
 			(effects
 				(font
@@ -18841,6 +19174,15 @@
 					(reference "Q2")
 					(unit 1)
 				)
+			)
+		)
+		(property "MPN" "Si1308EDL-T1-GE3"
+			(at 149.86 289.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 	)
@@ -18957,7 +19299,7 @@
 				)
 			)
 		)
-		(property "Value" "B5819W"
+		(property "Value" "MBR0530T1G"
 			(at 180.34 267.97 0)
 			(effects
 				(font
@@ -18983,7 +19325,16 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C8598"
+		(property "LCSC" "C82046"
+			(at 180.34 270.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "MBR0530T1G"
 			(at 180.34 270.51 0)
 			(effects
 				(font
@@ -19088,7 +19439,7 @@
 				)
 			)
 		)
-		(property "Value" "B5819W"
+		(property "Value" "MBR0530T1G"
 			(at 180.34 297.18 0)
 			(effects
 				(font
@@ -19114,7 +19465,16 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C8598"
+		(property "LCSC" "C82046"
+			(at 180.34 299.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "MBR0530T1G"
 			(at 180.34 299.72 0)
 			(effects
 				(font
@@ -19219,7 +19579,7 @@
 				)
 			)
 		)
-		(property "Value" "B5819W"
+		(property "Value" "MBR0530T1G"
 			(at 180.34 317.5 0)
 			(effects
 				(font
@@ -19245,7 +19605,16 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C8598"
+		(property "LCSC" "C82046"
+			(at 180.34 320.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "MBR0530T1G"
 			(at 180.34 320.04 0)
 			(effects
 				(font
@@ -19350,7 +19719,7 @@
 				)
 			)
 		)
-		(property "Value" "1M"
+		(property "Value" "10k"
 			(at 110.49 342.9 0)
 			(effects
 				(font
@@ -19376,7 +19745,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C26083"
+		(property "LCSC" "C25744"
 			(at 110.49 345.44 0)
 			(effects
 				(font
@@ -19481,7 +19850,7 @@
 				)
 			)
 		)
-		(property "Value" "2.2"
+		(property "Value" "3"
 			(at 120.65 342.9 0)
 			(effects
 				(font
@@ -19507,7 +19876,16 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25158"
+		(property "LCSC" "C423196"
+			(at 120.65 345.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "0402WGF300KTCE"
 			(at 120.65 345.44 0)
 			(effects
 				(font
@@ -19612,7 +19990,7 @@
 				)
 			)
 		)
-		(property "Value" "4.7uF 25V"
+		(property "Value" "4.7uF 50V X7R"
 			(at 130.81 342.9 0)
 			(effects
 				(font
@@ -19620,7 +19998,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 130.81 345.44 0)
 			(effects
 				(font
@@ -19638,7 +20016,16 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C1779"
+		(property "LCSC" "C51205"
+			(at 130.81 345.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL31B475KBHNNNE"
 			(at 130.81 345.44 0)
 			(effects
 				(font
@@ -20136,7 +20523,7 @@
 				)
 			)
 		)
-		(property "Value" "1uF 50V"
+		(property "Value" "1uF 50V X7R"
 			(at 110.49 372.11 0)
 			(effects
 				(font
@@ -20144,7 +20531,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 110.49 374.65 0)
 			(effects
 				(font
@@ -20162,7 +20549,16 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C15849"
+		(property "LCSC" "C28323"
+			(at 110.49 374.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL21B105KBFNNNE"
 			(at 110.49 374.65 0)
 			(effects
 				(font
@@ -20252,7 +20648,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 120.65 374.65 0)
+		(at 125.73 374.65 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -20260,23 +20656,23 @@
 		(dnp no)
 		(uuid "7cd91cff-2508-4320-95ab-6981fb492ac0")
 		(property "Reference" "C31"
-			(at 120.65 369.57 0)
+			(at 125.73 369.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "1uF 50V"
-			(at 120.65 372.11 0)
+		(property "Value" "1uF 50V X7R"
+			(at 125.73 372.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 120.65 374.65 0)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 125.73 374.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20285,7 +20681,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 120.65 374.65 0)
+			(at 125.73 374.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20293,8 +20689,17 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C15849"
-			(at 120.65 374.65 0)
+		(property "LCSC" "C28323"
+			(at 125.73 374.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL21B105KBFNNNE"
+			(at 125.73 374.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20319,8 +20724,8 @@
 	)
 	(wire
 		(pts
-			(xy 120.65 370.84)
-			(xy 120.65 368.3)
+			(xy 125.73 370.84)
+			(xy 125.73 368.3)
 		)
 		(stroke
 			(width 0)
@@ -20330,7 +20735,7 @@
 	)
 	(global_label "EPD_PREVGL"
 		(shape passive)
-		(at 120.65 368.3 90)
+		(at 125.73 368.3 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -20340,7 +20745,7 @@
 		)
 		(uuid "2e8025e5-99ac-417a-8d41-e70964e71706")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 120.65 368.3 0)
+			(at 125.73 368.3 0)
 			(effects
 				(font
 					(size 1 1)
@@ -20351,8 +20756,8 @@
 	)
 	(wire
 		(pts
-			(xy 120.65 378.46)
-			(xy 120.65 381)
+			(xy 125.73 378.46)
+			(xy 125.73 381)
 		)
 		(stroke
 			(width 0)
@@ -20362,7 +20767,7 @@
 	)
 	(global_label "GND"
 		(shape passive)
-		(at 120.65 381 270)
+		(at 125.73 381 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -20372,7 +20777,7 @@
 		)
 		(uuid "a4e4aa34-556a-46a7-bf8c-ee21c4dc66a3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 120.65 381 0)
+			(at 125.73 381 0)
 			(effects
 				(font
 					(size 1 1)
@@ -20383,7 +20788,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 130.81 374.65 0)
+		(at 140.97 374.65 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -20391,23 +20796,23 @@
 		(dnp no)
 		(uuid "42fc1fd4-b878-4bf7-9f5b-1c1367280a90")
 		(property "Reference" "C32"
-			(at 130.81 369.57 0)
+			(at 140.97 369.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "1uF 50V"
-			(at 130.81 372.11 0)
+		(property "Value" "1uF 50V X7R"
+			(at 140.97 372.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 130.81 374.65 0)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 140.97 374.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20416,7 +20821,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 130.81 374.65 0)
+			(at 140.97 374.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20424,8 +20829,17 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C15849"
-			(at 130.81 374.65 0)
+		(property "LCSC" "C28323"
+			(at 140.97 374.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL21B105KBFNNNE"
+			(at 140.97 374.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20450,8 +20864,8 @@
 	)
 	(wire
 		(pts
-			(xy 130.81 370.84)
-			(xy 130.81 368.3)
+			(xy 140.97 370.84)
+			(xy 140.97 368.3)
 		)
 		(stroke
 			(width 0)
@@ -20461,7 +20875,7 @@
 	)
 	(global_label "EPD_VSH1"
 		(shape passive)
-		(at 130.81 368.3 90)
+		(at 140.97 368.3 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -20471,7 +20885,7 @@
 		)
 		(uuid "e3a49860-991f-4a91-a661-eaa8aa374e6b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 130.81 368.3 0)
+			(at 140.97 368.3 0)
 			(effects
 				(font
 					(size 1 1)
@@ -20482,8 +20896,8 @@
 	)
 	(wire
 		(pts
-			(xy 130.81 378.46)
-			(xy 130.81 381)
+			(xy 140.97 378.46)
+			(xy 140.97 381)
 		)
 		(stroke
 			(width 0)
@@ -20493,7 +20907,7 @@
 	)
 	(global_label "GND"
 		(shape passive)
-		(at 130.81 381 270)
+		(at 140.97 381 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -20503,7 +20917,7 @@
 		)
 		(uuid "ee7c9ce8-6dc9-4735-8299-805d5cc25168")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 130.81 381 0)
+			(at 140.97 381 0)
 			(effects
 				(font
 					(size 1 1)
@@ -20514,7 +20928,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 140.97 374.65 0)
+		(at 156.21 374.65 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -20522,23 +20936,23 @@
 		(dnp no)
 		(uuid "527e93fd-5507-424e-959f-0a37fdb88586")
 		(property "Reference" "C33"
-			(at 140.97 369.57 0)
+			(at 156.21 369.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "1uF 50V"
-			(at 140.97 372.11 0)
+		(property "Value" "1uF 50V X7R"
+			(at 156.21 372.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 140.97 374.65 0)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 156.21 374.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20547,7 +20961,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 140.97 374.65 0)
+			(at 156.21 374.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20555,8 +20969,17 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C15849"
-			(at 140.97 374.65 0)
+		(property "LCSC" "C28323"
+			(at 156.21 374.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL21B105KBFNNNE"
+			(at 156.21 374.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20581,8 +21004,8 @@
 	)
 	(wire
 		(pts
-			(xy 140.97 370.84)
-			(xy 140.97 368.3)
+			(xy 156.21 370.84)
+			(xy 156.21 368.3)
 		)
 		(stroke
 			(width 0)
@@ -20592,7 +21015,7 @@
 	)
 	(global_label "EPD_VSH2"
 		(shape passive)
-		(at 140.97 368.3 90)
+		(at 156.21 368.3 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -20602,7 +21025,7 @@
 		)
 		(uuid "465e4031-cf00-415f-be95-1a1d85dc3191")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 140.97 368.3 0)
+			(at 156.21 368.3 0)
 			(effects
 				(font
 					(size 1 1)
@@ -20613,8 +21036,8 @@
 	)
 	(wire
 		(pts
-			(xy 140.97 378.46)
-			(xy 140.97 381)
+			(xy 156.21 378.46)
+			(xy 156.21 381)
 		)
 		(stroke
 			(width 0)
@@ -20624,7 +21047,7 @@
 	)
 	(global_label "GND"
 		(shape passive)
-		(at 140.97 381 270)
+		(at 156.21 381 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -20634,7 +21057,7 @@
 		)
 		(uuid "5a2f9bf8-df8e-409f-a356-fb704a42fb1d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 140.97 381 0)
+			(at 156.21 381 0)
 			(effects
 				(font
 					(size 1 1)
@@ -20645,7 +21068,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 151.13 374.65 0)
+		(at 171.45 374.65 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -20653,23 +21076,23 @@
 		(dnp no)
 		(uuid "9ff4a7c1-34e3-42f7-9e06-1080f941c746")
 		(property "Reference" "C34"
-			(at 151.13 369.57 0)
+			(at 171.45 369.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "1uF 50V"
-			(at 151.13 372.11 0)
+		(property "Value" "1uF 50V X7R"
+			(at 171.45 372.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 151.13 374.65 0)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 171.45 374.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20678,7 +21101,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 151.13 374.65 0)
+			(at 171.45 374.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20686,8 +21109,17 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C15849"
-			(at 151.13 374.65 0)
+		(property "LCSC" "C28323"
+			(at 171.45 374.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL21B105KBFNNNE"
+			(at 171.45 374.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20712,8 +21144,8 @@
 	)
 	(wire
 		(pts
-			(xy 151.13 370.84)
-			(xy 151.13 368.3)
+			(xy 171.45 370.84)
+			(xy 171.45 368.3)
 		)
 		(stroke
 			(width 0)
@@ -20723,7 +21155,7 @@
 	)
 	(global_label "EPD_VSL"
 		(shape passive)
-		(at 151.13 368.3 90)
+		(at 171.45 368.3 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -20733,7 +21165,7 @@
 		)
 		(uuid "8d1b6a6f-0062-40bb-abd4-c22587a014ad")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 151.13 368.3 0)
+			(at 171.45 368.3 0)
 			(effects
 				(font
 					(size 1 1)
@@ -20744,8 +21176,8 @@
 	)
 	(wire
 		(pts
-			(xy 151.13 378.46)
-			(xy 151.13 381)
+			(xy 171.45 378.46)
+			(xy 171.45 381)
 		)
 		(stroke
 			(width 0)
@@ -20755,7 +21187,7 @@
 	)
 	(global_label "GND"
 		(shape passive)
-		(at 151.13 381 270)
+		(at 171.45 381 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -20765,7 +21197,7 @@
 		)
 		(uuid "d1944c8a-6ff2-4c0a-9492-f746d04fc71c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 151.13 381 0)
+			(at 171.45 381 0)
 			(effects
 				(font
 					(size 1 1)
@@ -20776,7 +21208,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 161.29 374.65 0)
+		(at 186.69 374.65 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -20784,23 +21216,23 @@
 		(dnp no)
 		(uuid "05f70071-851a-4b2e-8d8e-b8553370dfe0")
 		(property "Reference" "C35"
-			(at 161.29 369.57 0)
+			(at 186.69 369.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "1uF 50V"
-			(at 161.29 372.11 0)
+		(property "Value" "1uF 50V X7R"
+			(at 186.69 372.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 161.29 374.65 0)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 186.69 374.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20809,7 +21241,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 161.29 374.65 0)
+			(at 186.69 374.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20817,8 +21249,17 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C15849"
-			(at 161.29 374.65 0)
+		(property "LCSC" "C28323"
+			(at 186.69 374.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL21B105KBFNNNE"
+			(at 186.69 374.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20843,8 +21284,8 @@
 	)
 	(wire
 		(pts
-			(xy 161.29 370.84)
-			(xy 161.29 368.3)
+			(xy 186.69 370.84)
+			(xy 186.69 368.3)
 		)
 		(stroke
 			(width 0)
@@ -20854,7 +21295,7 @@
 	)
 	(global_label "EPD_VCOM"
 		(shape passive)
-		(at 161.29 368.3 90)
+		(at 186.69 368.3 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -20864,7 +21305,7 @@
 		)
 		(uuid "352cf82d-8fa3-4b72-917b-2c8715faa48a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 161.29 368.3 0)
+			(at 186.69 368.3 0)
 			(effects
 				(font
 					(size 1 1)
@@ -20875,8 +21316,8 @@
 	)
 	(wire
 		(pts
-			(xy 161.29 378.46)
-			(xy 161.29 381)
+			(xy 186.69 378.46)
+			(xy 186.69 381)
 		)
 		(stroke
 			(width 0)
@@ -20886,7 +21327,7 @@
 	)
 	(global_label "GND"
 		(shape passive)
-		(at 161.29 381 270)
+		(at 186.69 381 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -20896,7 +21337,7 @@
 		)
 		(uuid "c5280058-0094-4f50-82ce-171ae260b4d5")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 161.29 381 0)
+			(at 186.69 381 0)
 			(effects
 				(font
 					(size 1 1)

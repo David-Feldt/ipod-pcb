@@ -20,6 +20,8 @@ python3 gen/build_sch.py
 "$KPY" -u gen/verify_board.py > kicad/verification.txt
 cat kicad/verification.txt
 "$KPY" -B gen/test_review_checks.py
+python3 -B gen/test_release_checks.py
 python3 gen/fab.py
 "$KPY" gen/release.py
+./check-order.sh --automated-only
 echo "OK: ERC + electrical DRC clean; see drc-all.rpt for warnings. Outputs in fab/"

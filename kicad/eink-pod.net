@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "/Users/david/Projects/2026/ipod-pcb/kicad/eink-pod.kicad_sch")
-		(date "2026-10-19T19:49:41")
+		(date "2026-10-23T00:04:41")
 		(tool "Eeschema 10.0.7")
 		(sheet
 			(number "1")
@@ -56,11 +56,11 @@
 	(components
 		(comp
 			(ref "C1")
-			(value "10uF")
+			(value "4.7uF 25V")
 			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
-					(name "LCSC") "C15850")
+					(name "LCSC") "C1779")
 				(field
 					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
@@ -77,7 +77,7 @@
 			)
 			(property
 				(name "LCSC")
-				(value "C15850")
+				(value "C1779")
 			)
 			(property
 				(name "Sheetname")
@@ -596,13 +596,15 @@
 		)
 		(comp
 			(ref "C26")
-			(value "4.7uF 25V")
-			(footprint "Capacitor_SMD:C_0805_2012Metric")
+			(value "4.7uF 50V X7R")
+			(footprint "Capacitor_SMD:C_1206_3216Metric")
 			(fields
 				(field
-					(name "LCSC") "C1779")
+					(name "LCSC") "C51205")
 				(field
-					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
+					(name "MPN") "CL31B475KBHNNNE")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_1206_3216Metric")
 				(field
 					(name "Datasheet")
 				)
@@ -617,7 +619,11 @@
 			)
 			(property
 				(name "LCSC")
-				(value "C1779")
+				(value "C51205")
+			)
+			(property
+				(name "MPN")
+				(value "CL31B475KBHNNNE")
 			)
 			(property
 				(name "Sheetname")
@@ -836,13 +842,15 @@
 		)
 		(comp
 			(ref "C30")
-			(value "1uF 50V")
-			(footprint "Capacitor_SMD:C_0603_1608Metric")
+			(value "1uF 50V X7R")
+			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
-					(name "LCSC") "C15849")
+					(name "LCSC") "C28323")
 				(field
-					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
+					(name "MPN") "CL21B105KBFNNNE")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
 				)
@@ -857,7 +865,11 @@
 			)
 			(property
 				(name "LCSC")
-				(value "C15849")
+				(value "C28323")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B105KBFNNNE")
 			)
 			(property
 				(name "Sheetname")
@@ -896,13 +908,15 @@
 		)
 		(comp
 			(ref "C31")
-			(value "1uF 50V")
-			(footprint "Capacitor_SMD:C_0603_1608Metric")
+			(value "1uF 50V X7R")
+			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
-					(name "LCSC") "C15849")
+					(name "LCSC") "C28323")
 				(field
-					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
+					(name "MPN") "CL21B105KBFNNNE")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
 				)
@@ -917,7 +931,11 @@
 			)
 			(property
 				(name "LCSC")
-				(value "C15849")
+				(value "C28323")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B105KBFNNNE")
 			)
 			(property
 				(name "Sheetname")
@@ -956,13 +974,15 @@
 		)
 		(comp
 			(ref "C32")
-			(value "1uF 50V")
-			(footprint "Capacitor_SMD:C_0603_1608Metric")
+			(value "1uF 50V X7R")
+			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
-					(name "LCSC") "C15849")
+					(name "LCSC") "C28323")
 				(field
-					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
+					(name "MPN") "CL21B105KBFNNNE")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
 				)
@@ -977,7 +997,11 @@
 			)
 			(property
 				(name "LCSC")
-				(value "C15849")
+				(value "C28323")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B105KBFNNNE")
 			)
 			(property
 				(name "Sheetname")
@@ -1016,13 +1040,15 @@
 		)
 		(comp
 			(ref "C33")
-			(value "1uF 50V")
-			(footprint "Capacitor_SMD:C_0603_1608Metric")
+			(value "1uF 50V X7R")
+			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
-					(name "LCSC") "C15849")
+					(name "LCSC") "C28323")
 				(field
-					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
+					(name "MPN") "CL21B105KBFNNNE")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
 				)
@@ -1037,7 +1063,11 @@
 			)
 			(property
 				(name "LCSC")
-				(value "C15849")
+				(value "C28323")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B105KBFNNNE")
 			)
 			(property
 				(name "Sheetname")
@@ -1076,13 +1106,15 @@
 		)
 		(comp
 			(ref "C34")
-			(value "1uF 50V")
-			(footprint "Capacitor_SMD:C_0603_1608Metric")
+			(value "1uF 50V X7R")
+			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
-					(name "LCSC") "C15849")
+					(name "LCSC") "C28323")
 				(field
-					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
+					(name "MPN") "CL21B105KBFNNNE")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
 				)
@@ -1097,7 +1129,11 @@
 			)
 			(property
 				(name "LCSC")
-				(value "C15849")
+				(value "C28323")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B105KBFNNNE")
 			)
 			(property
 				(name "Sheetname")
@@ -1136,13 +1172,15 @@
 		)
 		(comp
 			(ref "C35")
-			(value "1uF 50V")
-			(footprint "Capacitor_SMD:C_0603_1608Metric")
+			(value "1uF 50V X7R")
+			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
-					(name "LCSC") "C15849")
+					(name "LCSC") "C28323")
 				(field
-					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
+					(name "MPN") "CL21B105KBFNNNE")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
 				)
@@ -1157,7 +1195,11 @@
 			)
 			(property
 				(name "LCSC")
-				(value "C15849")
+				(value "C28323")
+			)
+			(property
+				(name "MPN")
+				(value "CL21B105KBFNNNE")
 			)
 			(property
 				(name "Sheetname")
@@ -1496,11 +1538,13 @@
 		)
 		(comp
 			(ref "D2")
-			(value "B5819W")
+			(value "MBR0530T1G")
 			(footprint "Diode_SMD:D_SOD-123")
 			(fields
 				(field
-					(name "LCSC") "C8598")
+					(name "LCSC") "C82046")
+				(field
+					(name "MPN") "MBR0530T1G")
 				(field
 					(name "Footprint") "Diode_SMD:D_SOD-123")
 				(field
@@ -1517,7 +1561,11 @@
 			)
 			(property
 				(name "LCSC")
-				(value "C8598")
+				(value "C82046")
+			)
+			(property
+				(name "MPN")
+				(value "MBR0530T1G")
 			)
 			(property
 				(name "Sheetname")
@@ -1556,11 +1604,13 @@
 		)
 		(comp
 			(ref "D3")
-			(value "B5819W")
+			(value "MBR0530T1G")
 			(footprint "Diode_SMD:D_SOD-123")
 			(fields
 				(field
-					(name "LCSC") "C8598")
+					(name "LCSC") "C82046")
+				(field
+					(name "MPN") "MBR0530T1G")
 				(field
 					(name "Footprint") "Diode_SMD:D_SOD-123")
 				(field
@@ -1577,7 +1627,11 @@
 			)
 			(property
 				(name "LCSC")
-				(value "C8598")
+				(value "C82046")
+			)
+			(property
+				(name "MPN")
+				(value "MBR0530T1G")
 			)
 			(property
 				(name "Sheetname")
@@ -1616,11 +1670,13 @@
 		)
 		(comp
 			(ref "D4")
-			(value "B5819W")
+			(value "MBR0530T1G")
 			(footprint "Diode_SMD:D_SOD-123")
 			(fields
 				(field
-					(name "LCSC") "C8598")
+					(name "LCSC") "C82046")
+				(field
+					(name "MPN") "MBR0530T1G")
 				(field
 					(name "Footprint") "Diode_SMD:D_SOD-123")
 				(field
@@ -1637,7 +1693,11 @@
 			)
 			(property
 				(name "LCSC")
-				(value "C8598")
+				(value "C82046")
+			)
+			(property
+				(name "MPN")
+				(value "MBR0530T1G")
 			)
 			(property
 				(name "Sheetname")
@@ -2401,13 +2461,13 @@
 		)
 		(comp
 			(ref "L1")
-			(value "47uH")
+			(value "68uH")
 			(footprint "Inductor_SMD:L_Sunlord_SWPA4030S")
 			(fields
 				(field
-					(name "LCSC") "C54731")
+					(name "LCSC") "C83473")
 				(field
-					(name "MPN") "SWPA4030S470MT")
+					(name "MPN") "SWPA4030S680MT")
 				(field
 					(name "Footprint") "Inductor_SMD:L_Sunlord_SWPA4030S")
 				(field
@@ -2424,11 +2484,11 @@
 			)
 			(property
 				(name "LCSC")
-				(value "C54731")
+				(value "C83473")
 			)
 			(property
 				(name "MPN")
-				(value "SWPA4030S470MT")
+				(value "SWPA4030S680MT")
 			)
 			(property
 				(name "Sheetname")
@@ -2533,28 +2593,34 @@
 		)
 		(comp
 			(ref "Q2")
-			(value "AO3400A")
-			(footprint "Package_TO_SOT_SMD:SOT-23")
+			(value "Si1308EDL-T1-GE3")
+			(footprint "Package_TO_SOT_SMD:SOT-323_SC-70")
+			(datasheet "https://www.vishay.com/docs/63399/si1308edl.pdf")
 			(fields
 				(field
-					(name "LCSC") "C20917")
+					(name "LCSC") "C469327")
 				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
+					(name "MPN") "Si1308EDL-T1-GE3")
 				(field
-					(name "Datasheet")
-				)
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-323_SC-70")
+				(field
+					(name "Datasheet") "https://www.vishay.com/docs/63399/si1308edl.pdf")
 				(field
 					(name "Description")
 				)
 			)
 			(libsource
 				(lib "Transistor_FET")
-				(part "AO3400A")
-				(description "30V Vds, 5.7A Id, N-Channel MOSFET, SOT-23")
+				(part "Si1308EDL")
+				(description "30V Vds, 1.4A Id, N-Channel MOSFET, SC-70")
 			)
 			(property
 				(name "LCSC")
-				(value "C20917")
+				(value "C469327")
+			)
+			(property
+				(name "MPN")
+				(value "Si1308EDL-T1-GE3")
 			)
 			(property
 				(name "Sheetname")
@@ -2570,7 +2636,7 @@
 			)
 			(property
 				(name "ki_fp_filters")
-				(value "SOT?23*")
+				(value "SOT?323*")
 			)
 			(sheetpath
 				(names "/")
@@ -3985,11 +4051,11 @@
 		)
 		(comp
 			(ref "R21")
-			(value "1M")
+			(value "10k")
 			(footprint "Resistor_SMD:R_0402_1005Metric")
 			(fields
 				(field
-					(name "LCSC") "C26083")
+					(name "LCSC") "C25744")
 				(field
 					(name "Footprint") "Resistor_SMD:R_0402_1005Metric")
 				(field
@@ -4006,7 +4072,7 @@
 			)
 			(property
 				(name "LCSC")
-				(value "C26083")
+				(value "C25744")
 			)
 			(property
 				(name "Sheetname")
@@ -4045,11 +4111,13 @@
 		)
 		(comp
 			(ref "R22")
-			(value "2.2")
+			(value "3")
 			(footprint "Resistor_SMD:R_0402_1005Metric")
 			(fields
 				(field
-					(name "LCSC") "C25158")
+					(name "LCSC") "C423196")
+				(field
+					(name "MPN") "0402WGF300KTCE")
 				(field
 					(name "Footprint") "Resistor_SMD:R_0402_1005Metric")
 				(field
@@ -4066,7 +4134,11 @@
 			)
 			(property
 				(name "LCSC")
-				(value "C25158")
+				(value "C423196")
+			)
+			(property
+				(name "MPN")
+				(value "0402WGF300KTCE")
 			)
 			(property
 				(name "Sheetname")
@@ -8381,6 +8453,44 @@
 					(name "Datasheet") "http://www.aosmd.com/pdfs/datasheet/AO3401A.pdf")
 				(field
 					(name "Description") "-4.0A Id, -30V Vds, P-Channel MOSFET, SOT-23")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "G")
+					(type "input")
+				)
+				(pin
+					(num "2")
+					(name "S")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "D")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Transistor_FET")
+			(part "Si1308EDL")
+			(description "30V Vds, 1.4A Id, N-Channel MOSFET, SC-70")
+			(docs "https://www.vishay.com/docs/63399/si1308edl.pdf")
+			(footprints
+				(fp "SOT?323*")
+			)
+			(fields
+				(field
+					(name "Reference") "Q")
+				(field
+					(name "Value") "Si1308EDL")
+				(field
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-323_SC-70")
+				(field
+					(name "Datasheet") "https://www.vishay.com/docs/63399/si1308edl.pdf")
+				(field
+					(name "Description") "30V Vds, 1.4A Id, N-Channel MOSFET, SC-70")
 			)
 			(pins
 				(pin

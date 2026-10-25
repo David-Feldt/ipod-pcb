@@ -11,6 +11,7 @@ R0402 = "Resistor_SMD:R_0402_1005Metric"
 C0402 = "Capacitor_SMD:C_0402_1005Metric"
 C0603 = "Capacitor_SMD:C_0603_1608Metric"
 C0805 = "Capacitor_SMD:C_0805_2012Metric"
+C1206 = "Capacitor_SMD:C_1206_3216Metric"
 
 LCSC_R = {"22": "C25092", "10k": "C25744", "5.1k": "C25905", "1M": "C26083", "100k": "C25741",
           "1k": "C11702", "2k": "C4109", "2.2": "C25158", "470": "C25117"}
@@ -75,7 +76,7 @@ row(115, 85, [("R", "R3", "2k", "CHG_PROG", "CHG_PROG_MID"),
               ("R", "R17", "100k", "CHG_EN1", "GND"),
               ("R", "R18", "100k", "CHG_EN2", "GND")])
 # Fixed TS resistor supports a two-wire protected pack; no cell temperature sensing.
-row(115, 105, [("C", "C1", "10uF", "VBUS", "GND", C0805),
+row(115, 105, [("C", "C1", "4.7uF 25V", "VBUS", "GND", C0805),
                ("C", "C2", "10uF", "VBAT", "GND", C0805),
                ("R", "R4", "1k", "VSYS", "LED_A"), ("R", "R5", "100k", "VBUS", "GND")])
 sch.add("D5", "Device:LED", "red", "LED_SMD:LED_0603_1608Metric", 170, 65,
@@ -181,26 +182,35 @@ sch.add("J4", "Connector_Generic_MountingPin:Conn_01x24_MountingPin", "GDEY0213B
          "15": "+3V3", "16": "+3V3", "17": "GND", "18": "EPD_VDD", "20": "EPD_VSH1",
          "21": "EPD_PREVGH", "22": "EPD_VSL", "23": "EPD_PREVGL", "24": "EPD_VCOM",
          "MP": "GND"}, lcsc="C2856831", mpn="FPC-05FB-24PH20")
-sch.add("L1", "Device:L", "47uH", "Inductor_SMD:L_Sunlord_SWPA4030S", 120, 270,
-        {"1": "EPD_BOOST_IN", "2": "EPD_SW"}, lcsc="C54731", mpn="SWPA4030S470MT")
-sch.add("Q2", "Transistor_FET:AO3400A", "AO3400A", "Package_TO_SOT_SMD:SOT-23", 150, 290,
-        {"1": "EPD_GDR", "3": "EPD_SW", "2": "EPD_RESE"}, lcsc="C20917")
-sch.add("D2", "Device:D_Schottky", "B5819W", "Diode_SMD:D_SOD-123", 180, 270,
-        {"2": "EPD_SW", "1": "EPD_PREVGH"}, lcsc="C8598")
-sch.add("D3", "Device:D_Schottky", "B5819W", "Diode_SMD:D_SOD-123", 180, 300,
-        {"2": "EPD_X", "1": "GND"}, lcsc="C8598")
-sch.add("D4", "Device:D_Schottky", "B5819W", "Diode_SMD:D_SOD-123", 180, 320,
-        {"2": "EPD_PREVGL", "1": "EPD_X"}, lcsc="C8598")
-row(110, 345, [("R", "R21", "1M", "EPD_GDR", "GND"), ("R", "R22", "2.2", "EPD_RESE", "GND"),
-               ("C", "C26", "4.7uF 25V", "EPD_SW", "EPD_X", C0805),
-               ("C", "C27", "10uF", "EPD_BOOST_IN", "GND", C0603), ("C", "C28", "1uF", "+3V3", "GND"),
-               ("C", "C29", "1uF", "EPD_VDD", "GND")])
-row(110, 375, [("C", "C30", "1uF 50V", "EPD_PREVGH", "GND", C0603),
-               ("C", "C31", "1uF 50V", "EPD_PREVGL", "GND", C0603),
-               ("C", "C32", "1uF 50V", "EPD_VSH1", "GND", C0603),
-               ("C", "C33", "1uF 50V", "EPD_VSH2", "GND", C0603),
-               ("C", "C34", "1uF 50V", "EPD_VSL", "GND", C0603),
-               ("C", "C35", "1uF 50V", "EPD_VCOM", "GND", C0603)])
+sch.add("L1", "Device:L", "68uH", "Inductor_SMD:L_Sunlord_SWPA4030S", 120, 270,
+        {"1": "EPD_BOOST_IN", "2": "EPD_SW"}, lcsc="C83473", mpn="SWPA4030S680MT")
+# Low gate-charge MOSFET specified by the panel reference boost circuit.
+sch.add("Q2", "Transistor_FET:Si1308EDL", "Si1308EDL-T1-GE3", "Package_TO_SOT_SMD:SOT-323_SC-70", 150, 290,
+        {"1": "EPD_GDR", "3": "EPD_SW", "2": "EPD_RESE"}, lcsc="C469327", mpn="Si1308EDL-T1-GE3")
+sch.add("D2", "Device:D_Schottky", "MBR0530T1G", "Diode_SMD:D_SOD-123", 180, 270,
+        {"2": "EPD_SW", "1": "EPD_PREVGH"}, lcsc="C82046", mpn="MBR0530T1G")
+sch.add("D3", "Device:D_Schottky", "MBR0530T1G", "Diode_SMD:D_SOD-123", 180, 300,
+        {"2": "EPD_X", "1": "GND"}, lcsc="C82046", mpn="MBR0530T1G")
+sch.add("D4", "Device:D_Schottky", "MBR0530T1G", "Diode_SMD:D_SOD-123", 180, 320,
+        {"2": "EPD_PREVGL", "1": "EPD_X"}, lcsc="C82046", mpn="MBR0530T1G")
+R("R21", "10k", "EPD_GDR", "GND", 110, 345)
+# 68 uH / 3 ohm boost pair follows the Waveshare panel application reference.
+sch.add("R22", "Device:R", "3", R0402, 120.16, 345,
+        {"1": "EPD_RESE", "2": "GND"}, lcsc="C423196", mpn="0402WGF300KTCE")
+# 50 V X7R flying capacitor retains more capacitance at boost bias.
+sch.add("C26", "Device:C", "4.7uF 50V X7R", C1206, 130.32, 345,
+        {"1": "EPD_SW", "2": "EPD_X"}, lcsc="C51205", mpn="CL31B475KBHNNNE")
+row(140.48, 345, [("C", "C27", "10uF", "EPD_BOOST_IN", "GND", C0603), ("C", "C28", "1uF", "+3V3", "GND"),
+                  ("C", "C29", "1uF", "EPD_VDD", "GND")])
+# Higher bias-retention X7R capacitors on the five display rails.
+for i, (ref, net) in enumerate((("C30", "EPD_PREVGH"), ("C31", "EPD_PREVGL"),
+                                ("C32", "EPD_VSH1"), ("C33", "EPD_VSH2"),
+                                ("C34", "EPD_VSL"))):
+    sch.add(ref, "Device:C", "1uF 50V X7R", C0805, 110 + i * 15.24, 375,
+            {"1": net, "2": "GND"}, lcsc="C28323", mpn="CL21B105KBFNNNE")
+# VCOM requires X7R and >0.25 uF effective capacitance at 18 V (SSD1680 p.43).
+sch.add("C35", "Device:C", "1uF 50V X7R", C0805, 186.2, 375,
+        {"1": "EPD_VCOM", "2": "GND"}, lcsc="C28323", mpn="CL21B105KBFNNNE")
 
 # Debug access and removable power-domain links. Headers are deliberately DNP.
 sch.text("Prototype debug / removable links (headers NOT FITTED)", 350, 20)

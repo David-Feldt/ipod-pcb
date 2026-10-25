@@ -73,8 +73,9 @@ def verify_usb_reference(board):
     print("PASS: filled In1.GND covers USB centers/edges at %d samples, excluding local via antipads" % checked)
 
 
-def verify():
-    board = P.LoadBoard(PCB)
+def verify(board=None):
+    if board is None:
+        board = P.LoadBoard(PCB)
     fps = {f.GetReference(): f for f in board.GetFootprints()}
     verify_spacing(board)
     verify_uart_labels(board)
@@ -142,9 +143,73 @@ def verify():
     for ref,(anchor,pin) in PROBE_ANCHORS.items():
         assert math.dist(point(pad(ref,1).GetPosition()),point(pad(anchor,pin).GetPosition()))<2.5,ref
     print("PASS: power isolation boundaries, manual UART/header pinouts, DNP headers, local boost probes and spare GPIOs")
-    for ref, val in {"L1": "47uH", "U4": "BQ24074RGTR", "U5": "TPS63031DSKR", "R3": "2k", "R14": "2k",
+    for ref, val in {"L1": "68uH", "U4": "BQ24074RGTR", "U5": "TPS63031DSKR", "R3": "2k", "R14": "2k",
                      "R15": "5.1k", "R16": "10k", "R17": "100k", "R18": "100k", "R19": "2k", "L2": "2.2uH"}.items():
         assert fps[ref].GetValue() == val, (ref, val)
+    # Panel-reference boost pair: keep values, assembly selection and sense wiring together.
+    for ref, value, footprint, lcsc, mpn in (
+        ("L1", "68uH", "L_Sunlord_SWPA4030S", "C83473", "SWPA4030S680MT"),
+        ("R22", "3", "R_0402_1005Metric", "C423196", "0402WGF300KTCE"),
+    ):
+        assert fps[ref].GetValue() == value, ref
+        assert fps[ref].GetFPID().GetLibItemName() == footprint, ref
+        assert fps[ref].GetFieldText("LCSC") == lcsc, ref
+        assert fps[ref].GetFieldText("MPN") == mpn, ref
+    for num, net in ((1, "EPD_RESE"), (2, "GND")):
+        assert pad("R22", num).GetNetname() == net, ("R22", num, net)
+    print("PASS: L1 68 uH / R22 3 ohm reference pair, exact assembly parts and sense wiring")
+    # Panel-reference gate pull-down, retaining the existing 0402 land pattern.
+    assert fps["R21"].GetValue() == "10k"
+    assert fps["R21"].GetFPID().GetLibItemName() == "R_0402_1005Metric"
+    assert fps["R21"].GetFieldText("LCSC") == "C25744"
+    for num, net in ((1, "EPD_GDR"), (2, "GND")):
+        assert pad("R21", num).GetNetname() == net, ("R21", num, net)
+    print("PASS: R21 10 kohm gate pull-down, exact assembly part and pin mapping")
+    # MBR0530 package pin 1 is cathode; retain each boost diode's polarity.
+    for ref, cathode, anode in (("D2", "EPD_PREVGH", "EPD_SW"),
+                                ("D3", "GND", "EPD_X"),
+                                ("D4", "EPD_X", "EPD_PREVGL")):
+        assert fps[ref].GetValue() == "MBR0530T1G", ref
+        assert fps[ref].GetFPID().GetLibItemName() == "D_SOD-123", ref
+        assert fps[ref].GetFieldText("LCSC") == "C82046", ref
+        assert fps[ref].GetFieldText("MPN") == "MBR0530T1G", ref
+        assert pad(ref, 1).GetNetname() == cathode, ref
+        assert pad(ref, 2).GetNetname() == anode, ref
+    print("PASS: D2-D4 MBR0530T1G exact assembly parts, SOD-123 and cathode/anode mapping")
+    # Q2 must use the low-charge reference MOSFET and its smaller land pattern.
+    assert fps["Q2"].GetValue() == "Si1308EDL-T1-GE3"
+    assert fps["Q2"].GetFPID().GetLibItemName() == "SOT-323_SC-70"
+    assert fps["Q2"].GetFieldText("LCSC") == "C469327"
+    for num, net in {1: "EPD_GDR", 2: "EPD_RESE", 3: "EPD_SW"}.items():
+        assert pad("Q2", num).GetNetname() == net, ("Q2", num, net)
+    print("PASS: Q2 reference Si1308EDL, SOT-323 footprint, assembly ID and G/S/D pin mapping")
+    # VCOM capacitance must retain margin at high bias; do not substitute C15849.
+    assert fps["C35"].GetValue() == "1uF 50V X7R"
+    assert fps["C35"].GetFPID().GetLibItemName() == "C_0805_2012Metric"
+    assert fps["C35"].GetFieldText("LCSC") == "C28323"
+    assert fps["C35"].GetFieldText("MPN") == "CL21B105KBFNNNE"
+    for num, net in {1: "EPD_VCOM", 2: "GND"}.items():
+        assert pad("C35", num).GetNetname() == net, ("C35", num, net)
+    print("PASS: C35 X7R 0805 VCOM capacitor, exact assembly part and pin mapping")
+    for ref, net in (("C30", "EPD_PREVGH"), ("C31", "EPD_PREVGL"),
+                     ("C32", "EPD_VSH1"), ("C33", "EPD_VSH2"), ("C34", "EPD_VSL")):
+        assert fps[ref].GetValue() == "1uF 50V X7R", ref
+        assert fps[ref].GetFPID().GetLibItemName() == "C_0805_2012Metric", ref
+        assert fps[ref].GetFieldText("LCSC") == "C28323", ref
+        assert fps[ref].GetFieldText("MPN") == "CL21B105KBFNNNE", ref
+        assert pad(ref, "1").GetNetname() == net, ref
+        assert pad(ref, "2").GetNetname() == "GND", ref
+    print("PASS: C30-C34 X7R 0805 rail capacitors, exact assembly parts and pin mapping")
+
+    # Preserve the approved 50 V X7R flying capacitor and switching-node mapping.
+    assert fps["C26"].GetValue() == "4.7uF 50V X7R"
+    assert fps["C26"].GetFPID().GetLibItemName() == "C_1206_3216Metric"
+    assert fps["C26"].GetFieldText("LCSC") == "C51205"
+    assert fps["C26"].GetFieldText("MPN") == "CL31B475KBHNNNE"
+    for num, net in (("1", "EPD_SW"), ("2", "EPD_X")):
+        assert pad("C26", num).GetNetname() == net, ("C26", num, net)
+    print("PASS: C26 50 V X7R 1206 flying capacitor, exact assembly part and pin mapping")
+
     assert "Q1" not in fps and "D1" not in fps, "Obsolete power path present"
     for pin in (7, 14, 15):
         assert pad("U4", pin).GetNetname().startswith("unconnected-"), ("U4", pin)

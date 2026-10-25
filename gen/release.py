@@ -1,11 +1,12 @@
 """Check assembly exports; produce orientation/mechanical references (KiCad Python)."""
 import csv
-import hashlib
 import html
 import json
 from pathlib import Path
 import pcbnew as P
 from build_pcb import W, H, PANEL_AA
+from check_order import board_assembly
+from release_checks import manifest_text, verify_assembly, verify_archive
 
 ROOT = Path(__file__).resolve().parent.parent
 FAB = ROOT / 'fab'
@@ -19,6 +20,8 @@ assert {r['Designator'] for r in cpl} == expected
 assert len(cpl) == len(expected), 'Duplicate placement reference'
 assert all(row['LCSC Part #'].startswith('C') and row['LCSC Part #'][1:].isdigit() for row in bom)
 assert all(int(row['Qty']) == len(row['Designator'].split(',')) for row in bom)
+verify_assembly(design, bom, cpl, board_assembly(b))
+verify_archive(FAB/'eink-pod-gerbers.zip')
 fps = {f.GetReference():f for f in b.GetFootprints()}
 
 def xy(pos):
@@ -104,6 +107,5 @@ for base,ref in [(0,'J3'),(26,'J5'),(58,'R23'),(70,'R24'),(82,'R25')]:
 s.append('<text x="46" y="99">TP22–TP28: high-voltage / switching probes. Use local GND.</text>')
 s.append('<text x="46" y="103">Blue = header pin 1. J3/J5 NOT FITTED; J3 uses EN/IO0.</text>')
 s.append('</svg>');(FAB/'debug-map.svg').write_text('\n'.join(s))
-paths=['kicad/eink-pod.kicad_pcb','kicad/eink-pod.kicad_sch','kicad/erc.rpt','kicad/drc.rpt','kicad/drc-all.rpt','kicad/verification.txt','fab/eink-pod-gerbers.zip','fab/eink-pod-bom.csv','fab/eink-pod-cpl.csv','fab/debug-access.csv','fab/debug-map.svg']
-(FAB/'manifest-sha256.txt').write_text('\n'.join(hashlib.sha256((ROOT/p).read_bytes()).hexdigest()+'  '+p for p in paths)+'\n')
+(FAB/'manifest-sha256.txt').write_text(manifest_text(ROOT))
 print(f'PASS: BOM/CPL match {len(expected)} assembled components; orientation maps and SHA256 manifest generated')

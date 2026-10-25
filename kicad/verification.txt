@@ -2,6 +2,13 @@ PASS: 10 mm button pitch; glass gaps: 4.05 mm to front courtyards, 0.80 mm to fr
 PASS: glass and wheel courtyard clear antenna keepout by at least 1.85 / 1.50 mm
 PASS: TP1–TP4 have individual mirrored TX/RX/G/3V3 labels aligned to their pads
 PASS: power isolation boundaries, manual UART/header pinouts, DNP headers, local boost probes and spare GPIOs
+PASS: L1 68 uH / R22 3 ohm reference pair, exact assembly parts and sense wiring
+PASS: R21 10 kohm gate pull-down, exact assembly part and pin mapping
+PASS: D2-D4 MBR0530T1G exact assembly parts, SOD-123 and cathode/anode mapping
+PASS: Q2 reference Si1308EDL, SOT-323 footprint, assembly ID and G/S/D pin mapping
+PASS: C35 X7R 0805 VCOM capacitor, exact assembly part and pin mapping
+PASS: C30-C34 X7R 0805 rail capacitors, exact assembly parts and pin mapping
+PASS: C26 50 V X7R 1206 flying capacitor, exact assembly part and pin mapping
 PASS: 100 nF C40 bypass sits opposite U6; local supply/ground routes are protected
 C7 to MCU supply pad: 1.62 mm
 C6 to MCU supply pad: 4.42 mm

@@ -121,7 +121,7 @@ def route_critical(board, collect=None):
 
     # Keep switching nodes and sense path short and on B.Cu.
     wire("EPD_SW", [xy("L1", 2), xy("Q2", 3), (13.35, 12), xy("D2", 2)], width=0.3)
-    wire("EPD_SW", [xy("Q2", 3), (12.15, 12.5625), (12.15, 14.8), (8.75, 14.8), xy("C26", 1)], width=0.3)
+    wire("EPD_SW", [xy("Q2", 3), (12.15, 12.5625), (12.15, 14.6), (8.8, 14.6), (8.225, 15.175), xy("C26", 1)], width=0.3)
     wire("EPD_RESE", [xy("Q2", 2), (9.7125, 9.2225), xy("R22", 1)], width=0.25)
     # Sense return to the panel; Freerouting cannot reliably find this channel.
     wire("EPD_RESE", [xy("R22", 1), (9.69, 9.1015), (12.1707, 6.6208), (24.1822, 6.6208),
@@ -131,8 +131,8 @@ def route_critical(board, collect=None):
     via("EPD_RESE", (25.5993, 9.8622))
     wire("EPD_RESE", [(25.5993, 9.8622), (25.9054, 10.1683), xy("J4", 3)], width=0.2)
     wire("EPD_BOOST_IN", [xy("L1", 1), (2.8, 13.9), xy("C27", 1)], width=0.4)
-    wire("EPD_X", [xy("C26", 2), (10.65, 17.3), (8.95, 19), xy("D3", 2), xy("D4", 1)], width=0.3)
-    wire("EPD_PREVGH", [xy("D2", 1), (15.3, 16.15), (15.425, 16.275), xy("C30", 1)], width=0.3)
+    wire("EPD_X", [xy("C26", 2), (11.175, 16.775), (8.95, 19), xy("D3", 2), xy("D4", 1)], width=0.3)
+    wire("EPD_PREVGH", [xy("D2", 1), (15.3, 16.15), (15.6, 16.45), xy("C30", 1)], width=0.3)
     wire("EPD_PREVGL", [xy("D4", 2), (14.7, 19), (15.2, 19.5), xy("C31", 1)], width=0.3)
 
     wire("VSYS", [(36,81.5),xy("TP8",1)], width=0.4)

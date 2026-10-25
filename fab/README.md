@@ -3,6 +3,8 @@
 Generated from `kicad/eink-pod.kicad_pcb`; regenerate with `./build.sh` after
 circuit or placement changes. The archive contains copper, masks, paste,
 silkscreen, board outline and drill files. Do not order from stale exports.
+Run `./check-order.sh` from the repository root before ordering; see
+`../ORDER-READINESS.md` for the supplier and physical review record.
 
 - Four layers, nominal 1.6 mm, JLC04161H-7628, 1 oz outer / 0.5 oz inner copper.
 - Manufacturer stackup: outer dielectric 0.2104 mm each, inner copper 0.0152 mm

@@ -188,10 +188,10 @@
   },
   {
    "ref": "C1",
-   "value": "10uF",
+   "value": "4.7uF 25V",
    "footprint": "Capacitor_SMD:C_0805_2012Metric",
    "uuid": "6184c0da-61ae-4718-a75c-e948cfc803f8",
-   "lcsc": "C15850",
+   "lcsc": "C1779",
    "mpn": null,
    "dnp": false,
    "pads": {
@@ -930,11 +930,11 @@
   },
   {
    "ref": "L1",
-   "value": "47uH",
+   "value": "68uH",
    "footprint": "Inductor_SMD:L_Sunlord_SWPA4030S",
    "uuid": "97494c58-83e1-44a6-ab0f-7712cc998099",
-   "lcsc": "C54731",
-   "mpn": "SWPA4030S470MT",
+   "lcsc": "C83473",
+   "mpn": "SWPA4030S680MT",
    "dnp": false,
    "pads": {
     "1": "EPD_BOOST_IN",
@@ -943,11 +943,11 @@
   },
   {
    "ref": "Q2",
-   "value": "AO3400A",
-   "footprint": "Package_TO_SOT_SMD:SOT-23",
+   "value": "Si1308EDL-T1-GE3",
+   "footprint": "Package_TO_SOT_SMD:SOT-323_SC-70",
    "uuid": "ab144f71-89a3-44e0-b860-053f883e6b2f",
-   "lcsc": "C20917",
-   "mpn": null,
+   "lcsc": "C469327",
+   "mpn": "Si1308EDL-T1-GE3",
    "dnp": false,
    "pads": {
     "1": "EPD_GDR",
@@ -957,11 +957,11 @@
   },
   {
    "ref": "D2",
-   "value": "B5819W",
+   "value": "MBR0530T1G",
    "footprint": "Diode_SMD:D_SOD-123",
    "uuid": "610e7efd-1082-46b4-9a12-f9f4b6ea2abc",
-   "lcsc": "C8598",
-   "mpn": null,
+   "lcsc": "C82046",
+   "mpn": "MBR0530T1G",
    "dnp": false,
    "pads": {
     "1": "EPD_PREVGH",
@@ -970,11 +970,11 @@
   },
   {
    "ref": "D3",
-   "value": "B5819W",
+   "value": "MBR0530T1G",
    "footprint": "Diode_SMD:D_SOD-123",
    "uuid": "a7e89900-25bb-4440-bbd4-3082a2423bd5",
-   "lcsc": "C8598",
-   "mpn": null,
+   "lcsc": "C82046",
+   "mpn": "MBR0530T1G",
    "dnp": false,
    "pads": {
     "1": "GND",
@@ -983,11 +983,11 @@
   },
   {
    "ref": "D4",
-   "value": "B5819W",
+   "value": "MBR0530T1G",
    "footprint": "Diode_SMD:D_SOD-123",
    "uuid": "79d700eb-0733-449b-8735-5459a23e20e3",
-   "lcsc": "C8598",
-   "mpn": null,
+   "lcsc": "C82046",
+   "mpn": "MBR0530T1G",
    "dnp": false,
    "pads": {
     "1": "EPD_X",
@@ -996,10 +996,10 @@
   },
   {
    "ref": "R21",
-   "value": "1M",
+   "value": "10k",
    "footprint": "Resistor_SMD:R_0402_1005Metric",
    "uuid": "e121a329-dfc6-4fec-b02d-ea014d29bb69",
-   "lcsc": "C26083",
+   "lcsc": "C25744",
    "mpn": null,
    "dnp": false,
    "pads": {
@@ -1009,11 +1009,11 @@
   },
   {
    "ref": "R22",
-   "value": "2.2",
+   "value": "3",
    "footprint": "Resistor_SMD:R_0402_1005Metric",
    "uuid": "9388198d-6746-4240-84d0-f854f6244cd9",
-   "lcsc": "C25158",
-   "mpn": null,
+   "lcsc": "C423196",
+   "mpn": "0402WGF300KTCE",
    "dnp": false,
    "pads": {
     "1": "EPD_RESE",
@@ -1022,11 +1022,11 @@
   },
   {
    "ref": "C26",
-   "value": "4.7uF 25V",
-   "footprint": "Capacitor_SMD:C_0805_2012Metric",
+   "value": "4.7uF 50V X7R",
+   "footprint": "Capacitor_SMD:C_1206_3216Metric",
    "uuid": "e22d635d-7399-4ec6-af1f-eeb1f7c758a4",
-   "lcsc": "C1779",
-   "mpn": null,
+   "lcsc": "C51205",
+   "mpn": "CL31B475KBHNNNE",
    "dnp": false,
    "pads": {
     "1": "EPD_SW",
@@ -1074,11 +1074,11 @@
   },
   {
    "ref": "C30",
-   "value": "1uF 50V",
-   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "value": "1uF 50V X7R",
+   "footprint": "Capacitor_SMD:C_0805_2012Metric",
    "uuid": "c0ac7b71-ec5a-49ec-8081-3b637120a03b",
-   "lcsc": "C15849",
-   "mpn": null,
+   "lcsc": "C28323",
+   "mpn": "CL21B105KBFNNNE",
    "dnp": false,
    "pads": {
     "1": "EPD_PREVGH",
@@ -1087,11 +1087,11 @@
   },
   {
    "ref": "C31",
-   "value": "1uF 50V",
-   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "value": "1uF 50V X7R",
+   "footprint": "Capacitor_SMD:C_0805_2012Metric",
    "uuid": "7cd91cff-2508-4320-95ab-6981fb492ac0",
-   "lcsc": "C15849",
-   "mpn": null,
+   "lcsc": "C28323",
+   "mpn": "CL21B105KBFNNNE",
    "dnp": false,
    "pads": {
     "1": "EPD_PREVGL",
@@ -1100,11 +1100,11 @@
   },
   {
    "ref": "C32",
-   "value": "1uF 50V",
-   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "value": "1uF 50V X7R",
+   "footprint": "Capacitor_SMD:C_0805_2012Metric",
    "uuid": "42fc1fd4-b878-4bf7-9f5b-1c1367280a90",
-   "lcsc": "C15849",
-   "mpn": null,
+   "lcsc": "C28323",
+   "mpn": "CL21B105KBFNNNE",
    "dnp": false,
    "pads": {
     "1": "EPD_VSH1",
@@ -1113,11 +1113,11 @@
   },
   {
    "ref": "C33",
-   "value": "1uF 50V",
-   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "value": "1uF 50V X7R",
+   "footprint": "Capacitor_SMD:C_0805_2012Metric",
    "uuid": "527e93fd-5507-424e-959f-0a37fdb88586",
-   "lcsc": "C15849",
-   "mpn": null,
+   "lcsc": "C28323",
+   "mpn": "CL21B105KBFNNNE",
    "dnp": false,
    "pads": {
     "1": "EPD_VSH2",
@@ -1126,11 +1126,11 @@
   },
   {
    "ref": "C34",
-   "value": "1uF 50V",
-   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "value": "1uF 50V X7R",
+   "footprint": "Capacitor_SMD:C_0805_2012Metric",
    "uuid": "9ff4a7c1-34e3-42f7-9e06-1080f941c746",
-   "lcsc": "C15849",
-   "mpn": null,
+   "lcsc": "C28323",
+   "mpn": "CL21B105KBFNNNE",
    "dnp": false,
    "pads": {
     "1": "EPD_VSL",
@@ -1139,11 +1139,11 @@
   },
   {
    "ref": "C35",
-   "value": "1uF 50V",
-   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "value": "1uF 50V X7R",
+   "footprint": "Capacitor_SMD:C_0805_2012Metric",
    "uuid": "05f70071-851a-4b2e-8d8e-b8553370dfe0",
-   "lcsc": "C15849",
-   "mpn": null,
+   "lcsc": "C28323",
+   "mpn": "CL21B105KBFNNNE",
    "dnp": false,
    "pads": {
     "1": "EPD_VCOM",

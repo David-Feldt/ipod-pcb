@@ -8,6 +8,10 @@ no audio or microSD hardware.
 This is revision E, an unbuilt prototype design. The earlier 1.54-inch, 40 × 78 mm version is tagged `v1-1.54in`
 in git. See `DESIGN.md` for the GPIO map, power architecture and revision notes.
 
+Before ordering, run `./check-order.sh`. It checks the existing release and reports
+outstanding supplier/physical reviews; it does not regenerate the board.
+See `ORDER-READINESS.md` and record evidence in `order-review.json`.
+
 ## Repository and branches
 
 The central repository is https://github.com/David-Feldt/ipod-pcb. Use one local
@@ -49,7 +53,9 @@ Save your work and close the KiCad editors before switching branches. Open
 Run `./build.sh` with KiCad 10, Python 3, Java and `tools/freerouting.jar` installed.
 The script regenerates the schematic and PCB, checks ERC, routes the board,
 checks DRC and schematic parity, verifies the critical routes, then refreshes
-fabrication files and front/back renders. It stops if a required check fails.
+fabrication files and front/back renders. The final pre-order automated check
+compares exact BOM assignments and placements with the PCB and rejects new DRC
+findings. It stops if a required check fails; external reviews remain separate.
 
 Edit `gen/build_sch.py` for circuit changes, `gen/build_pcb.py` for placement,
 and `gen/critical_routes.py` for USB, decoupling and boost wiring. The router

@@ -12,9 +12,9 @@
 <circle cx="31.500" cy="76.050" r=".22" fill="#d02020"/>
 <rect x="30.775" y="77.450" width="1.450" height="1.000" fill="#c6c6c6"/>
 <text class="small" text-anchor="middle" x="31.500" y="77.000">C2</text>
-<rect x="32.750" y="15.275" width="1.000" height="1.450" fill="#c6c6c6"/>
-<circle cx="33.250" cy="16.000" r=".22" fill="#d02020"/>
-<rect x="30.850" y="15.275" width="1.000" height="1.450" fill="#c6c6c6"/>
+<rect x="33.200" y="15.100" width="1.150" height="1.800" fill="#c6c6c6"/>
+<circle cx="33.775" cy="16.000" r=".22" fill="#d02020"/>
+<rect x="30.250" y="15.100" width="1.150" height="1.800" fill="#c6c6c6"/>
 <text class="small" text-anchor="middle" x="32.300" y="16.000">C26</text>
 <rect x="38.725" y="15.775" width="0.950" height="0.900" fill="#c6c6c6"/>
 <circle cx="39.200" cy="16.225" r=".22" fill="#d02020"/>
@@ -32,29 +32,29 @@
 <circle cx="12.500" cy="80.550" r=".22" fill="#d02020"/>
 <rect x="11.775" y="81.950" width="1.450" height="1.000" fill="#c6c6c6"/>
 <text class="small" text-anchor="middle" x="12.500" y="81.500">C3</text>
-<rect x="24.325" y="15.825" width="0.950" height="0.900" fill="#c6c6c6"/>
-<circle cx="24.800" cy="16.275" r=".22" fill="#d02020"/>
-<rect x="24.325" y="14.275" width="0.950" height="0.900" fill="#c6c6c6"/>
+<rect x="24.075" y="15.950" width="1.450" height="1.000" fill="#c6c6c6"/>
+<circle cx="24.800" cy="16.450" r=".22" fill="#d02020"/>
+<rect x="24.075" y="14.050" width="1.450" height="1.000" fill="#c6c6c6"/>
 <text class="small" text-anchor="middle" x="24.800" y="15.500">C30</text>
-<rect x="26.325" y="20.275" width="0.950" height="0.900" fill="#c6c6c6"/>
-<circle cx="26.800" cy="20.725" r=".22" fill="#d02020"/>
-<rect x="26.325" y="21.825" width="0.950" height="0.900" fill="#c6c6c6"/>
+<rect x="26.075" y="20.050" width="1.450" height="1.000" fill="#c6c6c6"/>
+<circle cx="26.800" cy="20.550" r=".22" fill="#d02020"/>
+<rect x="26.075" y="21.950" width="1.450" height="1.000" fill="#c6c6c6"/>
 <text class="small" text-anchor="middle" x="26.800" y="21.500">C31</text>
-<rect x="15.925" y="18.825" width="0.950" height="0.900" fill="#c6c6c6"/>
-<circle cx="16.400" cy="19.275" r=".22" fill="#d02020"/>
-<rect x="15.925" y="17.275" width="0.950" height="0.900" fill="#c6c6c6"/>
+<rect x="15.675" y="18.950" width="1.450" height="1.000" fill="#c6c6c6"/>
+<circle cx="16.400" cy="19.450" r=".22" fill="#d02020"/>
+<rect x="15.675" y="17.050" width="1.450" height="1.000" fill="#c6c6c6"/>
 <text class="small" text-anchor="middle" x="16.400" y="18.500">C32</text>
-<rect x="13.925" y="18.825" width="0.950" height="0.900" fill="#c6c6c6"/>
-<circle cx="14.400" cy="19.275" r=".22" fill="#d02020"/>
-<rect x="13.925" y="17.275" width="0.950" height="0.900" fill="#c6c6c6"/>
+<rect x="13.675" y="18.950" width="1.450" height="1.000" fill="#c6c6c6"/>
+<circle cx="14.400" cy="19.450" r=".22" fill="#d02020"/>
+<rect x="13.675" y="17.050" width="1.450" height="1.000" fill="#c6c6c6"/>
 <text class="small" text-anchor="middle" x="14.400" y="18.500">C33</text>
-<rect x="11.925" y="18.825" width="0.950" height="0.900" fill="#c6c6c6"/>
-<circle cx="12.400" cy="19.275" r=".22" fill="#d02020"/>
-<rect x="11.925" y="17.275" width="0.950" height="0.900" fill="#c6c6c6"/>
+<rect x="11.675" y="18.950" width="1.450" height="1.000" fill="#c6c6c6"/>
+<circle cx="12.400" cy="19.450" r=".22" fill="#d02020"/>
+<rect x="11.675" y="17.050" width="1.450" height="1.000" fill="#c6c6c6"/>
 <text class="small" text-anchor="middle" x="12.400" y="18.500">C34</text>
-<rect x="9.925" y="18.825" width="0.950" height="0.900" fill="#c6c6c6"/>
-<circle cx="10.400" cy="19.275" r=".22" fill="#d02020"/>
-<rect x="9.925" y="17.275" width="0.950" height="0.900" fill="#c6c6c6"/>
+<rect x="9.675" y="18.950" width="1.450" height="1.000" fill="#c6c6c6"/>
+<circle cx="10.400" cy="19.450" r=".22" fill="#d02020"/>
+<rect x="9.675" y="17.050" width="1.450" height="1.000" fill="#c6c6c6"/>
 <text class="small" text-anchor="middle" x="10.400" y="18.500">C35</text>
 <rect x="16.690" y="63.700" width="0.620" height="0.560" fill="#c6c6c6"/>
 <circle cx="17.000" cy="63.980" r=".22" fill="#d02020"/>
@@ -172,10 +172,10 @@
 <circle cx="9.000" cy="79.500" r=".22" fill="#d02020"/>
 <rect x="7.150" y="75.950" width="3.700" height="1.100" fill="#c6c6c6"/>
 <text class="small" text-anchor="middle" x="9.000" y="78.000">L2</text>
-<rect x="31.550" y="12.650" width="1.475" height="0.600" fill="#c6c6c6"/>
-<circle cx="32.287" cy="12.950" r=".22" fill="#d02020"/>
-<rect x="31.550" y="10.750" width="1.475" height="0.600" fill="#c6c6c6"/>
-<rect x="29.675" y="11.700" width="1.475" height="0.600" fill="#c6c6c6"/>
+<rect x="31.775" y="12.425" width="0.925" height="0.450" fill="#c6c6c6"/>
+<circle cx="32.237" cy="12.650" r=".22" fill="#d02020"/>
+<rect x="31.775" y="11.125" width="0.925" height="0.450" fill="#c6c6c6"/>
+<rect x="30.000" y="11.775" width="0.925" height="0.450" fill="#c6c6c6"/>
 <text class="small" text-anchor="middle" x="31.350" y="12.000">Q2</text>
 <rect x="29.700" y="36.150" width="1.475" height="0.600" fill="#c6c6c6"/>
 <circle cx="30.438" cy="36.450" r=".22" fill="#d02020"/>
