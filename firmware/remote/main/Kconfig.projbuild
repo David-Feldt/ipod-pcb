@@ -1,0 +1,31 @@
+menu "E-ink Remote"
+
+config REMOTE_SPOTIFY_CLIENT_ID
+    string "Spotify app client ID"
+    default ""
+    help
+        Client ID of your Spotify developer app (not a secret; PKCE has no client secret).
+
+config REMOTE_PAIRING_REDIRECT_URI
+    string "Spotify redirect URI (static bounce page)"
+    default ""
+    help
+        HTTPS URL of pairing/index.html, exactly as registered in the Spotify app.
+
+config REMOTE_LOW_BATT_MV
+    int "Low-battery shutdown threshold (mV) - PROVISIONAL"
+    default 3450
+    help
+        Not an approved value (FIRMWARE-NOTES.md). Choose from pack data and measured sag.
+
+config REMOTE_FULL_REFRESH_EVERY
+    int "Full e-paper clearing refresh after N partial updates"
+    default 5
+    range 1 100
+
+config REMOTE_PROGRESS_INTERVAL_S
+    int "Progress bar update interval (s)"
+    default 10
+    range 1 120
+
+endmenu

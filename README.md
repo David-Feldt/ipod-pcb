@@ -47,6 +47,10 @@ Save your work and close the KiCad editors before switching branches. Open
 | `fab/eink-pod-bom.csv`, `fab/eink-pod-cpl.csv` | Assembly BOM and placement |
 | `fab/eink-pod-schematic.pdf` | Printable schematic |
 | `gen/` | Circuit, placement, fixed routing and output generators |
+| `firmware/remote/` | ESP-IDF application firmware (see its README) |
+| `firmware/bringup/`, `firmware/display_test/` | Arduino bench sketches used for board bring-up |
+| `FIRMWARE-NOTES.md` | Firmware requirements agreed during the hardware review |
+| `review/` | Hardware review evidence: datasheets, extracts and review pages |
 
 ## Rebuilding
 
@@ -106,9 +110,10 @@ remains 42 × 98 mm.
   in the library version you install) and the GPIO map in `DESIGN.md`.
 - Charger control: GPIO6/7 drive `CHG_EN1`/`CHG_EN2`. Both are pulled low at
   reset, selecting a **100 mA total USB input limit**. A charged battery supplies
-  Wi-Fi peaks. Select USB500 (`EN1=1, EN2=0`) only after the host grants it;
-  use `EN1=1, EN2=1` on USB suspend. A wall supply without enumeration stays
-  at 100 mA unless firmware positively identifies its available current.
+  Wi-Fi peaks. The accepted prototype policy selects USB500 (`EN1=1, EN2=0`)
+  early after boot whenever USB is present, assuming a source of at least 500 mA;
+  this is not negotiated USB permission (see `FIRMWARE-NOTES.md`). Use
+  `EN1=1, EN2=1` on USB suspend. With SW8 OFF the pull-downs keep USB100 charging.
   Charge current is nominally 223 mA when the input budget permits.
 - Volume wheel: drive GPIO5 (`VOL_EN`) high, wait ~1 ms, read GPIO4 (`VOL_SENSE`) with
   the ADC, then drive GPIO5 low again. Use the highest ADC attenuation and calibrate the two end positions.
@@ -129,6 +134,7 @@ remains 42 × 98 mm.
   antenna. Keep the battery and conductive enclosure/display features away from
   the antenna region, then test radio performance in the assembled device.
 
-Firmware has not been implemented in this repository. No hardware has been bench-tested.
+Application firmware is in progress in `firmware/remote/`. Board 1 bring-up results are
+recorded in the `BRINGUP.md` bench log; batch acceptance measurements remain open.
 See `BRINGUP.md` for acceptance measurements and `MECHANICAL.md` for the verified
 drawing dimensions and the remaining physical fit check.
