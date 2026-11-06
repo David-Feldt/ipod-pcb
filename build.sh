@@ -15,6 +15,7 @@ python3 gen/build_sch.py
 "$KC" sch export netlist --format kicadsexpr -o kicad/eink-pod.net kicad/eink-pod.kicad_sch
 "$KPY" -u gen/build_pcb.py
 "$KPY" -u gen/route.py "$JAR" 40
+"$KPY" -u gen/signature.py
 "$KC" pcb drc --severity-error --refill-zones --schematic-parity --exit-code-violations -o kicad/drc.rpt kicad/eink-pod.kicad_pcb
 "$KC" pcb drc --severity-all --schematic-parity -o kicad/drc-all.rpt kicad/eink-pod.kicad_pcb
 "$KPY" -u gen/verify_board.py > kicad/verification.txt

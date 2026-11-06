@@ -223,6 +223,35 @@ def write_stackup(path):
         f.write(content)
 
 
+SIGNATURE_FONT = "SignPainter"
+
+
+def add_signature(board):
+    """Maker's signature under the title. gen/signature.py adds it after routing,
+    because the extra text changes the autorouter's result."""
+    for d in list(board.GetDrawings()):
+        if isinstance(d, P.PCB_TEXT) and d.GetText() in ("Made by David Feldt", "2026"):
+            board.Remove(d)
+    for t in (text(board, P.B_SilkS, "Made by David Feldt", 16.2, 59.4, 1.8, mirror=True),
+              text(board, P.B_SilkS, "2026", 16.2, 61.6, 1.8, mirror=True)):
+        t.SetBold(False)
+
+
+def write_signature_font(path):
+    """The pcbnew API cannot set a text face, so add it to the signature in the file
+    and embed the font so other machines render the same outline."""
+    content = open(path).read()
+    for line in ('(gr_text "Made by David Feldt"', '(gr_text "2026"'):
+        i = content.index(line)
+        j = content.index("(font", i) + len("(font")
+        content = content[:j] + f'\n\t\t\t\t(face "{SIGNATURE_FONT}")' + content[j:]
+    # the board-level setting is the last one in the file, after every footprint's
+    tail = content.rindex("(embedded_fonts ")
+    content = content[:tail] + content[tail:].replace("(embedded_fonts no)", "(embedded_fonts yes)", 1)
+    with open(path, "w") as f:
+        f.write(content)
+
+
 def finish_silkscreen(board):
     """Keep overhanging component outlines on fabrication drawings only."""
     for fp in board.GetFootprints():
@@ -395,10 +424,21 @@ def main():
         seg(board, P.F_SilkS, cx, cy, cx, cy + 2 * dy, 0.15)
 
     # front silkscreen
-    text(board, P.F_SilkS, "MENU", 21, 61.6, 0.8)
-    text(board, P.F_SilkS, "PLAY", 21, 82.5, 0.8)
-    text(board, P.F_SilkS, "<<", 11, 78.2, 0.8)
-    text(board, P.F_SilkS, ">>", 31, 78.2, 0.8)
+    # wheel ring through the outer buttons, broken where it would cross their courtyards
+    wx, wy = PLACE["SW5"][:2]
+    import math
+    for a0, a1 in [(13, 69), (111, 167), (193, 249), (291, 347)]:
+        a = math.radians(a0)
+        arc(board, P.F_SilkS, wx, wy, wx + 10 * math.cos(a), wy + 10 * math.sin(a), a1 - a0, 0.15)
+    # filled arrows in the gaps between SELECT and each outer button, pointing at it
+    for ux, uy, d in [(0, -1, 3.0), (0, 1, 3.0), (-1, 0, 5.0), (1, 0, 5.0)]:
+        tx, ty = wx + ux * (d + 0.6), wy + uy * (d + 0.6)
+        bx, by = wx + ux * (d - 0.6), wy + uy * (d - 0.6)
+        tri = P.PCB_SHAPE(board)
+        tri.SetShape(P.SHAPE_T_POLY)
+        tri.SetPolyPoints([V(tx, ty), V(bx - uy * 0.7, by + ux * 0.7), V(bx + uy * 0.7, by - ux * 0.7)])
+        tri.SetFilled(True); tri.SetLayer(P.F_SilkS); tri.SetWidth(P.FromMM(0.1))
+        board.Add(tri)
     text(board, P.F_SilkS, "CHG", 27.5, 95.5, 0.8)
     # back silkscreen (mirrored)
     text(board, P.B_SilkS, "E-INK REMOTE rev E", 18, 56.5, 1.0, mirror=True, bold=True)
