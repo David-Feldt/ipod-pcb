@@ -6,6 +6,8 @@
 #include "app_console.h"
 #include "board.h"
 #include "settings.h"
+#include "ui.h"
+#include "epd.h"
 #include "esp_console.h"
 #include "esp_system.h"
 #include "esp_heap_caps.h"
@@ -63,6 +65,11 @@ static int cmd_status(int argc, char **argv)
     if (settings_get_str(SETTING_WIFI_SSID, ssid, sizeof ssid) == ESP_OK) printf("%-14s %s\n", "wifi ssid", ssid);
     else printf("%-14s not set\n", "wifi ssid");
     print_secret_state("spotify token", SETTING_REFRESH_TOKEN);
+    int32_t il = 0, ir = 0, it = 0, ib = 0;
+    settings_get_i32(SETTING_INSET_LEFT, &il); settings_get_i32(SETTING_INSET_RIGHT, &ir);
+    settings_get_i32(SETTING_INSET_TOP, &it); settings_get_i32(SETTING_INSET_BOTTOM, &ib);
+    printf("%-14s L%ld R%ld T%ld B%ld px, orientation %s\n", "screen insets", (long)il, (long)ir, (long)it,
+           (long)ib, epd_orientation_name(epd_orientation()));
     return 0;
 }
 
@@ -152,6 +159,57 @@ static int cmd_erase(int argc, char **argv)
     return 1;
 }
 
+static int cmd_display(int argc, char **argv)
+{
+    if (argc == 2 && !strcmp(argv[1], "calib")) {
+        ui_lock(); ui_show_calibration(); ui_unlock();
+        printf("Calibration pattern shown. Frame k is (k-1)*3 px from the panel edge; the thick one is 15 px.\n"
+               "Then: display inset <left> <right> <top> <bottom>   (pixels hidden on each edge)\n");
+        return 0;
+    }
+    if (argc == 2 && !strcmp(argv[1], "done")) {
+        ui_lock(); np_show(); ui_unlock();
+        ui_request_full_refresh();
+        return 0;
+    }
+    if (argc == 6 && !strcmp(argv[1], "inset")) {
+        int v[4];
+        for (int i = 0; i < 4; i++) {
+            v[i] = atoi(argv[2 + i]);
+            if (v[i] < 0 || v[i] > UI_INSET_MAX) { printf("each inset must be 0..%d px\n", UI_INSET_MAX); return 1; }
+        }
+        const char *keys[] = { SETTING_INSET_LEFT, SETTING_INSET_RIGHT, SETTING_INSET_TOP, SETTING_INSET_BOTTOM };
+        for (int i = 0; i < 4; i++) settings_set_i32(keys[i], v[i]);
+        printf("saved insets L%d R%d T%d B%d; restarting to rebuild the layout\n", v[0], v[1], v[2], v[3]);
+        vTaskDelay(pdMS_TO_TICKS(200));
+        esp_restart();
+        return 0;
+    }
+    if (argc == 2 && !strcmp(argv[1], "stats")) {
+        epd_stats_t st = epd_stats();
+        printf("full %lu, partial %lu, timeouts %lu, last %s %lu ms\n", (unsigned long)st.full_count,
+               (unsigned long)st.partial_count, (unsigned long)st.timeouts,
+               st.last_mode == EPD_REFRESH_FULL ? "full" : "partial", (unsigned long)st.last_ms);
+        return 0;
+    }
+    if (argc == 2 && !strcmp(argv[1], "full")) { ui_request_full_refresh(); return 0; }
+    if (argc == 3 && !strcmp(argv[1], "orient")) {
+        for (int o = EPD_ORIENT_NATIVE; o <= EPD_ORIENT_FLIP_H; o++) {
+            if (!strcmp(argv[2], epd_orientation_name(o))) {
+                epd_set_orientation(o);
+                settings_set_i32(SETTING_DISPLAY_ORIENT, o);
+                ui_request_full_refresh();
+                printf("orientation %s saved\n", argv[2]);
+                return 0;
+            }
+        }
+        printf("orientations: native | rot180 | flipv | fliph\n");
+        return 1;
+    }
+    printf("usage: display calib | done | inset <l> <r> <t> <b> | orient native|rot180|flipv|fliph | stats | full\n");
+    return 1;
+}
+
 static int cmd_restart(int argc, char **argv) { esp_restart(); return 0; }
 
 esp_err_t app_console_start(void)
@@ -175,6 +233,7 @@ esp_err_t app_console_start(void)
         { .command = "charger", .help = "charger usb100|usb500|suspend|auto", .func = cmd_charger },
         { .command = "calib",   .help = "calib wheel: capture wheel end points", .func = cmd_calib },
         { .command = "erase",   .help = "erase yes: wipe all settings", .func = cmd_erase },
+        { .command = "display", .help = "display calib|done|inset l r t b|orient o|stats|full", .func = cmd_display },
         { .command = "restart", .help = "Reboot", .func = cmd_restart },
     };
     for (size_t i = 0; i < sizeof cmds / sizeof cmds[0]; i++) esp_console_cmd_register(&cmds[i]);

@@ -11,6 +11,11 @@
 #define SETTING_REFRESH_TOKEN  "sp_refresh"
 #define SETTING_WHEEL_MIN_MV   "wheel_min"
 #define SETTING_WHEEL_MAX_MV   "wheel_max"
+#define SETTING_INSET_LEFT     "inset_l"
+#define SETTING_INSET_RIGHT    "inset_r"
+#define SETTING_INSET_TOP      "inset_t"
+#define SETTING_INSET_BOTTOM   "inset_b"
+#define SETTING_DISPLAY_ORIENT "disp_orient"
 
 esp_err_t settings_init(void);
 esp_err_t settings_get_str(const char *key, char *out, size_t out_len);   // ESP_ERR_NVS_NOT_FOUND if unset
