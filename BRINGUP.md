@@ -1,7 +1,6 @@
 # Revision E prototype acceptance
 
-This repository contains hardware, not application firmware. Passing ERC/DRC does
-not prove an assembled board works. Validate one assembly before a larger batch.
+Passing ERC/DRC does not prove an assembled board works. Validate one assembly before a larger batch.
 
 1. Confirm R23/R24/R25 are fitted and J3/J5 are unpopulated. Inspect U4/U5 pin 1, J4 orientation, Q2–Q5, USB-C, LED polarity, wheel seating
    and the filled/capped thermal pads. Compare `fab/assembly-pin1.csv` and drawings.
@@ -38,10 +37,29 @@ not prove an assembled board works. Validate one assembly before a larger batch.
 9. Exercise Wi-Fi and screen refresh together near low battery; measure charging
    temperature, sleep/off current and radio performance with the intended case.
 
-Record measured results, instrument conditions and firmware revision. No bench
-results have been recorded yet. Cell temperature sensing is absent (fixed TS bias);
-charge only within the selected pack's allowed ambient temperature range.
+Record measured results, instrument conditions and firmware revision in the bench
+log below. Cell temperature sensing is absent (fixed TS bias); charge only within
+the selected pack's allowed ambient temperature range.
 
 For current measurement, external 3.3 V power, manual UART recovery and the
 external display adapter, follow `DEBUG.md`; opening a link changes which
 supply/test pad is connected to each circuit.
+
+## Bench log
+
+### Board 1, 2026-11-04 (firmware `firmware/bringup/bringup.ino`, esp32 core 3.2.0)
+
+| Step | Result |
+|---|---|
+| 1. Visual | No issues reported |
+| 2. Unpowered shorts | No shorts on VBUS, VBAT_RAW, VBAT, VSYS, REG_3V3, 3V3, EPD_BOOST_IN. TP11 (PWR_EN) reads 0 ohm to GND with SW8 OFF (by design); open with SW8 ON |
+| 3. First power | Done over USB in USB100 instead of the bench supply at J2; no battery, no panel. 3V3 not yet measured with a meter |
+| 6. USB | Enumerates as Espressif USB-Serial/JTAG (303a:1001). esptool: ESP32-S3 (QFN56) v0.2, 8 MB flash, 40 MHz crystal. Flashed over native USB. RESET recovers cleanly. Cable-flip and BOOT/ROM recovery not yet tested |
+| 5. Charger pins | EN1/EN2 read USB100 with firmware leaving them as inputs. USB_PRESENT_N low with USB connected |
+| 8. Sensing | VBAT_SENSE reads 4.19 V with no battery (charger holds BAT near regulation); meter comparison pending with a battery fitted |
+| 8. Wheel | 0 to 2735 mV end to end (expected about 2750 mV), stable to ±2 mV |
+| 8. Buttons | MENU/PLAY/PREV/NEXT/SEL register with clean edges; none stuck at boot. BOOT not yet tested |
+| Thermal | ESP32 internal temperature 22–24 C, Wi-Fi off |
+| Battery | Protected 1000 mAh pack on J2, polarity correct (VBAT_SENSE 3.92 V vs 4.19 V with no battery). D5 lights while charging on USB100. Unplugging USB with SW8 ON: no reboot (button counters retained). TP4/TP5 meter readings pending |
+| Button map | Centre button reports SEL as designed |
+| 7. Display | GDEY0213B74 on J4 with `firmware/display_test` (GxEPD2 1.6.9, 4 MHz SPI). White/black/white/checker/orientation all complete; BUSY 1.743–1.744 s per full refresh, first refresh 3.6 s including library initial clear. vbat 3.93 V steady, USB connected (not a droop test). Visual quality/orientation: user reports working |
