@@ -16,6 +16,7 @@
 #include "net.h"
 #include "spotify.h"
 #include "player.h"
+#include "art.h"
 #include "esp_log.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
@@ -30,7 +31,18 @@ static struct {
     char track_id[64];
     char message[96];
     int playing;            // -1 unknown
+    char art_url[128];      // cover currently on screen ("" = placeholder)
 } s_shown = { .playing = -1 };
+
+// A new track waits briefly for its cover so text and art arrive in one full
+// refresh instead of two.
+#define ART_WAIT_MS 2500
+static struct {
+    bool active;
+    int64_t deadline_us;
+    player_state_t st;
+} s_pending;
+static uint8_t s_art_buf[ART_BYTES(UI_ART_MAX)];
 
 static void update_status(void)
 {
@@ -95,19 +107,59 @@ static void apply_player_state(void)
     if (s.status == PLAYER_ERROR) return;       // transient: keep showing the last track
     show_message(NULL);
 
-    ui_lock();
     if (strcmp(s.track_id, s_shown.track_id)) {
-        snprintf(s_shown.track_id, sizeof s_shown.track_id, "%s", s.track_id);
-        ESP_LOGI(TAG, "track: %s - %s", s.title, s.artist);
-        np_set_track(s.title, s.artist, s.album, s.duration_ms);
-        ui_request_full_refresh();             // track change clears ghosting
+        if (!s_pending.active || strcmp(s.track_id, s_pending.st.track_id)) {
+            s_pending.active = true;
+            s_pending.deadline_us = esp_timer_get_time() + ART_WAIT_MS * 1000LL;
+            art_request(s.image_url);
+        }
+        s_pending.st = s;
+        return;                                 // shown by show_pending_track()
     }
+
+    ui_lock();
     if (s.playing != s_shown.playing) {
         s_shown.playing = s.playing;
         np_set_playing(s.playing);
     }
     np_set_progress(player_position_ms(&s));    // redraws only if a pixel changes
     ui_unlock();
+}
+
+// Put the cover on screen if the art task has it. Returns true if it changed.
+static bool apply_art(const char *want_url)
+{
+    char url[128];
+    bool ok = art_get(url, sizeof url, s_art_buf);
+    if (strcmp(url, want_url)) return false;           // not finished (or stale)
+    if (!strcmp(s_shown.art_url, ok ? url : "")) return false;
+    snprintf(s_shown.art_url, sizeof s_shown.art_url, "%s", ok ? url : "");
+    np_set_art(ok ? s_art_buf : NULL);
+    return true;
+}
+
+static void show_pending_track(void)
+{
+    if (!s_pending.active) return;
+    const player_state_t *s = &s_pending.st;
+    char url[128];
+    art_get(url, sizeof url, s_art_buf);
+    bool art_ready = !s->image_url[0] || !strcmp(url, s->image_url) || !strcmp(s_shown.art_url, s->image_url);
+    if (!art_ready && esp_timer_get_time() < s_pending.deadline_us) return;
+    s_pending.active = false;
+
+    ui_lock();
+    snprintf(s_shown.track_id, sizeof s_shown.track_id, "%s", s->track_id);
+    ESP_LOGI(TAG, "track: %s - %s%s", s->title, s->artist, art_ready ? "" : " (cover late)");
+    np_set_track(s->title, s->artist, s->album, s->duration_ms);
+    if (!apply_art(s->image_url) && strcmp(s_shown.art_url, s->image_url)) {
+        s_shown.art_url[0] = 0;                 // old cover would be misleading
+        np_set_art(NULL);
+    }
+    if (s->playing != s_shown.playing) { s_shown.playing = s->playing; np_set_playing(s->playing); }
+    np_set_progress(player_position_ms(s));
+    ui_unlock();
+    ui_request_full_refresh();                  // track change clears ghosting
 }
 
 static void handle_input(const input_event_t *ev)
@@ -164,11 +216,13 @@ void app_main(void)
     ESP_ERROR_CHECK(app_console_start());
     ESP_ERROR_CHECK(net_start());
     ESP_ERROR_CHECK(player_start());
+    ESP_ERROR_CHECK(art_start(np_art_size()));
     apply_player_state();                  // "Connecting..." until the first poll answers
 
     TickType_t last_power = xTaskGetTickCount();
     TickType_t last_progress = xTaskGetTickCount();
     uint32_t seen_version = player_version();
+    uint32_t seen_art = art_version();
     for (;;) {
         input_event_t ev;
         if (xQueueReceive(events, &ev, pdMS_TO_TICKS(100)) == pdTRUE) handle_input(&ev);
@@ -181,6 +235,17 @@ void app_main(void)
         } else if (now - last_progress >= pdMS_TO_TICKS(CONFIG_REMOTE_PROGRESS_INTERVAL_S * 1000)) {
             last_progress = now;
             apply_player_state();              // advances the progress bar between polls
+        }
+        show_pending_track();
+        uint32_t av = art_version();
+        if (av != seen_art) {
+            seen_art = av;
+            // A cover that missed the track-change refresh lands with a partial.
+            if (!s_pending.active && s_shown.track_id[0]) {
+                player_state_t s;
+                player_get(&s);
+                if (!strcmp(s.track_id, s_shown.track_id)) { ui_lock(); apply_art(s.image_url); ui_unlock(); }
+            }
         }
         if (now - last_power >= pdMS_TO_TICKS(2000)) {
             last_power = now;

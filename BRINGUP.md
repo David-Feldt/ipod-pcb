@@ -79,3 +79,9 @@ supply/test pad is connected to each circuit.
 |---|---|
 | Live playback | Track, artist, album and progress follow Spotify on a Google Nest Hub; automatic track changes appear within one poll |
 | Controls | Play/pause (centre), next, previous/restart and wheel volume work (user check). Spotify acknowledges next in 0.4 s, pause/play in 0.26–0.35 s; a new track is on screen about 3.5 s after NEXT, including the 2.27 s full refresh |
+
+### Board 1, 2026-11-08 (firmware `firmware/remote` 0.4.1, 240 MHz)
+
+| Step | Result |
+|---|---|
+| Album art | Covers of 7–63 KB decode correctly; user reports the dithered art looks good. First cover after boot 2.0 s TLS connect (2.9 s at 160 MHz); later covers 72–80 ms connect with session resumption, 0.1–0.3 s download and decode. Track text and cover arrive in one full refresh. Min free heap 60 KB over 8 track changes |

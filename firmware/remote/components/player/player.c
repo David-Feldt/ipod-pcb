@@ -70,15 +70,22 @@ static void artists(char *dst, size_t n, cJSON *arr)
     }
 }
 
-// Smallest image that is still >= 64 px (Spotify lists largest first).
+// Smallest image that is still >= 200 px wide (Spotify offers 640/300/64),
+// falling back to the first (largest) one.
 static void pick_image(char *dst, size_t n, cJSON *images)
 {
     dst[0] = 0;
+    int best_w = 1 << 30;
     cJSON *img;
     cJSON_ArrayForEach(img, images) {
         cJSON *w = cJSON_GetObjectItem(img, "width");
         const char *url = cJSON_GetStringValue(cJSON_GetObjectItem(img, "url"));
-        if (url && (!cJSON_IsNumber(w) || w->valueint >= 64 || !dst[0])) snprintf(dst, n, "%s", url);
+        if (!url) continue;
+        int width = cJSON_IsNumber(w) ? w->valueint : 0;
+        if (!dst[0] || (width >= 200 && width < best_w)) {
+            snprintf(dst, n, "%s", url);
+            if (width >= 200) best_w = width;
+        }
     }
 }
 

@@ -10,6 +10,7 @@
 #include "epd.h"
 #include "net.h"
 #include "spotify.h"
+#include "player.h"
 #include "cJSON.h"
 #include <time.h>
 #include "esp_console.h"
@@ -144,6 +145,10 @@ static const char *json_str(cJSON *o, const char *k)
 static int cmd_spotify(int argc, char **argv)
 {
     if (!net_connected()) { printf("not connected to Wi-Fi (see `status`)\n"); return 1; }
+    // Same path as the buttons (runs in the player task).
+    if (argc == 2 && !strcmp(argv[1], "next")) { player_next(); return 0; }
+    if (argc == 2 && !strcmp(argv[1], "prev")) { player_prev(); return 0; }
+    if (argc == 2 && !strcmp(argv[1], "play")) { player_toggle(); return 0; }
     if (argc == 2 && !strcmp(argv[1], "refresh")) {
         bool rotated;
         int64_t t0 = esp_timer_get_time();
@@ -182,7 +187,7 @@ static int cmd_spotify(int argc, char **argv)
         spotify_response_free(&r);
         return 0;
     }
-    printf("usage: spotify refresh | now | devices\n");
+    printf("usage: spotify refresh | now | devices | next | prev | play\n");
     return 1;
 }
 
@@ -308,7 +313,7 @@ esp_err_t app_console_start(void)
         { .command = "status",  .help = "Board, power, input and settings summary", .func = cmd_status },
         { .command = "wifi",    .help = "wifi set <ssid> <password> | wifi clear", .func = cmd_wifi },
         { .command = "token",   .help = "token set <refresh_token> | token clear", .func = cmd_token },
-        { .command = "spotify", .help = "spotify refresh | now | devices", .func = cmd_spotify },
+        { .command = "spotify", .help = "spotify refresh|now|devices|next|prev|play", .func = cmd_spotify },
         { .command = "charger", .help = "charger usb100|usb500|suspend|auto", .func = cmd_charger },
         { .command = "calib",   .help = "calib wheel: capture wheel end points", .func = cmd_calib },
         { .command = "erase",   .help = "erase yes: wipe all settings", .func = cmd_erase },

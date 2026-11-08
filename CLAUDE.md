@@ -39,6 +39,10 @@ Decisions made with the user (2026-11-05):
 - Wheel volume: absolute "jump" policy — publish only after >3% deliberate movement.
 - USB present → USB500 early at boot (accepted prototype policy, not negotiated).
 
+Album art: user is happy with the Atkinson-dithered look. Keep memory in mind
+(no PSRAM): covers are stream-decoded, never buffered whole; min free heap ~60 KB.
+CPU at 240 MHz for TLS speed — revisit in milestone 7.
+
 Button map (user's choice): centre SEL = play/pause, PREV/NEXT = tracks, bottom
 PLAY unassigned (hold = full refresh), MENU free for the device picker.
 
@@ -50,9 +54,9 @@ the now-playing screen.
 1. Board layer, power/charger policy, input, settings, console — **done**
 2. E-paper driver, LVGL, now-playing layout with mock data — **done**
 3. Wi-Fi, SNTP, Spotify auth/token refresh — **done** (board 1 reads live playback)
-4. Real now playing, transport controls, wheel volume — **done** (album art still to do)
-5. Device picker — **next** (MENU button is free for it)
-6. Pairing flow
+4. Real now playing, transport controls, wheel volume, album art — **done**
+5. Device picker — **dropped** (user said they don't need it; MENU stays free)
+6. Pairing flow — **next**
 7. Low battery → deep sleep, wake policy
 
 Spotify app: Client ID `fb6818b0834e4e418b6ad5ef191383ee` (Kconfig default; not

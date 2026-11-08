@@ -14,9 +14,9 @@ Target: ESP32-S3-MINI-1-N8 (8 MB flash, **no PSRAM**), ESP-IDF 6.0.2.
 | 1. Skeleton, power/charger policy, buttons, wheel, settings, USB console | Done, running on board 1 |
 | 2. SSD1680 e-paper driver, LVGL, now-playing layout (mock data) | Done, on board 1 |
 | 3. Wi-Fi, SNTP, Spotify token refresh | Done, on board 1 |
-| 4. Now playing, transport controls, wheel volume | Done, on board 1 |
-| 5. Device picker | Next |
-| 6. Pairing: setup hotspot, on-device setup page, static redirect page | Planned |
+| 4. Now playing, transport controls, wheel volume, album art | Done, on board 1 |
+| 5. Device picker | Dropped for now (user doesn't need it) |
+| 6. Pairing: setup hotspot, on-device setup page, static redirect page | Next |
 | 7. Low battery → deep sleep, wake policy | Planned |
 
 ## Build and flash
@@ -43,7 +43,15 @@ every 10 s otherwise; the progress bar advances locally in between.
 | PREV | Restart the track; previous track if within its first 3 s |
 | Wheel | Volume of the playing device (after >3% deliberate movement) |
 | Bottom (PLAY), hold | Force a full e-paper refresh |
-| MENU | Unassigned (device picker, milestone 5) |
+| MENU | Unassigned |
+
+Album art: the 300 px cover is decoded straight from the download with the
+ESP32-S3 ROM JPEG decoder, scaled to the 110 px box, contrast-stretched and
+Atkinson-dithered to black and white. A new track waits up to 2.5 s for its
+cover so text and art land in one full refresh. The image host keeps a TLS
+session ticket, so after the first cover (about 2 s of handshake) each one
+takes about 0.3-0.5 s. The CPU runs at 240 MHz because TLS handshakes are
+CPU-bound (no ECC accelerator); revisit for battery life in milestone 7.
 
 Presses update the screen before Spotify confirms; a failed command shows a
 short notice (for example "Volume not supported" on devices that refuse it).
@@ -86,6 +94,7 @@ The serial monitor gives a `remote>` prompt:
 | `token set <refresh_token>` / `token clear` | Store a Spotify refresh token (development) |
 | `spotify refresh` | Get a new access token now (saves a rotated refresh token) |
 | `spotify now` / `spotify devices` | Show current playback / list Spotify Connect devices |
+| `spotify next` / `prev` / `play` | Same as the buttons (for testing without touching the board) |
 | `erase yes` | Wipe all stored settings |
 | `display calib` / `display done` | Show / leave the screen-fit pattern (frames every 3 px; thick = 15 px) |
 | `display inset <l> <r> <t> <b>` | Save pixels hidden on each edge and restart |
@@ -104,6 +113,7 @@ The serial monitor gives a `remote>` prompt:
 | `components/ui/` | LVGL 1-bit port, refresh scheduler, now-playing screen, calibration pattern |
 | `components/net/` | Wi-Fi station with reconnect backoff, SNTP |
 | `components/player/` | Playback poller and command runner (play/pause/next/previous/seek/volume) |
+| `components/art/` | Album art: streaming JPEG decode (ROM TJpgDec), scale, dither to 1-bit |
 | `components/spotify/` | Token refresh (rotating refresh token saved to NVS), authenticated Web API requests over one kept-alive TLS connection |
 | `components/app_console/` | USB console commands |
 | `../../tools/spotify_token.py` | PKCE login helper that gets a refresh token for the board |

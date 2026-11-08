@@ -8,6 +8,7 @@
 // wake, reset).
 #pragma once
 #include <stdbool.h>
+#include <stdint.h>
 #include "esp_err.h"
 
 esp_err_t ui_init(void);
@@ -35,6 +36,9 @@ void np_set_status(const ui_status_t *s);
 void np_set_track(const char *title, const char *artist, const char *album, int duration_ms);
 void np_set_progress(int progress_ms);  // only redraws when a pixel would change
 void np_set_playing(bool playing);
+#define UI_ART_MAX 110
+int np_art_size(void);                  // edge of the album-art square in pixels
+void np_set_art(const uint8_t *bits);   // packed 1-bit, ((size+7)/8)*size bytes, 1 = white; NULL = placeholder
 void np_show_volume(int pct);           // transient overlay
 void np_show_notice(const char *msg);   // transient one-line notice in the same overlay
 void np_show_message(const char *msg);  // replaces track text (e.g. "Nothing playing"); NULL clears

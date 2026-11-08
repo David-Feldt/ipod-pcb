@@ -26,7 +26,10 @@
 
 static lv_obj_t *s_play, *s_batt, *s_title, *s_artist, *s_album, *s_msg;
 static lv_obj_t *s_bar, *s_elapsed, *s_total;
-static lv_obj_t *s_art, *s_art_placeholder;
+static lv_obj_t *s_art, *s_art_placeholder, *s_art_img;
+static int s_art_size;
+static uint8_t s_art_px[UI_ART_MAX * UI_ART_MAX];   // L8, 0 or 255 per pixel
+static lv_image_dsc_t s_art_dsc;
 static lv_obj_t *s_vol_box, *s_vol_label, *s_vol_bar;
 static lv_timer_t *s_vol_timer;
 static lv_obj_t *s_np_screen;
@@ -193,6 +196,17 @@ void np_create(const ui_insets_t *in)
     s_art_placeholder = label(s_art, &lv_font_montserrat_20, 0, 0, 0);
     lv_label_set_text(s_art_placeholder, LV_SYMBOL_AUDIO);
     lv_obj_center(s_art_placeholder);
+    // Cover image on top of the box (covers its border too), hidden until set.
+    s_art_size = art > UI_ART_MAX ? UI_ART_MAX : art;
+    s_art_dsc = (lv_image_dsc_t){
+        .header = { .magic = LV_IMAGE_HEADER_MAGIC, .cf = LV_COLOR_FORMAT_L8,
+                    .w = s_art_size, .h = s_art_size, .stride = s_art_size },
+        .data_size = s_art_size * s_art_size, .data = s_art_px,
+    };
+    s_art_img = lv_image_create(root);
+    lv_obj_set_pos(s_art_img, (s_w - s_art_size) / 2, 22);
+    lv_obj_set_size(s_art_img, s_art_size, s_art_size);
+    lv_obj_add_flag(s_art_img, LV_OBJ_FLAG_HIDDEN);
 
     // track text between the art and the progress bar
     int y = 22 + art + 3;
@@ -221,6 +235,24 @@ void np_create(const ui_insets_t *in)
     np_set_playing(false);
     s_np_screen = scr;
     lv_screen_load(scr);
+}
+
+int np_art_size(void) { return s_art_size; }
+
+void np_set_art(const uint8_t *px)
+{
+    if (!px) {
+        lv_obj_add_flag(s_art_img, LV_OBJ_FLAG_HIDDEN);
+        return;
+    }
+    int stride = (s_art_size + 7) / 8;           // packed 1-bit in, L8 for LVGL out
+    for (int y = 0; y < s_art_size; y++)
+        for (int x = 0; x < s_art_size; x++)
+            s_art_px[y * s_art_size + x] = (px[y * stride + (x >> 3)] & (0x80 >> (x & 7))) ? 255 : 0;
+    lv_image_cache_drop(&s_art_dsc);            // same buffer, new pixels
+    lv_image_set_src(s_art_img, &s_art_dsc);
+    lv_obj_invalidate(s_art_img);
+    lv_obj_remove_flag(s_art_img, LV_OBJ_FLAG_HIDDEN);
 }
 
 void np_show(void) { if (s_np_screen) lv_screen_load(s_np_screen); }

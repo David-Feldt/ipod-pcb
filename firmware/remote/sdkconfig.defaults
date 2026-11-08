@@ -27,3 +27,13 @@ CONFIG_LV_FONT_MONTSERRAT_20=y
 CONFIG_LV_USE_LOG=y
 CONFIG_LV_LOG_LEVEL_WARN=y
 CONFIG_LV_LOG_PRINTF=y
+
+# No PSRAM: let idle TLS connections release their record buffers and
+# certificate data (one kept-alive API connection + album-art downloads).
+CONFIG_MBEDTLS_DYNAMIC_BUFFER=y
+CONFIG_MBEDTLS_DYNAMIC_FREE_CONFIG_DATA=y
+CONFIG_MBEDTLS_DYNAMIC_FREE_CA_CERT=y
+# Resume TLS sessions (album-art host): skips the software ECC handshake.
+CONFIG_ESP_TLS_CLIENT_SESSION_TICKETS=y
+# TLS handshakes are CPU-bound (no ECC accelerator): 240 MHz is ~1.5x faster.
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
