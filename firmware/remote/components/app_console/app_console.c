@@ -1,4 +1,4 @@
-// Commands: status, wifi, token, charger, calib, erase, restart.
+// Commands: status, wifi, token, spotify, charger, calib, display, erase, restart.
 // Secrets typed here are stored in NVS; they are never echoed back in full.
 #include <stdio.h>
 #include <string.h>
@@ -8,6 +8,10 @@
 #include "settings.h"
 #include "ui.h"
 #include "epd.h"
+#include "net.h"
+#include "spotify.h"
+#include "cJSON.h"
+#include <time.h>
 #include "esp_console.h"
 #include "esp_system.h"
 #include "esp_heap_caps.h"
@@ -64,7 +68,23 @@ static int cmd_status(int argc, char **argv)
     char ssid[33];
     if (settings_get_str(SETTING_WIFI_SSID, ssid, sizeof ssid) == ESP_OK) printf("%-14s %s\n", "wifi ssid", ssid);
     else printf("%-14s not set\n", "wifi ssid");
+    char ip[16];
+    net_ip_str(ip, sizeof ip);
+    printf("%-14s %s%s%s", "wifi", net_state_name(net_state()), ip[0] ? ", ip " : "", ip);
+    if (net_connected()) printf(", rssi %d dBm", net_rssi());
+    printf("\n");
+    if (net_time_valid()) {
+        time_t now = time(NULL);
+        char tbuf[32];
+        strftime(tbuf, sizeof tbuf, "%Y-%m-%d %H:%M:%S UTC", gmtime(&now));
+        printf("%-14s %s\n", "clock", tbuf);
+    } else {
+        printf("%-14s not set yet\n", "clock");
+    }
     print_secret_state("spotify token", SETTING_REFRESH_TOKEN);
+    printf("%-14s %s", "spotify auth", spotify_auth_name(spotify_auth_state()));
+    if (spotify_token_ttl_s() > 0) printf(", access token %d s left", spotify_token_ttl_s());
+    printf("\n");
     int32_t il = 0, ir = 0, it = 0, ib = 0;
     settings_get_i32(SETTING_INSET_LEFT, &il); settings_get_i32(SETTING_INSET_RIGHT, &ir);
     settings_get_i32(SETTING_INSET_TOP, &it); settings_get_i32(SETTING_INSET_BOTTOM, &ib);
@@ -79,12 +99,15 @@ static int cmd_wifi(int argc, char **argv)
         if (strlen(argv[2]) > 32 || strlen(argv[3]) > 64) { printf("ssid <= 32, password <= 64 chars\n"); return 1; }
         esp_err_t e1 = settings_set_str(SETTING_WIFI_SSID, argv[2]);
         esp_err_t e2 = settings_set_str(SETTING_WIFI_PASS, argv[3]);
-        printf("%s\n", (e1 == ESP_OK && e2 == ESP_OK) ? "saved; restart to connect" : "save failed");
+        if (e1 != ESP_OK || e2 != ESP_OK) { printf("save failed\n"); return 1; }
+        printf("saved; connecting (check with `status`)\n");
+        net_reload();
         return 0;
     }
     if (argc == 2 && !strcmp(argv[1], "clear")) {
         settings_erase(SETTING_WIFI_SSID);
         settings_erase(SETTING_WIFI_PASS);
+        net_reload();
         printf("cleared\n");
         return 0;
     }
@@ -97,15 +120,69 @@ static int cmd_token(int argc, char **argv)
     if (argc == 3 && !strcmp(argv[1], "set")) {
         size_t n = strlen(argv[2]);
         if (n < 20 || n > 512) { printf("that does not look like a refresh token\n"); return 1; }
-        printf("%s\n", settings_set_str(SETTING_REFRESH_TOKEN, argv[2]) == ESP_OK ? "saved" : "save failed");
+        if (settings_set_str(SETTING_REFRESH_TOKEN, argv[2]) != ESP_OK) { printf("save failed\n"); return 1; }
+        spotify_reset();
+        printf("saved; test it with `spotify refresh`\n");
         return 0;
     }
     if (argc == 2 && !strcmp(argv[1], "clear")) {
         settings_erase(SETTING_REFRESH_TOKEN);
+        spotify_reset();
         printf("cleared\n");
         return 0;
     }
     printf("usage: token set <spotify_refresh_token> | token clear\n");
+    return 1;
+}
+
+static const char *json_str(cJSON *o, const char *k)
+{
+    const char *v = cJSON_GetStringValue(cJSON_GetObjectItem(o, k));
+    return v ? v : "?";
+}
+
+static int cmd_spotify(int argc, char **argv)
+{
+    if (!net_connected()) { printf("not connected to Wi-Fi (see `status`)\n"); return 1; }
+    if (argc == 2 && !strcmp(argv[1], "refresh")) {
+        bool rotated;
+        int64_t t0 = esp_timer_get_time();
+        esp_err_t err = spotify_refresh(&rotated);
+        printf("%s in %lld ms: %s%s\n", err == ESP_OK ? "ok" : "failed", (esp_timer_get_time() - t0) / 1000,
+               spotify_auth_name(spotify_auth_state()), rotated ? "; new refresh token saved" : "");
+        return err == ESP_OK ? 0 : 1;
+    }
+    if (argc == 2 && (!strcmp(argv[1], "now") || !strcmp(argv[1], "devices"))) {
+        bool now = !strcmp(argv[1], "now");
+        sp_response_t r;
+        int64_t t0 = esp_timer_get_time();
+        esp_err_t err = spotify_request("GET", now ? "/v1/me/player" : "/v1/me/player/devices", NULL, &r);
+        int ms = (int)((esp_timer_get_time() - t0) / 1000);
+        if (err != ESP_OK) { printf("request failed: %s\n", esp_err_to_name(err)); spotify_response_free(&r); return 1; }
+        printf("HTTP %d, %u bytes, %d ms\n", r.status, (unsigned)r.len, ms);
+        if (now && r.status == 204) printf("nothing playing (no active device)\n");
+        cJSON *j = r.status == 200 ? cJSON_Parse(r.body) : NULL;
+        if (j && now) {
+            cJSON *dev = cJSON_GetObjectItem(j, "device"), *item = cJSON_GetObjectItem(j, "item");
+            cJSON *artists = cJSON_GetObjectItem(item, "artists");
+            printf("%s: %s - %s\n", cJSON_IsTrue(cJSON_GetObjectItem(j, "is_playing")) ? "playing" : "paused",
+                   json_str(item, "name"), json_str(cJSON_GetArrayItem(artists, 0), "name"));
+            printf("device: %s (%s), volume %d%%\n", json_str(dev, "name"), json_str(dev, "type"),
+                   cJSON_GetObjectItem(dev, "volume_percent") ? cJSON_GetObjectItem(dev, "volume_percent")->valueint : -1);
+        } else if (j) {
+            cJSON *d;
+            cJSON_ArrayForEach(d, cJSON_GetObjectItem(j, "devices")) {
+                printf("%c %s (%s)\n", cJSON_IsTrue(cJSON_GetObjectItem(d, "is_active")) ? '*' : ' ',
+                       json_str(d, "name"), json_str(d, "type"));
+            }
+        } else if (r.status >= 400) {
+            printf("%.200s\n", r.body);
+        }
+        cJSON_Delete(j);
+        spotify_response_free(&r);
+        return 0;
+    }
+    printf("usage: spotify refresh | now | devices\n");
     return 1;
 }
 
@@ -222,6 +299,7 @@ esp_err_t app_console_start(void)
     esp_console_repl_config_t rc = ESP_CONSOLE_REPL_CONFIG_DEFAULT();
     rc.prompt = "remote> ";
     rc.max_cmdline_length = 600;            // refresh tokens are long
+    rc.task_stack_size = 8192;              // `spotify` commands run TLS in this task
     esp_console_dev_usb_serial_jtag_config_t hw = ESP_CONSOLE_DEV_USB_SERIAL_JTAG_CONFIG_DEFAULT();
     esp_err_t err = esp_console_new_repl_usb_serial_jtag(&hw, &rc, &repl);
     if (err != ESP_OK) return err;
@@ -230,6 +308,7 @@ esp_err_t app_console_start(void)
         { .command = "status",  .help = "Board, power, input and settings summary", .func = cmd_status },
         { .command = "wifi",    .help = "wifi set <ssid> <password> | wifi clear", .func = cmd_wifi },
         { .command = "token",   .help = "token set <refresh_token> | token clear", .func = cmd_token },
+        { .command = "spotify", .help = "spotify refresh | now | devices", .func = cmd_spotify },
         { .command = "charger", .help = "charger usb100|usb500|suspend|auto", .func = cmd_charger },
         { .command = "calib",   .help = "calib wheel: capture wheel end points", .func = cmd_calib },
         { .command = "erase",   .help = "erase yes: wipe all settings", .func = cmd_erase },

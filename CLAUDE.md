@@ -46,15 +46,19 @@ the now-playing screen.
 ### Milestones
 1. Board layer, power/charger policy, input, settings, console — **done**
 2. E-paper driver, LVGL, now-playing layout with mock data — **done**
-3. Wi-Fi, SNTP, Spotify auth/token refresh — **next**; waiting on the user's Spotify
-   app Client ID (redirect URI `http://127.0.0.1:8888/callback` for the dev script)
-4. Real now playing, transport controls, wheel volume (then album art)
+3. Wi-Fi, SNTP, Spotify auth/token refresh — **done** (board 1 reads live playback)
+4. Real now playing, transport controls, wheel volume (then album art) — **next**
 5. Device picker
 6. Pairing flow
 7. Low battery → deep sleep, wake policy
 
-Open bench items: meter check of battery voltage (firmware read 3.51–3.60 V while
-charging), wheel top-end reading and `calib wheel`.
+Spotify app: Client ID `fb6818b0834e4e418b6ad5ef191383ee` (Kconfig default; not
+secret), Web API only, redirect URI `http://127.0.0.1:8888/callback`. Board 1 has
+Wi-Fi and a refresh token in NVS. To drive the console from scripts, the port must
+be free: the user sometimes has `idf.py monitor` open.
+
+Open bench items: meter check of battery voltage (firmware now reads 4.15 V
+charged; earlier 3.5 V was a flat pack) and `calib wheel` (top end reads 2640 mV).
 
 ## Hardware workflow
 

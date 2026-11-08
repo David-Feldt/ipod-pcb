@@ -1,6 +1,6 @@
 // E-ink Remote application entry point.
-// Milestone 2: e-paper + LVGL now-playing screen driven by mock data, so the
-// display, refresh policy and controls can be judged before Spotify exists.
+// Milestone 3: Wi-Fi, SNTP and Spotify sign-in run alongside the milestone 2
+// mock now-playing screen; real playback data replaces the mock in milestone 4.
 //   PLAY       toggle play/pause          PREV/NEXT  previous/next mock track (full refresh)
 //   wheel      volume overlay             SEL long   force a full refresh
 #include "board.h"
@@ -8,6 +8,8 @@
 #include "app_console.h"
 #include "ui.h"
 #include "epd.h"
+#include "net.h"
+#include "spotify.h"
 #include "esp_log.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
@@ -53,7 +55,7 @@ static void load_track(int i)
 static void update_status(void)
 {
     int mv = power_vbat_mv();
-    ui_status_t st = { .battery_pct = power_battery_pct(mv), .usb = power_usb_present(), .wifi = false };
+    ui_status_t st = { .battery_pct = power_battery_pct(mv), .usb = power_usb_present(), .wifi = net_connected() };
     ui_lock();
     np_set_status(&st);
     ui_unlock();
@@ -77,6 +79,22 @@ static ui_insets_t load_insets(void)
         if (v[i] < 0 || v[i] > UI_INSET_MAX) v[i] = 0;
     }
     return (ui_insets_t){ .left = v[0], .right = v[1], .top = v[2], .bottom = v[3] };
+}
+
+// Once per boot: wait for Wi-Fi and the clock, then prove the saved Spotify
+// token works. Milestone 4 replaces this with the playback poller.
+static void spotify_check_task(void *arg)
+{
+    if (spotify_auth_state() == SP_AUTH_NO_TOKEN) {
+        ESP_LOGW(TAG, "no Spotify token saved; run tools/spotify_token.py");
+    } else if (net_wait_connected(pdMS_TO_TICKS(60000))) {
+        for (int i = 0; i < 50 && !net_time_valid(); i++) vTaskDelay(pdMS_TO_TICKS(100));
+        bool rotated;
+        if (spotify_refresh(&rotated) == ESP_OK) ESP_LOGI(TAG, "Spotify sign-in ok%s", rotated ? " (token rotated)" : "");
+        else ESP_LOGW(TAG, "Spotify sign-in: %s", spotify_auth_name(spotify_auth_state()));
+    }
+    update_status();
+    vTaskDelete(NULL);
 }
 
 static void handle_input(const input_event_t *ev)
@@ -139,7 +157,10 @@ void app_main(void)
     ui_unlock();
     load_track(0);
     update_status();
+    ESP_ERROR_CHECK(spotify_init());
     ESP_ERROR_CHECK(app_console_start());
+    ESP_ERROR_CHECK(net_start());
+    xTaskCreate(spotify_check_task, "sp_check", 8192, NULL, 4, NULL);
 
     TickType_t last_power = xTaskGetTickCount();
     TickType_t last_progress = xTaskGetTickCount();
@@ -158,7 +179,10 @@ void app_main(void)
             last_power = now;
             power_apply_usb_policy();      // handles USB plug/unplug
             static int n;
-            if (++n % 15 == 1) update_status();   // battery text every ~30 s
+            static bool was_connected;
+            bool conn = net_connected();
+            if (++n % 15 == 1 || conn != was_connected) update_status();   // battery every ~30 s, Wi-Fi on change
+            was_connected = conn;
         }
     }
 }

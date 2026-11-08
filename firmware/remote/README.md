@@ -13,8 +13,8 @@ Target: ESP32-S3-MINI-1-N8 (8 MB flash, **no PSRAM**), ESP-IDF 6.0.2.
 |---|---|
 | 1. Skeleton, power/charger policy, buttons, wheel, settings, USB console | Done, running on board 1 |
 | 2. SSD1680 e-paper driver, LVGL, now-playing layout (mock data) | Done, on board 1 |
-| 3. Wi-Fi, SNTP, Spotify token refresh | Next |
-| 4. Now playing, transport controls, wheel volume | Planned |
+| 3. Wi-Fi, SNTP, Spotify token refresh | Done, on board 1 |
+| 4. Now playing, transport controls, wheel volume | Next |
 | 5. Device picker | Planned |
 | 6. Pairing: setup hotspot, on-device setup page, static redirect page | Planned |
 | 7. Low battery → deep sleep, wake policy | Planned |
@@ -38,6 +38,24 @@ track (full refresh), the wheel shows a volume overlay, holding SEL forces a ful
 Measured on board 1: full refresh 2.27 s, partial 0.46 s; a full clearing refresh
 follows every 5 partials.
 
+## First-time setup (development path)
+
+Until the pairing flow exists (milestone 6), give the board Wi-Fi and a Spotify
+login from your computer:
+
+```sh
+# in the console (idf.py -p /dev/cu.usbmodem101 monitor), 2.4 GHz network only
+wifi set "YourSSID" "YourPassword"
+# then close the monitor (Ctrl+]) and, from the repo root:
+. firmware/remote/env.sh && python tools/spotify_token.py --device /dev/cu.usbmodem101
+```
+
+`spotify_token.py` opens the Spotify login in your browser and writes the
+refresh token straight to the board (without `--device` it prints a
+`token set ...` line to paste instead). The Spotify app must list
+`http://127.0.0.1:8888/callback` as a redirect URI and your account under User
+Management. Check with `spotify now` while something is playing.
+
 Project settings (Spotify client ID, provisional low-battery threshold, refresh
 cadence) are under **E-ink Remote** in `idf.py menuconfig`.
 
@@ -47,11 +65,13 @@ The serial monitor gives a `remote>` prompt:
 
 | Command | Purpose |
 |---|---|
-| `status` | Firmware, reset reason, USB/charger mode, battery, wheel, buttons, heap, settings |
+| `status` | Firmware, reset reason, USB/charger mode, battery, wheel, buttons, heap, Wi-Fi, clock, Spotify sign-in, settings |
 | `calib wheel` | Sweep the wheel end to end within 8 s to store its end points |
 | `charger usb100\|usb500\|suspend\|auto` | Override the charger mode (auto re-applies within 2 s) |
-| `wifi set <ssid> <password>` / `wifi clear` | Store Wi-Fi credentials |
+| `wifi set <ssid> <password>` / `wifi clear` | Store Wi-Fi credentials and (re)connect |
 | `token set <refresh_token>` / `token clear` | Store a Spotify refresh token (development) |
+| `spotify refresh` | Get a new access token now (saves a rotated refresh token) |
+| `spotify now` / `spotify devices` | Show current playback / list Spotify Connect devices |
 | `erase yes` | Wipe all stored settings |
 | `display calib` / `display done` | Show / leave the screen-fit pattern (frames every 3 px; thick = 15 px) |
 | `display inset <l> <r> <t> <b>` | Save pixels hidden on each edge and restart |
@@ -68,5 +88,8 @@ The serial monitor gives a `remote>` prompt:
 | `components/settings/` | NVS-backed settings |
 | `components/epd/` | SSD1680/GDEY0213B74 driver: full/partial refresh, bounded BUSY waits, orientation |
 | `components/ui/` | LVGL 1-bit port, refresh scheduler, now-playing screen, calibration pattern |
+| `components/net/` | Wi-Fi station with reconnect backoff, SNTP |
+| `components/spotify/` | Token refresh (rotating refresh token saved to NVS), authenticated Web API requests over one kept-alive TLS connection |
 | `components/app_console/` | USB console commands |
+| `../../tools/spotify_token.py` | PKCE login helper that gets a refresh token for the board |
 | `partitions.csv` | NVS plus two 3 MB OTA slots |

@@ -2,7 +2,7 @@ menu "E-ink Remote"
 
 config REMOTE_SPOTIFY_CLIENT_ID
     string "Spotify app client ID"
-    default ""
+    default "fb6818b0834e4e418b6ad5ef191383ee"
     help
         Client ID of your Spotify developer app (not a secret; PKCE has no client secret).
 

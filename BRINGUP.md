@@ -63,3 +63,12 @@ supply/test pad is connected to each circuit.
 | Battery | Protected 1000 mAh pack on J2, polarity correct (VBAT_SENSE 3.92 V vs 4.19 V with no battery). D5 lights while charging on USB100. Unplugging USB with SW8 ON: no reboot (button counters retained). TP4/TP5 meter readings pending |
 | Button map | Centre button reports SEL as designed |
 | 7. Display | GDEY0213B74 on J4 with `firmware/display_test` (GxEPD2 1.6.9, 4 MHz SPI). White/black/white/checker/orientation all complete; BUSY 1.743–1.744 s per full refresh, first refresh 3.6 s including library initial clear. vbat 3.93 V steady, USB connected (not a droop test). Visual quality/orientation: user reports working |
+
+### Board 1, 2026-11-07 (firmware `firmware/remote` 0.3.0-m3, ESP-IDF 6.0.2)
+
+| Step | Result |
+|---|---|
+| Battery | VBAT_SENSE 4146–4150 mV on USB, charger USB500 (the 3.51–3.60 V seen on 2026-11-05 was a discharged pack). Meter comparison still pending |
+| Wheel | Top end 2639–2642 mV with saved calibration 20..2715 mV (97%) |
+| Wi-Fi | Joins a 2.4 GHz WPA2 network, DHCP address, RSSI −71 dBm; SNTP sets the clock. Free heap 188 KB with Wi-Fi up (min 178 KB) |
+| Spotify | `tools/spotify_token.py` PKCE login → token sent to the board. `spotify now`: token refresh then `GET /v1/me/player` HTTP 200, 1.75 s for both TLS handshakes; shows track, device and volume correctly |
