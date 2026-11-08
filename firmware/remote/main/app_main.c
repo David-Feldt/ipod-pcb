@@ -1,8 +1,13 @@
 // E-ink Remote application entry point.
-// Milestone 3: Wi-Fi, SNTP and Spotify sign-in run alongside the milestone 2
-// mock now-playing screen; real playback data replaces the mock in milestone 4.
-//   PLAY       toggle play/pause          PREV/NEXT  previous/next mock track (full refresh)
-//   wheel      volume overlay             SEL long   force a full refresh
+// Milestone 4: the now-playing screen shows live Spotify playback.
+//   SEL (centre)  play/pause      NEXT  next track
+//   PREV  restart, or previous track within the first 3 s
+//   wheel volume of the playing device
+//   PLAY (bottom) unassigned; hold it to force a full refresh
+// Button names follow the board's silkscreen (iPod cross); the user chose
+// play/pause on the centre button.
+// The player task does all Spotify I/O; this loop maps its state onto the UI.
+#include <string.h>
 #include "board.h"
 #include "settings.h"
 #include "app_console.h"
@@ -10,6 +15,7 @@
 #include "epd.h"
 #include "net.h"
 #include "spotify.h"
+#include "player.h"
 #include "esp_log.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
@@ -18,39 +24,13 @@
 
 static const char *TAG = "app";
 
-typedef struct { const char *title, *artist, *album; int duration_ms; } mock_track_t;
-static const mock_track_t s_tracks[] = {
-    { "Everything In Its Right Place", "Radiohead", "Kid A", 251000 },
-    { "Midnight City", "M83", "Hurry Up, We're Dreaming", 243000 },
-    { "Dreams", "Fleetwood Mac", "Rumours", 257000 },
-    { "A Really Quite Long Song Title To Test Wrapping And Truncation", "Some Artist feat. Another Artist",
-      "An Album Name That Is Also Long", 61000 },
-};
-#define N_TRACKS ((int)(sizeof s_tracks / sizeof s_tracks[0]))
-
-static int s_track;
-static bool s_playing = true;
-static int64_t s_pos_ms;            // playback position at s_pos_at_us
-static int64_t s_pos_at_us;
-
-static int64_t position_ms(void)
-{
-    int64_t p = s_pos_ms;
-    if (s_playing) p += (esp_timer_get_time() - s_pos_at_us) / 1000;
-    return p;
-}
-
-static void load_track(int i)
-{
-    s_track = (i + N_TRACKS) % N_TRACKS;
-    s_pos_ms = 0;
-    s_pos_at_us = esp_timer_get_time();
-    const mock_track_t *t = &s_tracks[s_track];
-    ui_lock();
-    np_set_track(t->title, t->artist, t->album, t->duration_ms);
-    ui_unlock();
-    ui_request_full_refresh();      // track change clears ghosting
-}
+// What the screen currently shows, so we only touch LVGL on real changes
+// (every LVGL change costs an e-paper refresh).
+static struct {
+    char track_id[64];
+    char message[96];
+    int playing;            // -1 unknown
+} s_shown = { .playing = -1 };
 
 static void update_status(void)
 {
@@ -81,20 +61,53 @@ static ui_insets_t load_insets(void)
     return (ui_insets_t){ .left = v[0], .right = v[1], .top = v[2], .bottom = v[3] };
 }
 
-// Once per boot: wait for Wi-Fi and the clock, then prove the saved Spotify
-// token works. Milestone 4 replaces this with the playback poller.
-static void spotify_check_task(void *arg)
+static void show_message(const char *msg)
 {
-    if (spotify_auth_state() == SP_AUTH_NO_TOKEN) {
-        ESP_LOGW(TAG, "no Spotify token saved; run tools/spotify_token.py");
-    } else if (net_wait_connected(pdMS_TO_TICKS(60000))) {
-        for (int i = 0; i < 50 && !net_time_valid(); i++) vTaskDelay(pdMS_TO_TICKS(100));
-        bool rotated;
-        if (spotify_refresh(&rotated) == ESP_OK) ESP_LOGI(TAG, "Spotify sign-in ok%s", rotated ? " (token rotated)" : "");
-        else ESP_LOGW(TAG, "Spotify sign-in: %s", spotify_auth_name(spotify_auth_state()));
+    if (!strcmp(s_shown.message, msg ? msg : "")) return;
+    snprintf(s_shown.message, sizeof s_shown.message, "%s", msg ? msg : "");
+    ui_lock(); np_show_message(msg); ui_unlock();
+}
+
+static const char *status_message(const player_state_t *s)
+{
+    switch (s->status) {
+    case PLAYER_STARTING: return "Connecting to Spotify...";
+    case PLAYER_IDLE:     return "Nothing playing. Start Spotify on a phone or speaker";
+    case PLAYER_NO_WIFI:  return net_state() == NET_NO_CREDENTIALS ? "No Wi-Fi set up" : "Connecting to Wi-Fi...";
+    case PLAYER_NO_TOKEN: return "Not signed in to Spotify";
+    case PLAYER_REJECTED: return "Spotify sign-in expired. Sign in again";
+    case PLAYER_ERROR:    return s_shown.track_id[0] ? NULL : "Can't reach Spotify. Retrying";
+    default:              return NULL;
     }
-    update_status();
-    vTaskDelete(NULL);
+}
+
+static void apply_player_state(void)
+{
+    player_state_t s;
+    player_get(&s);
+
+    char notice[64];
+    player_take_notice(notice, sizeof notice);
+    if (notice[0]) { ui_lock(); np_show_notice(notice); ui_unlock(); }
+
+    const char *msg = status_message(&s);
+    if (msg) { show_message(msg); return; }
+    if (s.status == PLAYER_ERROR) return;       // transient: keep showing the last track
+    show_message(NULL);
+
+    ui_lock();
+    if (strcmp(s.track_id, s_shown.track_id)) {
+        snprintf(s_shown.track_id, sizeof s_shown.track_id, "%s", s.track_id);
+        ESP_LOGI(TAG, "track: %s - %s", s.title, s.artist);
+        np_set_track(s.title, s.artist, s.album, s.duration_ms);
+        ui_request_full_refresh();             // track change clears ghosting
+    }
+    if (s.playing != s_shown.playing) {
+        s_shown.playing = s.playing;
+        np_set_playing(s.playing);
+    }
+    np_set_progress(player_position_ms(&s));    // redraws only if a pixel changes
+    ui_unlock();
 }
 
 static void handle_input(const input_event_t *ev)
@@ -102,9 +115,10 @@ static void handle_input(const input_event_t *ev)
     if (ev->type == INPUT_WHEEL) {
         ESP_LOGI(TAG, "wheel %d%%", ev->value);
         ui_lock(); np_show_volume(ev->value); ui_unlock();
+        player_set_volume(ev->value);
         return;
     }
-    if (ev->type == INPUT_BTN_LONG && ev->button == BTN_SEL) {
+    if (ev->type == INPUT_BTN_LONG && ev->button == BTN_PLAY) {
         ESP_LOGI(TAG, "manual full refresh");
         ui_request_full_refresh();
         return;
@@ -112,18 +126,9 @@ static void handle_input(const input_event_t *ev)
     if (ev->type != INPUT_BTN_PRESS) return;
     ESP_LOGI(TAG, "%s", input_button_name(ev->button));
     switch (ev->button) {
-    case BTN_PLAY:
-        s_pos_ms = position_ms();
-        s_pos_at_us = esp_timer_get_time();
-        s_playing = !s_playing;
-        ui_lock(); np_set_playing(s_playing); ui_unlock();
-        break;
-    case BTN_NEXT: load_track(s_track + 1); break;
-    case BTN_PREV:
-        // Like most players: restart the track unless we're near its start.
-        if (position_ms() > 3000) { s_pos_ms = 0; s_pos_at_us = esp_timer_get_time(); }
-        else load_track(s_track - 1);
-        break;
+    case BTN_SEL: player_toggle(); break;
+    case BTN_NEXT: player_next(); break;
+    case BTN_PREV: player_prev(); break;
     default: break;
     }
 }
@@ -153,27 +158,29 @@ void app_main(void)
     ESP_LOGI(TAG, "screen insets L%d R%d T%d B%d", insets.left, insets.right, insets.top, insets.bottom);
     ui_lock();
     np_create(&insets);
-    np_set_playing(s_playing);
     ui_unlock();
-    load_track(0);
     update_status();
     ESP_ERROR_CHECK(spotify_init());
     ESP_ERROR_CHECK(app_console_start());
     ESP_ERROR_CHECK(net_start());
-    xTaskCreate(spotify_check_task, "sp_check", 8192, NULL, 4, NULL);
+    ESP_ERROR_CHECK(player_start());
+    apply_player_state();                  // "Connecting..." until the first poll answers
 
     TickType_t last_power = xTaskGetTickCount();
     TickType_t last_progress = xTaskGetTickCount();
+    uint32_t seen_version = player_version();
     for (;;) {
         input_event_t ev;
         if (xQueueReceive(events, &ev, pdMS_TO_TICKS(100)) == pdTRUE) handle_input(&ev);
 
         TickType_t now = xTaskGetTickCount();
-        if (now - last_progress >= pdMS_TO_TICKS(CONFIG_REMOTE_PROGRESS_INTERVAL_S * 1000)) {
+        uint32_t v = player_version();
+        if (v != seen_version) {
+            seen_version = v;
+            apply_player_state();
+        } else if (now - last_progress >= pdMS_TO_TICKS(CONFIG_REMOTE_PROGRESS_INTERVAL_S * 1000)) {
             last_progress = now;
-            int64_t p = position_ms();
-            if (p >= s_tracks[s_track].duration_ms) load_track(s_track + 1);   // auto-advance
-            else { ui_lock(); np_set_progress((int)p); ui_unlock(); }
+            apply_player_state();              // advances the progress bar between polls
         }
         if (now - last_power >= pdMS_TO_TICKS(2000)) {
             last_power = now;

@@ -36,4 +36,5 @@ void np_set_track(const char *title, const char *artist, const char *album, int 
 void np_set_progress(int progress_ms);  // only redraws when a pixel would change
 void np_set_playing(bool playing);
 void np_show_volume(int pct);           // transient overlay
+void np_show_notice(const char *msg);   // transient one-line notice in the same overlay
 void np_show_message(const char *msg);  // replaces track text (e.g. "Nothing playing"); NULL clears

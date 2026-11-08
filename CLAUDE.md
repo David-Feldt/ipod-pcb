@@ -39,6 +39,9 @@ Decisions made with the user (2026-11-05):
 - Wheel volume: absolute "jump" policy — publish only after >3% deliberate movement.
 - USB present → USB500 early at boot (accepted prototype policy, not negotiated).
 
+Button map (user's choice): centre SEL = play/pause, PREV/NEXT = tracks, bottom
+PLAY unassigned (hold = full refresh), MENU free for the device picker.
+
 Board 1 calibration (saved in NVS): orientation `rot180`, insets 2 px each edge.
 Measured: full refresh 2.27 s, partial 0.46 s. User does not want the device name on
 the now-playing screen.
@@ -47,8 +50,8 @@ the now-playing screen.
 1. Board layer, power/charger policy, input, settings, console — **done**
 2. E-paper driver, LVGL, now-playing layout with mock data — **done**
 3. Wi-Fi, SNTP, Spotify auth/token refresh — **done** (board 1 reads live playback)
-4. Real now playing, transport controls, wheel volume (then album art) — **next**
-5. Device picker
+4. Real now playing, transport controls, wheel volume — **done** (album art still to do)
+5. Device picker — **next** (MENU button is free for it)
 6. Pairing flow
 7. Low battery → deep sleep, wake policy
 

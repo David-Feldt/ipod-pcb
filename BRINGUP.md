@@ -72,3 +72,10 @@ supply/test pad is connected to each circuit.
 | Wheel | Top end 2639–2642 mV with saved calibration 20..2715 mV (97%) |
 | Wi-Fi | Joins a 2.4 GHz WPA2 network, DHCP address, RSSI −71 dBm; SNTP sets the clock. Free heap 188 KB with Wi-Fi up (min 178 KB) |
 | Spotify | `tools/spotify_token.py` PKCE login → token sent to the board. `spotify now`: token refresh then `GET /v1/me/player` HTTP 200, 1.75 s for both TLS handshakes; shows track, device and volume correctly |
+
+### Board 1, 2026-11-07 (firmware `firmware/remote` 0.4.0-m4)
+
+| Step | Result |
+|---|---|
+| Live playback | Track, artist, album and progress follow Spotify on a Google Nest Hub; automatic track changes appear within one poll |
+| Controls | Play/pause (centre), next, previous/restart and wheel volume work (user check). Spotify acknowledges next in 0.4 s, pause/play in 0.26–0.35 s; a new track is on screen about 3.5 s after NEXT, including the 2.27 s full refresh |

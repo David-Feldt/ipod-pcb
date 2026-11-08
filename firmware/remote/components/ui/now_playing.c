@@ -22,6 +22,7 @@
 #define PAD        4
 #define BAR_W      (s_w - 2 * PAD)
 #define VOL_SHOW_MS 1500
+#define NOTICE_SHOW_MS 3000
 
 static lv_obj_t *s_play, *s_batt, *s_title, *s_artist, *s_album, *s_msg;
 static lv_obj_t *s_bar, *s_elapsed, *s_total;
@@ -33,6 +34,55 @@ static int s_duration_ms;
 static int s_progress_px = -1;
 static int s_elapsed_s = -1;
 static int s_w = EPD_WIDTH, s_h = EPD_HEIGHT;   // visible area after insets
+
+// The built-in fonts cover ASCII only. Map common typographic punctuation and
+// Latin-1 accents to ASCII; anything else becomes a single '?' per run.
+static void to_ascii(char *out, size_t n, const char *in)
+{
+    static const char latin1[] = "AAAAAAACEEEEIIIIDNOOOOOxOUUUUYPsaaaaaaaceeeeiiiidnooooo/ouuuuypy";
+    _Static_assert(sizeof latin1 == 65, "U+00C0..U+00FF table");
+    size_t o = 0;
+    bool last_unknown = false;
+    const unsigned char *p = (const unsigned char *)(in ? in : "");
+    while (*p && o + 4 < n) {
+        uint32_t cp;
+        int len;
+        if (*p < 0x80) { cp = *p; len = 1; }
+        else if ((*p & 0xE0) == 0xC0 && p[1]) { cp = ((p[0] & 0x1F) << 6) | (p[1] & 0x3F); len = 2; }
+        else if ((*p & 0xF0) == 0xE0 && p[1] && p[2]) {
+            cp = ((p[0] & 0x0F) << 12) | ((p[1] & 0x3F) << 6) | (p[2] & 0x3F); len = 3;
+        } else if ((*p & 0xF8) == 0xF0 && p[1] && p[2] && p[3]) { cp = 0x1FFFFF; len = 4; }
+        else { cp = 0x1FFFFF; len = 1; }
+        p += len;
+
+        const char *rep = NULL;
+        char one[2] = { 0, 0 };
+        if (cp < 0x80) { one[0] = (char)cp; rep = one; }
+        else if (cp >= 0xC0 && cp <= 0xFF) { one[0] = latin1[cp - 0xC0]; rep = one; }
+        else if (cp == 0xA0) rep = " ";
+        else if (cp == 0x2018 || cp == 0x2019 || cp == 0x201B || cp == 0xB4 || cp == 0x2032) rep = "'";
+        else if (cp == 0x201C || cp == 0x201D || cp == 0x2033) rep = "\"";
+        else if (cp >= 0x2010 && cp <= 0x2015) rep = "-";
+        else if (cp == 0x2026) rep = "...";
+        else if (cp == 0x2022 || cp == 0xB7) rep = "*";
+
+        if (rep) {
+            for (; *rep && o + 1 < n; rep++) out[o++] = *rep;
+            last_unknown = false;
+        } else if (!last_unknown) {
+            out[o++] = '?';
+            last_unknown = true;
+        }
+    }
+    out[o] = 0;
+}
+
+static void set_text(lv_obj_t *l, const char *utf8)
+{
+    char buf[160];
+    to_ascii(buf, sizeof buf, utf8);
+    if (strcmp(lv_label_get_text(l), buf)) lv_label_set_text(l, buf);
+}
 
 static lv_obj_t *label(lv_obj_t *parent, const lv_font_t *font, int x, int y, int w)
 {
@@ -186,9 +236,9 @@ void np_set_status(const ui_status_t *st)
 
 void np_set_track(const char *title, const char *artist, const char *album, int duration_ms)
 {
-    lv_label_set_text(s_title, title ? title : "");
-    lv_label_set_text(s_artist, artist ? artist : "");
-    lv_label_set_text(s_album, album ? album : "");
+    set_text(s_title, title);
+    set_text(s_artist, artist);
+    set_text(s_album, album);
     s_duration_ms = duration_ms;
     char t[12];
     fmt_time(t, sizeof t, duration_ms);
@@ -227,7 +277,19 @@ void np_show_volume(int pct)
     snprintf(buf, sizeof buf, "Volume %d%%", pct);
     lv_label_set_text(s_vol_label, buf);
     lv_bar_set_value(s_vol_bar, pct, LV_ANIM_OFF);
+    lv_obj_remove_flag(s_vol_bar, LV_OBJ_FLAG_HIDDEN);
     lv_obj_remove_flag(s_vol_box, LV_OBJ_FLAG_HIDDEN);
+    lv_timer_set_period(s_vol_timer, VOL_SHOW_MS);
+    lv_timer_reset(s_vol_timer);
+    lv_timer_resume(s_vol_timer);
+}
+
+void np_show_notice(const char *msg)
+{
+    set_text(s_vol_label, msg);
+    lv_obj_add_flag(s_vol_bar, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_remove_flag(s_vol_box, LV_OBJ_FLAG_HIDDEN);
+    lv_timer_set_period(s_vol_timer, NOTICE_SHOW_MS);
     lv_timer_reset(s_vol_timer);
     lv_timer_resume(s_vol_timer);
 }
@@ -241,7 +303,7 @@ void np_show_message(const char *msg)
         else lv_obj_remove_flag(track[i], LV_OBJ_FLAG_HIDDEN);
     }
     if (show) {
-        lv_label_set_text(s_msg, msg);
+        set_text(s_msg, msg);
         lv_obj_remove_flag(s_msg, LV_OBJ_FLAG_HIDDEN);
     } else {
         lv_obj_add_flag(s_msg, LV_OBJ_FLAG_HIDDEN);

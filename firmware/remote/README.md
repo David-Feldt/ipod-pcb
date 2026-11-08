@@ -14,8 +14,8 @@ Target: ESP32-S3-MINI-1-N8 (8 MB flash, **no PSRAM**), ESP-IDF 6.0.2.
 | 1. Skeleton, power/charger policy, buttons, wheel, settings, USB console | Done, running on board 1 |
 | 2. SSD1680 e-paper driver, LVGL, now-playing layout (mock data) | Done, on board 1 |
 | 3. Wi-Fi, SNTP, Spotify token refresh | Done, on board 1 |
-| 4. Now playing, transport controls, wheel volume | Next |
-| 5. Device picker | Planned |
+| 4. Now playing, transport controls, wheel volume | Done, on board 1 |
+| 5. Device picker | Next |
 | 6. Pairing: setup hotspot, on-device setup page, static redirect page | Planned |
 | 7. Low battery → deep sleep, wake policy | Planned |
 
@@ -33,8 +33,22 @@ idf.py -p /dev/cu.usbmodem101 flash monitor
 uses the native USB port. If the app is broken, hold BOOT, tap RESET and release
 BOOT to enter ROM download mode.
 
-The milestone 2 build shows mock tracks: PLAY toggles play/pause, PREV/NEXT change
-track (full refresh), the wheel shows a volume overlay, holding SEL forces a full refresh.
+The screen shows live Spotify playback, polled every 2 s while playing and
+every 10 s otherwise; the progress bar advances locally in between.
+
+| Control | Action |
+|---|---|
+| Centre (SEL) | Play / pause |
+| NEXT | Next track |
+| PREV | Restart the track; previous track if within its first 3 s |
+| Wheel | Volume of the playing device (after >3% deliberate movement) |
+| Bottom (PLAY), hold | Force a full e-paper refresh |
+| MENU | Unassigned (device picker, milestone 5) |
+
+Presses update the screen before Spotify confirms; a failed command shows a
+short notice (for example "Volume not supported" on devices that refuse it).
+Text is shown in ASCII: accents are stripped and unsupported scripts show "?".
+
 Measured on board 1: full refresh 2.27 s, partial 0.46 s; a full clearing refresh
 follows every 5 partials.
 
@@ -89,6 +103,7 @@ The serial monitor gives a `remote>` prompt:
 | `components/epd/` | SSD1680/GDEY0213B74 driver: full/partial refresh, bounded BUSY waits, orientation |
 | `components/ui/` | LVGL 1-bit port, refresh scheduler, now-playing screen, calibration pattern |
 | `components/net/` | Wi-Fi station with reconnect backoff, SNTP |
+| `components/player/` | Playback poller and command runner (play/pause/next/previous/seek/volume) |
 | `components/spotify/` | Token refresh (rotating refresh token saved to NVS), authenticated Web API requests over one kept-alive TLS connection |
 | `components/app_console/` | USB console commands |
 | `../../tools/spotify_token.py` | PKCE login helper that gets a refresh token for the board |
