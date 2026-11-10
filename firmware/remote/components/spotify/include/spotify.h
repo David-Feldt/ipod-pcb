@@ -37,6 +37,11 @@ int spotify_token_ttl_s(void);
 // a new refresh token (which has been saved).
 esp_err_t spotify_refresh(bool *rotated);
 
+// First sign-in (pairing): exchange a PKCE authorization code for tokens and
+// save the refresh token. redirect_uri must equal the one used to authorize.
+// Replaces any previous login. On failure the old login (if any) stays saved.
+esp_err_t spotify_exchange_code(const char *code, const char *verifier, const char *redirect_uri);
+
 // Forget the cached access token (after `token set` / `token clear`).
 void spotify_reset(void);
 

@@ -42,3 +42,15 @@ void np_set_art(const uint8_t *bits);   // packed 1-bit, ((size+7)/8)*size bytes
 void np_show_volume(int pct);           // transient overlay
 void np_show_notice(const char *msg);   // transient one-line notice in the same overlay
 void np_show_message(const char *msg);  // replaces track text (e.g. "Nothing playing"); NULL clears
+
+// ---------------------------------------------------------------- pairing
+void pair_screen_create(const ui_insets_t *in);
+// Load the pairing screen (if not shown) and set its text. qr_text NULL or ""
+// hides the QR code. np_show() returns to now playing.
+void pair_screen_show(const char *title, const char *qr_text, const char *big, const char *small, const char *footer);
+
+// ---------------------------------------------------------------- menu
+#define MENU_MAX_ITEMS 6
+void menu_screen_create(const ui_insets_t *in);
+// Load the menu screen (if not shown) with these items, `selected` inverted.
+void menu_screen_show(const char *const *items, int n, int selected);

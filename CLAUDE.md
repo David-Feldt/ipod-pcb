@@ -44,7 +44,8 @@ Album art: user is happy with the Atkinson-dithered look. Keep memory in mind
 CPU at 240 MHz for TLS speed — revisit in milestone 7.
 
 Button map (user's choice): centre SEL = play/pause, PREV/NEXT = tracks, bottom
-PLAY unassigned (hold = full refresh), MENU free for the device picker.
+PLAY unassigned (hold = full refresh), MENU opens a menu (user dislikes
+hold gestures for navigation): MENU/PLAY = up/down, SEL = choose, PREV = back.
 
 Board 1 calibration (saved in NVS): orientation `rot180`, insets 2 px each edge.
 Measured: full refresh 2.27 s, partial 0.46 s. User does not want the device name on
@@ -56,7 +57,7 @@ the now-playing screen.
 3. Wi-Fi, SNTP, Spotify auth/token refresh — **done** (board 1 reads live playback)
 4. Real now playing, transport controls, wheel volume, album art — **done**
 5. Device picker — **dropped** (user said they don't need it; MENU stays free)
-6. Pairing flow — **next**
+6. Pairing flow — **in progress**: LAN sign-in page + bounce page work on board 1 (fw 0.5.0, via the local bounce on 127.0.0.1). Still to do: host `pairing/` on Cloudflare Pages (wrangler not logged in yet) + Spotify dashboard redirect URI + Kconfig, then the SoftAP Wi-Fi portal
 7. Low battery → deep sleep, wake policy
 
 Spotify app: Client ID `fb6818b0834e4e418b6ad5ef191383ee` (Kconfig default; not

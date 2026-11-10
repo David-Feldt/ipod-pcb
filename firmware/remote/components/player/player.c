@@ -31,6 +31,7 @@ static volatile uint32_t s_version;
 static char s_notice[64];
 static int64_t s_optimistic_until;   // esp_timer us
 static volatile int s_pending_volume = -1;
+static volatile bool s_poll_now;
 
 static int64_t now_us(void) { return esp_timer_get_time(); }
 
@@ -261,6 +262,10 @@ static void task(void *arg)
             next_poll = 0;
             continue;
         }
+        if (s_poll_now) {                   // e.g. just signed in
+            s_poll_now = false;
+            next_poll = 0;
+        }
         t = now_us();
         if (got && c != CMD_VOLUME) {
             do_command(c);
@@ -305,6 +310,12 @@ void player_set_volume(int pct)
     if (pct > 100) pct = 100;
     s_pending_volume = pct;
     if (s_task) xTaskAbortDelay(s_task);   // wake the task to schedule the send
+}
+
+void player_poll_soon(void)
+{
+    s_poll_now = true;
+    if (s_task) xTaskAbortDelay(s_task);
 }
 
 uint32_t player_version(void) { return s_version; }

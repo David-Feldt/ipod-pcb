@@ -85,3 +85,9 @@ supply/test pad is connected to each circuit.
 | Step | Result |
 |---|---|
 | Album art | Covers of 7–63 KB decode correctly; user reports the dithered art looks good. First cover after boot 2.0 s TLS connect (2.9 s at 160 MHz); later covers 72–80 ms connect with session resumption, 0.1–0.3 s download and decode. Track text and cover arrive in one full refresh. Min free heap 60 KB over 8 track changes |
+
+### Board 1, 2026-11-09 (firmware `firmware/remote` 0.5.0, milestone 6 part 1)
+
+| Step | Result |
+|---|---|
+| Pairing (LAN) | `pair start` serves the setup page on port 80; `/login` redirects to Spotify, which accepts the request (303 to its login page); a forged `/callback` is refused. End to end with the local bounce page (`tools/pairing_bounce.py`, redirect `http://127.0.0.1:8888/callback`) from a browser on the same Mac: code exchanged on the board, refresh token saved, playback resumes, setup page stops by itself. Min free heap 105 KB through the TLS exchange (setup server 117 KB idle). From a phone it fails until the bounce page is hosted on HTTPS (expected) |

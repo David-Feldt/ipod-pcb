@@ -37,3 +37,9 @@ CONFIG_MBEDTLS_DYNAMIC_FREE_CA_CERT=y
 CONFIG_ESP_TLS_CLIENT_SESSION_TICKETS=y
 # TLS handshakes are CPU-bound (no ECC accelerator): 240 MHz is ~1.5x faster.
 CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+
+# Pairing: QR code on the e-paper; the OAuth callback URL carries a long
+# authorization code, and phone browsers send long request headers.
+CONFIG_LV_USE_QRCODE=y
+CONFIG_HTTPD_MAX_URI_LEN=1536
+CONFIG_HTTPD_MAX_REQ_HDR_LEN=2048

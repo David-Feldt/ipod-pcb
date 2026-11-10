@@ -1,4 +1,4 @@
-// Commands: status, wifi, token, spotify, charger, calib, display, erase, restart.
+// Commands: status, wifi, token, pair, spotify, charger, calib, display, erase, restart.
 // Secrets typed here are stored in NVS; they are never echoed back in full.
 #include <stdio.h>
 #include <string.h>
@@ -11,6 +11,7 @@
 #include "net.h"
 #include "spotify.h"
 #include "player.h"
+#include "pairing.h"
 #include "cJSON.h"
 #include <time.h>
 #include "esp_console.h"
@@ -134,6 +135,28 @@ static int cmd_token(int argc, char **argv)
     }
     printf("usage: token set <spotify_refresh_token> | token clear\n");
     return 1;
+}
+
+static int cmd_pair(int argc, char **argv)
+{
+    static const char *names[] = { "off", "waiting for sign-in", "signing in", "signed in" };
+    if (argc == 2 && !strcmp(argv[1], "start")) {
+        esp_err_t err = pairing_start();
+        if (err == ESP_ERR_INVALID_STATE) { printf("not connected to Wi-Fi\n"); return 1; }
+        if (err != ESP_OK) { printf("failed: %s\n", esp_err_to_name(err)); return 1; }
+    } else if (argc == 2 && !strcmp(argv[1], "stop")) {
+        pairing_stop();
+    } else if (argc != 1 && !(argc == 2 && !strcmp(argv[1], "status"))) {
+        printf("usage: pair [start|stop|status]\n");
+        return 1;
+    }
+    pairing_info_t p;
+    pairing_get(&p);
+    printf("pairing        %s\n", p.state <= PAIR_DONE ? names[p.state] : "?");
+    if (p.state != PAIR_OFF) printf("setup page     http://%s/\n", p.ip);
+    if (p.error[0]) printf("last error     %s\n", p.error);
+    printf("redirect uri   %s\n", pairing_redirect_uri());
+    return 0;
 }
 
 static const char *json_str(cJSON *o, const char *k)
@@ -313,6 +336,7 @@ esp_err_t app_console_start(void)
         { .command = "status",  .help = "Board, power, input and settings summary", .func = cmd_status },
         { .command = "wifi",    .help = "wifi set <ssid> <password> | wifi clear", .func = cmd_wifi },
         { .command = "token",   .help = "token set <refresh_token> | token clear", .func = cmd_token },
+        { .command = "pair",    .help = "pair [start|stop|status]: Spotify sign-in page on the LAN", .func = cmd_pair },
         { .command = "spotify", .help = "spotify refresh|now|devices|next|prev|play", .func = cmd_spotify },
         { .command = "charger", .help = "charger usb100|usb500|suspend|auto", .func = cmd_charger },
         { .command = "calib",   .help = "calib wheel: capture wheel end points", .func = cmd_calib },

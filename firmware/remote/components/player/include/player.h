@@ -51,5 +51,6 @@ void player_toggle(void);
 void player_next(void);
 void player_prev(void);              // restart if > 3 s in, else previous track
 void player_set_volume(int pct);     // coalesced; sent at most every 300 ms
+void player_poll_soon(void);         // poll now (e.g. right after signing in)
 
 const char *player_status_name(player_status_t s);

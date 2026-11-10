@@ -4,6 +4,9 @@
 //   PREV  restart, or previous track within the first 3 s
 //   wheel volume of the playing device
 //   PLAY (bottom) unassigned; hold it to force a full refresh
+//   MENU (top)    open the menu
+// In the menu: MENU / PLAY move up / down, SEL chooses, PREV goes back.
+// On the sign-in screen MENU cancels.
 // Button names follow the board's silkscreen (iPod cross); the user chose
 // play/pause on the centre button.
 // The player task does all Spotify I/O; this loop maps its state onto the UI.
@@ -17,6 +20,7 @@
 #include "spotify.h"
 #include "player.h"
 #include "art.h"
+#include "pairing.h"
 #include "esp_log.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
@@ -86,8 +90,8 @@ static const char *status_message(const player_state_t *s)
     case PLAYER_STARTING: return "Connecting to Spotify...";
     case PLAYER_IDLE:     return "Nothing playing. Start Spotify on a phone or speaker";
     case PLAYER_NO_WIFI:  return net_state() == NET_NO_CREDENTIALS ? "No Wi-Fi set up" : "Connecting to Wi-Fi...";
-    case PLAYER_NO_TOKEN: return "Not signed in to Spotify";
-    case PLAYER_REJECTED: return "Spotify sign-in expired. Sign in again";
+    case PLAYER_NO_TOKEN: return "Not signed in. Press MENU to sign in";
+    case PLAYER_REJECTED: return "Spotify sign-in expired. Press MENU to sign in";
     case PLAYER_ERROR:    return s_shown.track_id[0] ? NULL : "Can't reach Spotify. Retrying";
     default:              return NULL;
     }
@@ -162,6 +166,110 @@ static void show_pending_track(void)
     ui_request_full_refresh();                  // track change clears ghosting
 }
 
+// Mirror the pairing state on screen; back to now playing when it ends.
+static void apply_pairing(void)
+{
+    static bool shown;
+    pairing_info_t p;
+    pairing_get(&p);
+    if (p.state == PAIR_OFF) {
+        if (shown) {
+            shown = false;
+            ui_lock(); np_show(); ui_unlock();
+            ui_request_full_refresh();
+        }
+        return;
+    }
+    shown = true;
+    char qr[32];
+    snprintf(qr, sizeof qr, "http://%s/", p.ip);
+    ui_lock();
+    switch (p.state) {
+    case PAIR_WAITING:
+        pair_screen_show("Sign in to Spotify", qr, p.ip,
+                         p.error[0] ? p.error : "Scan, or open this address on a phone on the same Wi-Fi",
+                         "MENU: cancel");
+        break;
+    case PAIR_SIGNING_IN:
+        pair_screen_show("Sign in to Spotify", NULL, "Signing in...", NULL, NULL);
+        break;
+    default:
+        pair_screen_show("Sign in to Spotify", NULL, "Signed in", NULL, NULL);
+        break;
+    }
+    ui_unlock();
+    if (p.state == PAIR_DONE) player_poll_soon();
+}
+
+// ------------------------------------------------------------------ menu
+#define MENU_IDLE_MS 20000          // back to now playing when left alone
+
+typedef enum { MI_SIGN_IN, MI_BACK, MI_COUNT } menu_item_t;
+static struct {
+    bool open;
+    int sel;
+    int64_t last_us;
+} s_menu;
+
+static void menu_render(void)
+{
+    static const char *const items[MI_COUNT] = { [MI_SIGN_IN] = "Sign in to Spotify", [MI_BACK] = "Back" };
+    ui_lock(); menu_screen_show(items, MI_COUNT, s_menu.sel); ui_unlock();
+}
+
+static void menu_open(void)
+{
+    s_menu.open = true;
+    s_menu.sel = 0;
+    s_menu.last_us = esp_timer_get_time();
+    menu_render();
+}
+
+static void menu_close(void)
+{
+    if (!s_menu.open) return;
+    s_menu.open = false;
+    ui_lock(); np_show(); ui_unlock();
+    ui_request_full_refresh();
+}
+
+static void start_pairing(void)
+{
+    s_menu.open = false;                // the sign-in screen replaces the menu
+    esp_err_t err = pairing_start();
+    if (err != ESP_OK) { ui_lock(); np_show(); ui_unlock(); ui_request_full_refresh(); }
+    if (err == ESP_ERR_INVALID_STATE) { ui_lock(); np_show_notice("Wi-Fi not connected"); ui_unlock(); }
+    else if (err != ESP_OK) ESP_LOGE(TAG, "pairing start failed: %s", esp_err_to_name(err));
+}
+
+// First boot without a login: offer the sign-in screen once Wi-Fi is up.
+static void maybe_auto_pair(void)
+{
+    static bool done;
+    if (done || !net_connected()) return;
+    player_state_t s;
+    player_get(&s);
+    if (s.status != PLAYER_NO_TOKEN && s.status != PLAYER_REJECTED) return;
+    done = true;
+    ESP_LOGI(TAG, "no Spotify login: starting pairing");
+    start_pairing();
+}
+
+static void menu_input(button_id_t b)
+{
+    s_menu.last_us = esp_timer_get_time();
+    switch (b) {
+    case BTN_MENU: s_menu.sel = (s_menu.sel + MI_COUNT - 1) % MI_COUNT; menu_render(); break;
+    case BTN_PLAY: s_menu.sel = (s_menu.sel + 1) % MI_COUNT; menu_render(); break;
+    case BTN_PREV: menu_close(); break;
+    case BTN_SEL:
+        if (s_menu.sel == MI_SIGN_IN) start_pairing();
+        else menu_close();
+        break;
+    default: break;
+    }
+}
+
 static void handle_input(const input_event_t *ev)
 {
     if (ev->type == INPUT_WHEEL) {
@@ -177,6 +285,12 @@ static void handle_input(const input_event_t *ev)
     }
     if (ev->type != INPUT_BTN_PRESS) return;
     ESP_LOGI(TAG, "%s", input_button_name(ev->button));
+    if (s_menu.open) { menu_input(ev->button); return; }
+    if (ev->button == BTN_MENU) {
+        if (pairing_active()) pairing_stop();
+        else menu_open();
+        return;
+    }
     switch (ev->button) {
     case BTN_SEL: player_toggle(); break;
     case BTN_NEXT: player_next(); break;
@@ -210,6 +324,8 @@ void app_main(void)
     ESP_LOGI(TAG, "screen insets L%d R%d T%d B%d", insets.left, insets.right, insets.top, insets.bottom);
     ui_lock();
     np_create(&insets);
+    pair_screen_create(&insets);
+    menu_screen_create(&insets);
     ui_unlock();
     update_status();
     ESP_ERROR_CHECK(spotify_init());
@@ -223,6 +339,7 @@ void app_main(void)
     TickType_t last_progress = xTaskGetTickCount();
     uint32_t seen_version = player_version();
     uint32_t seen_art = art_version();
+    uint32_t seen_pair = pairing_version();
     for (;;) {
         input_event_t ev;
         if (xQueueReceive(events, &ev, pdMS_TO_TICKS(100)) == pdTRUE) handle_input(&ev);
@@ -237,6 +354,13 @@ void app_main(void)
             apply_player_state();              // advances the progress bar between polls
         }
         show_pending_track();
+        uint32_t pv = pairing_version();
+        if (pv != seen_pair) {
+            seen_pair = pv;
+            apply_pairing();
+        }
+        maybe_auto_pair();
+        if (s_menu.open && esp_timer_get_time() - s_menu.last_us > MENU_IDLE_MS * 1000LL) menu_close();
         uint32_t av = art_version();
         if (av != seen_art) {
             seen_art = av;

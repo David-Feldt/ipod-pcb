@@ -89,6 +89,89 @@ static void url_encode(char *out, size_t n, const char *in)
     out[o] = 0;
 }
 
+static void api_close_locked(void)
+{
+    if (s_api) esp_http_client_cleanup(s_api);
+    s_api = NULL;
+}
+
+// POST a form to the token endpoint and take the tokens from the answer.
+// old_refresh is the refresh token in use ("" for a first sign-in); a new one
+// in the response is saved before anything else can fail. require_refresh:
+// fail if the response carries no refresh token (first sign-in).
+static esp_err_t token_post_locked(const char *body, const char *old_refresh, bool require_refresh,
+                                   bool *rotated)
+{
+    if (rotated) *rotated = false;
+    collector_t col = { 0 };
+    esp_http_client_config_t cfg = {
+        .url = TOKEN_URL, .method = HTTP_METHOD_POST, .timeout_ms = HTTP_TIMEOUT_MS,
+        .crt_bundle_attach = esp_crt_bundle_attach, .event_handler = on_http, .user_data = &col,
+        .buffer_size_tx = 1024,
+    };
+    esp_http_client_handle_t c = esp_http_client_init(&cfg);
+    if (!c) return ESP_ERR_NO_MEM;
+    esp_http_client_set_header(c, "Content-Type", "application/x-www-form-urlencoded");
+    esp_http_client_set_post_field(c, body, strlen(body));
+    esp_err_t err = esp_http_client_perform(c);
+    int status = esp_http_client_get_status_code(c);
+    esp_http_client_cleanup(c);
+
+    if (err != ESP_OK) {
+        ESP_LOGW(TAG, "token request failed: %s", esp_err_to_name(err));
+        s_auth = SP_AUTH_ERROR;
+        collector_reset(&col);
+        return err;
+    }
+    cJSON *j = col.buf ? cJSON_Parse(col.buf) : NULL;
+    if (status != 200 || !j) {
+        const char *e = j ? cJSON_GetStringValue(cJSON_GetObjectItem(j, "error")) : NULL;
+        ESP_LOGW(TAG, "token request HTTP %d (%s)", status, e ? e : "no detail");
+        // invalid_grant: revoked, expired or already-rotated token (or a used
+        // authorization code). Needs pairing again.
+        s_auth = (status == 400 && e && !strcmp(e, "invalid_grant")) ? SP_AUTH_REJECTED : SP_AUTH_ERROR;
+        cJSON_Delete(j);
+        collector_reset(&col);
+        return ESP_FAIL;
+    }
+
+    const char *access = cJSON_GetStringValue(cJSON_GetObjectItem(j, "access_token"));
+    const char *new_refresh = cJSON_GetStringValue(cJSON_GetObjectItem(j, "refresh_token"));
+    cJSON *exp = cJSON_GetObjectItem(j, "expires_in");
+    bool refresh_ok = new_refresh && new_refresh[0] && strlen(new_refresh) < TOKEN_MAX;
+    if (!access || strlen(access) >= sizeof s_access || (require_refresh && !refresh_ok)) {
+        ESP_LOGW(TAG, "token response missing access_token or refresh_token");
+        s_auth = SP_AUTH_ERROR;
+        cJSON_Delete(j);
+        collector_reset(&col);
+        return ESP_FAIL;
+    }
+
+    // Rotation: save the new refresh token before anything else can fail.
+    if (refresh_ok && strcmp(new_refresh, old_refresh)) {
+        if (settings_set_str(SETTING_REFRESH_TOKEN, new_refresh) == ESP_OK) {
+            if (rotated) *rotated = true;
+            ESP_LOGI(TAG, "refresh token %s and saved", old_refresh[0] ? "rotated" : "received");
+        } else {
+            ESP_LOGE(TAG, "could not save refresh token");
+            if (require_refresh) {
+                s_auth = SP_AUTH_ERROR;
+                cJSON_Delete(j);
+                collector_reset(&col);
+                return ESP_FAIL;
+            }
+        }
+    }
+    strcpy(s_access, access);
+    int expires_s = cJSON_IsNumber(exp) ? exp->valueint : 3600;
+    s_expires_us = esp_timer_get_time() + (int64_t)expires_s * 1000000;
+    s_auth = SP_AUTH_OK;
+    ESP_LOGI(TAG, "access token valid for %d s", expires_s);
+    cJSON_Delete(j);
+    collector_reset(&col);
+    return ESP_OK;
+}
+
 static esp_err_t refresh_locked(bool *rotated)
 {
     if (rotated) *rotated = false;
@@ -110,79 +193,45 @@ static esp_err_t refresh_locked(bool *rotated)
     if (!body) return ESP_ERR_NO_MEM;
     snprintf(body, blen, "grant_type=refresh_token&refresh_token=%s&client_id=%s", enc,
              CONFIG_REMOTE_SPOTIFY_CLIENT_ID);
-
-    collector_t col = { 0 };
-    esp_http_client_config_t cfg = {
-        .url = TOKEN_URL, .method = HTTP_METHOD_POST, .timeout_ms = HTTP_TIMEOUT_MS,
-        .crt_bundle_attach = esp_crt_bundle_attach, .event_handler = on_http, .user_data = &col,
-        .buffer_size_tx = 1024,
-    };
-    esp_http_client_handle_t c = esp_http_client_init(&cfg);
-    if (!c) { free(body); return ESP_ERR_NO_MEM; }
-    esp_http_client_set_header(c, "Content-Type", "application/x-www-form-urlencoded");
-    esp_http_client_set_post_field(c, body, strlen(body));
-    esp_err_t err = esp_http_client_perform(c);
-    int status = esp_http_client_get_status_code(c);
-    esp_http_client_cleanup(c);
+    esp_err_t err = token_post_locked(body, refresh, false, rotated);
     free(body);
+    return err;
+}
 
-    if (err != ESP_OK) {
-        ESP_LOGW(TAG, "token request failed: %s", esp_err_to_name(err));
-        s_auth = SP_AUTH_ERROR;
-        collector_reset(&col);
-        return err;
-    }
-    cJSON *j = col.buf ? cJSON_Parse(col.buf) : NULL;
-    if (status != 200 || !j) {
-        const char *e = j ? cJSON_GetStringValue(cJSON_GetObjectItem(j, "error")) : NULL;
-        ESP_LOGW(TAG, "token refresh HTTP %d (%s)", status, e ? e : "no detail");
-        // invalid_grant: revoked, expired or already-rotated token. Needs pairing again.
-        s_auth = (status == 400 && e && !strcmp(e, "invalid_grant")) ? SP_AUTH_REJECTED : SP_AUTH_ERROR;
-        cJSON_Delete(j);
-        collector_reset(&col);
-        return ESP_FAIL;
-    }
+esp_err_t spotify_exchange_code(const char *code, const char *verifier, const char *redirect_uri)
+{
+    if (!CONFIG_REMOTE_SPOTIFY_CLIENT_ID[0]) return ESP_ERR_INVALID_STATE;
+    size_t cl = strlen(code), vl = strlen(verifier), rl = strlen(redirect_uri);
+    if (cl > 1024 || vl > 128 || rl > 256) return ESP_ERR_INVALID_ARG;
+    size_t blen = 3 * (cl + vl + rl) + 192;
+    char *body = malloc(blen);
+    char *enc = malloc(3 * 1024 + 1);
+    if (!body || !enc) { free(body); free(enc); return ESP_ERR_NO_MEM; }
+    int n = snprintf(body, blen, "grant_type=authorization_code&client_id=%s&code=", CONFIG_REMOTE_SPOTIFY_CLIENT_ID);
+    url_encode(enc, 3 * 1024 + 1, code);
+    n += snprintf(body + n, blen - n, "%s&redirect_uri=", enc);
+    url_encode(enc, 3 * 1024 + 1, redirect_uri);
+    n += snprintf(body + n, blen - n, "%s&code_verifier=", enc);
+    url_encode(enc, 3 * 1024 + 1, verifier);
+    snprintf(body + n, blen - n, "%s", enc);
+    free(enc);
 
-    const char *access = cJSON_GetStringValue(cJSON_GetObjectItem(j, "access_token"));
-    const char *new_refresh = cJSON_GetStringValue(cJSON_GetObjectItem(j, "refresh_token"));
-    cJSON *exp = cJSON_GetObjectItem(j, "expires_in");
-    if (!access || strlen(access) >= sizeof s_access) {
-        ESP_LOGW(TAG, "token response missing access_token");
-        s_auth = SP_AUTH_ERROR;
-        cJSON_Delete(j);
-        collector_reset(&col);
-        return ESP_FAIL;
-    }
-    strcpy(s_access, access);
-    int expires_s = cJSON_IsNumber(exp) ? exp->valueint : 3600;
-    s_expires_us = esp_timer_get_time() + (int64_t)expires_s * 1000000;
-
-    // Rotation: save the new refresh token before anything else can fail.
-    if (new_refresh && new_refresh[0] && strcmp(new_refresh, refresh) && strlen(new_refresh) < TOKEN_MAX) {
-        if (settings_set_str(SETTING_REFRESH_TOKEN, new_refresh) == ESP_OK) {
-            if (rotated) *rotated = true;
-            ESP_LOGI(TAG, "refresh token rotated and saved");
-        } else {
-            ESP_LOGE(TAG, "could not save rotated refresh token");
-        }
-    }
-    s_auth = SP_AUTH_OK;
-    ESP_LOGI(TAG, "access token valid for %d s", expires_s);
-    cJSON_Delete(j);
-    collector_reset(&col);
-    return ESP_OK;
+    xSemaphoreTake(s_lock, portMAX_DELAY);
+    // A different account may be signing in: drop the old session first.
+    s_access[0] = 0;
+    s_expires_us = 0;
+    api_close_locked();
+    esp_err_t err = token_post_locked(body, "", true, NULL);
+    if (err != ESP_OK) s_auth = settings_has(SETTING_REFRESH_TOKEN) ? SP_AUTH_UNKNOWN : SP_AUTH_NO_TOKEN;
+    xSemaphoreGive(s_lock);
+    free(body);
+    return err;
 }
 
 static esp_err_t ensure_token_locked(void)
 {
     if (s_access[0] && esp_timer_get_time() < s_expires_us - REFRESH_MARGIN) return ESP_OK;
     return refresh_locked(NULL);
-}
-
-static void api_close_locked(void)
-{
-    if (s_api) esp_http_client_cleanup(s_api);
-    s_api = NULL;
 }
 
 static esp_err_t api_perform_locked(const char *method, const char *path, const char *json_body,

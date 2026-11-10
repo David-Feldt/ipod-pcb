@@ -16,7 +16,7 @@ Target: ESP32-S3-MINI-1-N8 (8 MB flash, **no PSRAM**), ESP-IDF 6.0.2.
 | 3. Wi-Fi, SNTP, Spotify token refresh | Done, on board 1 |
 | 4. Now playing, transport controls, wheel volume, album art | Done, on board 1 |
 | 5. Device picker | Dropped for now (user doesn't need it) |
-| 6. Pairing: setup hotspot, on-device setup page, static redirect page | Next |
+| 6. Pairing: setup hotspot, on-device setup page, static redirect page | In progress: Spotify sign-in works on board 1 (local bounce page); HTTPS hosting and hotspot to do |
 | 7. Low battery → deep sleep, wake policy | Planned |
 
 ## Build and flash
@@ -43,7 +43,7 @@ every 10 s otherwise; the progress bar advances locally in between.
 | PREV | Restart the track; previous track if within its first 3 s |
 | Wheel | Volume of the playing device (after >3% deliberate movement) |
 | Bottom (PLAY), hold | Force a full e-paper refresh |
-| MENU | Unassigned |
+| MENU (top) | Open the menu; cancels the sign-in screen |
 
 Album art: the 300 px cover is decoded straight from the download with the
 ESP32-S3 ROM JPEG decoder, scaled to the 110 px box, contrast-stretched and
@@ -60,10 +60,33 @@ Text is shown in ASCII: accents are stripped and unsupported scripts show "?".
 Measured on board 1: full refresh 2.27 s, partial 0.46 s; a full clearing refresh
 follows every 5 partials.
 
+## Spotify sign-in (pairing)
+
+Press MENU and choose **Sign in to Spotify** (or run `pair start`). In the
+menu, MENU and PLAY (top and bottom of the cross) move up and down, the centre
+button chooses and PREV goes back; it closes by itself after 20 s. The screen
+shows a QR code and the board's address; open it on a phone or computer on the same Wi-Fi and press **Sign in
+with Spotify**. The board also offers this screen by itself once per boot
+when it has Wi-Fi but no working login. Pressing MENU cancels, and the
+setup page shuts down after success or 10 idle minutes.
+
+How it works: the board serves the setup page only while pairing is active.
+`/login` starts a PKCE authorization (the verifier stays on the board) and
+sends the browser to Spotify. Spotify only redirects to HTTPS or loopback
+URLs, so it returns to the static bounce page [`pairing/index.html`](../../pairing/),
+which forwards the code to `http://<board-ip>/callback` (the IP travels in
+`state`). The board exchanges the code and saves the refresh token.
+
+The redirect URI is `CONFIG_REMOTE_PAIRING_REDIRECT_URI` (menuconfig). While it
+is empty, the board uses `http://127.0.0.1:8888/callback`: run
+`python3 tools/pairing_bounce.py` and open the setup page **on that same
+computer**. Phones need the hosted HTTPS page (see `pairing/README.md`).
+
 ## First-time setup (development path)
 
-Until the pairing flow exists (milestone 6), give the board Wi-Fi and a Spotify
-login from your computer:
+Without the pairing hotspot (still to come in milestone 6), give the board
+Wi-Fi from the console. A Spotify login can come from pairing (above) or
+from your computer:
 
 ```sh
 # in the console (idf.py -p /dev/cu.usbmodem101 monitor), 2.4 GHz network only
@@ -92,6 +115,7 @@ The serial monitor gives a `remote>` prompt:
 | `charger usb100\|usb500\|suspend\|auto` | Override the charger mode (auto re-applies within 2 s) |
 | `wifi set <ssid> <password>` / `wifi clear` | Store Wi-Fi credentials and (re)connect |
 | `token set <refresh_token>` / `token clear` | Store a Spotify refresh token (development) |
+| `pair start` / `pair stop` / `pair status` | Spotify sign-in page on the LAN (same as the menu item) |
 | `spotify refresh` | Get a new access token now (saves a rotated refresh token) |
 | `spotify now` / `spotify devices` | Show current playback / list Spotify Connect devices |
 | `spotify next` / `prev` / `play` | Same as the buttons (for testing without touching the board) |
@@ -110,10 +134,11 @@ The serial monitor gives a `remote>` prompt:
 | `components/board/` | Pin map, charger/USB/battery (`power.c`), buttons and wheel (`input.c`) |
 | `components/settings/` | NVS-backed settings |
 | `components/epd/` | SSD1680/GDEY0213B74 driver: full/partial refresh, bounded BUSY waits, orientation |
-| `components/ui/` | LVGL 1-bit port, refresh scheduler, now-playing screen, calibration pattern |
+| `components/ui/` | LVGL 1-bit port, refresh scheduler, now-playing, menu and sign-in screens, calibration pattern |
 | `components/net/` | Wi-Fi station with reconnect backoff, SNTP |
 | `components/player/` | Playback poller and command runner (play/pause/next/previous/seek/volume) |
 | `components/art/` | Album art: streaming JPEG decode (ROM TJpgDec), scale, dither to 1-bit |
+| `components/pairing/` | Spotify sign-in: setup page on port 80 while pairing, PKCE, code exchange via `spotify_exchange_code` |
 | `components/spotify/` | Token refresh (rotating refresh token saved to NVS), authenticated Web API requests over one kept-alive TLS connection |
 | `components/app_console/` | USB console commands |
 | `../../tools/spotify_token.py` | PKCE login helper that gets a refresh token for the board |
