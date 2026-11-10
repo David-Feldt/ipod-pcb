@@ -17,7 +17,10 @@ Target: ESP32-S3-MINI-1-N8 (8 MB flash, **no PSRAM**), ESP-IDF 6.0.2.
 | 4. Now playing, transport controls, wheel volume, album art | Done, on board 1 |
 | 5. Device picker | Dropped for now (user doesn't need it) |
 | 6. Pairing: setup hotspot, on-device setup page, static redirect page | Done on board 1: Wi-Fi setup hotspot and Spotify sign-in from a phone |
-| 7. Low battery → deep sleep, wake policy | Planned |
+| 7. Low battery → deep sleep, wake policy | Next |
+| 8. Bluetooth fallback: BLE media remote for any phone when no known Wi-Fi is in range | Planned |
+| 9. Bluetooth fallback, iPhone: now playing via Apple Media Service (no album art) | Planned |
+| 10. Bluetooth fallback, iPhone: call and message alerts (ANCS) | Planned |
 
 ## Build and flash
 

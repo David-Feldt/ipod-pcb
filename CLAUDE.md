@@ -60,6 +60,19 @@ the now-playing screen.
 5. Device picker — **dropped** (user said they don't need it; MENU stays free)
 6. Pairing flow — **done**: LAN sign-in page + bounce page work on board 1 (fw 0.5.0, via the local bounce on 127.0.0.1). Firmware default redirect URI now points at GitHub Pages; phone sign-in verified on board 1; Wi-Fi setup hotspot (WPA2, password in the screen QR code — user's choice) verified on board 1 (fw 0.6.0)
 7. Low battery → deep sleep, wake policy — **next**
+8. Bluetooth fallback: BLE media remote (HID consumer control: play/pause,
+   next/prev, wheel → phone volume) for any phone, used when no known Wi-Fi is
+   reachable — planned
+9. Bluetooth fallback, iPhone: now playing via Apple Media Service (title,
+   artist, album, progress, play state; no album art) — planned
+10. Bluetooth fallback, iPhone: call/message alerts via ANCS — planned
+
+Bluetooth decisions (user, 2026-11-10): fallbacks for when Wi-Fi is out of
+range, not a replacement (Spotify Connect, speakers and album art need Wi-Fi).
+Not wanted: phone time sync, battery-level service. Wi-Fi and BLE run as
+exclusive modes (no PSRAM: min heap ~60 KB already with TLS + art). The chip is
+BLE-only (no Classic BT/AVRCP). Open: user's phone (iPhone decides 9/10), and
+the exact switch-over rule.
 
 Spotify app: Client ID `fb6818b0834e4e418b6ad5ef191383ee` (Kconfig default; not
 secret), Web API only, redirect URI `http://127.0.0.1:8888/callback`. Board 1 has
