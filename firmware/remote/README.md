@@ -16,7 +16,7 @@ Target: ESP32-S3-MINI-1-N8 (8 MB flash, **no PSRAM**), ESP-IDF 6.0.2.
 | 3. Wi-Fi, SNTP, Spotify token refresh | Done, on board 1 |
 | 4. Now playing, transport controls, wheel volume, album art | Done, on board 1 |
 | 5. Device picker | Dropped for now (user doesn't need it) |
-| 6. Pairing: setup hotspot, on-device setup page, static redirect page | In progress: Spotify sign-in works on board 1 (local bounce page); HTTPS hosting and hotspot to do |
+| 6. Pairing: setup hotspot, on-device setup page, static redirect page | In progress: Spotify sign-in from a phone works on board 1; Wi-Fi hotspot to do |
 | 7. Low battery → deep sleep, wake policy | Planned |
 
 ## Build and flash

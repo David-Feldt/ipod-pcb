@@ -91,3 +91,4 @@ supply/test pad is connected to each circuit.
 | Step | Result |
 |---|---|
 | Pairing (LAN) | `pair start` serves the setup page on port 80; `/login` redirects to Spotify, which accepts the request (303 to its login page); a forged `/callback` is refused. End to end with the local bounce page (`tools/pairing_bounce.py`, redirect `http://127.0.0.1:8888/callback`) from a browser on the same Mac: code exchanged on the board, refresh token saved, playback resumes, setup page stops by itself. Min free heap 105 KB through the TLS exchange (setup server 117 KB idle). From a phone it fails until the bounce page is hosted on HTTPS (expected) |
+| Pairing (phone) | Redirect URI `https://david-feldt.github.io/eink-remote-pair/` (GitHub Pages). QR code scanned on a phone on the same Wi-Fi: Spotify login → bounce page → board; refresh token saved about 4 s after `/login`, setup page stopped 5 s later |
