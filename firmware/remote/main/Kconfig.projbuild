@@ -8,9 +8,11 @@ config REMOTE_SPOTIFY_CLIENT_ID
 
 config REMOTE_PAIRING_REDIRECT_URI
     string "Spotify redirect URI (static bounce page)"
-    default ""
+    default "https://david-feldt.github.io/eink-remote-pair/"
     help
-        HTTPS URL of pairing/index.html, exactly as registered in the Spotify app.
+        HTTPS URL of pairing/index.html (GitHub Pages, repo David-Feldt/eink-remote-pair),
+        exactly as registered in the Spotify app. Empty: http://127.0.0.1:8888/callback
+        with tools/pairing_bounce.py (browser on the same computer only).
 
 config REMOTE_LOW_BATT_MV
     int "Low-battery shutdown threshold (mV) - PROVISIONAL"

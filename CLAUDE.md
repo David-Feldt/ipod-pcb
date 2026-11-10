@@ -30,8 +30,9 @@ Decisions made with the user (2026-11-05):
   (rotates; persist every new one). No runtime server. Premium required; Spotify
   dev-mode app with an allowlist (owner + a few users).
 - **Pairing:** SoftAP captive portal for Wi-Fi → device-hosted setup page on the LAN
-  → static HTTPS bounce page (`pairing/`, to be hosted on Cloudflare Pages since the
-  repo is private) forwards the OAuth code to `http://<device-ip>/callback`. Plus a
+  → static HTTPS bounce page (`pairing/`, published via GitHub Pages from the separate
+  public repo David-Feldt/eink-remote-pair at https://david-feldt.github.io/eink-remote-pair/,
+  user's choice 2026-11-09) forwards the OAuth code to `http://<device-ip>/callback`. Plus a
   dev path: `tools/spotify_token.py` (127.0.0.1 redirect) → console `token set`.
 - **MVP scope:** now playing + play/pause/prev/next + wheel volume + device picker.
   Album art is wanted (110 px area reserved on screen), after Spotify works.
@@ -57,7 +58,7 @@ the now-playing screen.
 3. Wi-Fi, SNTP, Spotify auth/token refresh — **done** (board 1 reads live playback)
 4. Real now playing, transport controls, wheel volume, album art — **done**
 5. Device picker — **dropped** (user said they don't need it; MENU stays free)
-6. Pairing flow — **in progress**: LAN sign-in page + bounce page work on board 1 (fw 0.5.0, via the local bounce on 127.0.0.1). Still to do: host `pairing/` on Cloudflare Pages (wrangler not logged in yet) + Spotify dashboard redirect URI + Kconfig, then the SoftAP Wi-Fi portal
+6. Pairing flow — **in progress**: LAN sign-in page + bounce page work on board 1 (fw 0.5.0, via the local bounce on 127.0.0.1). Firmware default redirect URI now points at GitHub Pages; still to do: user creates/pushes the public page repo and adds the URI in the Spotify dashboard, test from a phone, then the SoftAP Wi-Fi portal
 7. Low battery → deep sleep, wake policy
 
 Spotify app: Client ID `fb6818b0834e4e418b6ad5ef191383ee` (Kconfig default; not

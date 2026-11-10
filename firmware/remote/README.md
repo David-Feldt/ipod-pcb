@@ -77,10 +77,10 @@ URLs, so it returns to the static bounce page [`pairing/index.html`](../../pairi
 which forwards the code to `http://<board-ip>/callback` (the IP travels in
 `state`). The board exchanges the code and saves the refresh token.
 
-The redirect URI is `CONFIG_REMOTE_PAIRING_REDIRECT_URI` (menuconfig). While it
-is empty, the board uses `http://127.0.0.1:8888/callback`: run
-`python3 tools/pairing_bounce.py` and open the setup page **on that same
-computer**. Phones need the hosted HTTPS page (see `pairing/README.md`).
+The redirect URI is `CONFIG_REMOTE_PAIRING_REDIRECT_URI` (menuconfig), by
+default the GitHub Pages copy at `https://david-feldt.github.io/eink-remote-pair/` (see
+`pairing/README.md`). Set it empty to use `http://127.0.0.1:8888/callback`
+with `python3 tools/pairing_bounce.py`, from a browser on that same computer.
 
 ## First-time setup (development path)
 
