@@ -92,3 +92,9 @@ supply/test pad is connected to each circuit.
 |---|---|
 | Pairing (LAN) | `pair start` serves the setup page on port 80; `/login` redirects to Spotify, which accepts the request (303 to its login page); a forged `/callback` is refused. End to end with the local bounce page (`tools/pairing_bounce.py`, redirect `http://127.0.0.1:8888/callback`) from a browser on the same Mac: code exchanged on the board, refresh token saved, playback resumes, setup page stops by itself. Min free heap 105 KB through the TLS exchange (setup server 117 KB idle). From a phone it fails until the bounce page is hosted on HTTPS (expected) |
 | Pairing (phone) | Redirect URI `https://david-feldt.github.io/eink-remote-pair/` (GitHub Pages). QR code scanned on a phone on the same Wi-Fi: Spotify login → bounce page → board; refresh token saved about 4 s after `/login`, setup page stopped 5 s later |
+
+### Board 1, 2026-11-10 (firmware `firmware/remote` 0.6.0, milestone 6 part 2; tested on the same code just before the version bump)
+
+| Step | Result |
+|---|---|
+| Wi-Fi setup hotspot | `wifi setup`: hotspot "E-ink Remote AA8D" (WPA2) up, 3 networks found by the pre-join scan, free heap 117 KB. Phone joined via the screen QR code, setup page opened, chose the home network: joined in 1.6 s on the first attempt, saved, hotspot stopped 12 s later and playback resumed (one failed poll on the connection left over from before the hotspot, then normal). Wrong-password path not yet exercised on hardware |

@@ -6,7 +6,7 @@
 //   PLAY (bottom) unassigned; hold it to force a full refresh
 //   MENU (top)    open the menu
 // In the menu: MENU / PLAY move up / down, SEL chooses, PREV goes back.
-// On the sign-in screen MENU cancels.
+// On the sign-in and Wi-Fi setup screens MENU cancels.
 // Button names follow the board's silkscreen (iPod cross); the user chose
 // play/pause on the centre button.
 // The player task does all Spotify I/O; this loop maps its state onto the UI.
@@ -21,6 +21,7 @@
 #include "player.h"
 #include "art.h"
 #include "pairing.h"
+#include "wifisetup.h"
 #include "esp_log.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
@@ -89,7 +90,10 @@ static const char *status_message(const player_state_t *s)
     switch (s->status) {
     case PLAYER_STARTING: return "Connecting to Spotify...";
     case PLAYER_IDLE:     return "Nothing playing. Start Spotify on a phone or speaker";
-    case PLAYER_NO_WIFI:  return net_state() == NET_NO_CREDENTIALS ? "No Wi-Fi set up" : "Connecting to Wi-Fi...";
+    case PLAYER_NO_WIFI:
+        if (net_state() == NET_NO_CREDENTIALS) return "No Wi-Fi set up. Press MENU to set it up";
+        if (net_state() == NET_DISCONNECTED) return "Can't reach Wi-Fi. Retrying (MENU to change it)";
+        return "Connecting to Wi-Fi...";
     case PLAYER_NO_TOKEN: return "Not signed in. Press MENU to sign in";
     case PLAYER_REJECTED: return "Spotify sign-in expired. Press MENU to sign in";
     case PLAYER_ERROR:    return s_shown.track_id[0] ? NULL : "Can't reach Spotify. Retrying";
@@ -204,7 +208,7 @@ static void apply_pairing(void)
 // ------------------------------------------------------------------ menu
 #define MENU_IDLE_MS 20000          // back to now playing when left alone
 
-typedef enum { MI_SIGN_IN, MI_BACK, MI_COUNT } menu_item_t;
+typedef enum { MI_SIGN_IN, MI_WIFI, MI_BACK, MI_COUNT } menu_item_t;
 static struct {
     bool open;
     int sel;
@@ -213,7 +217,8 @@ static struct {
 
 static void menu_render(void)
 {
-    static const char *const items[MI_COUNT] = { [MI_SIGN_IN] = "Sign in to Spotify", [MI_BACK] = "Back" };
+    static const char *const items[MI_COUNT] = { [MI_SIGN_IN] = "Sign in to Spotify", [MI_WIFI] = "Set up Wi-Fi",
+                                                  [MI_BACK] = "Back" };
     ui_lock(); menu_screen_show(items, MI_COUNT, s_menu.sel); ui_unlock();
 }
 
@@ -236,17 +241,77 @@ static void menu_close(void)
 static void start_pairing(void)
 {
     s_menu.open = false;                // the sign-in screen replaces the menu
+    wifisetup_stop();                   // both use port 80
     esp_err_t err = pairing_start();
     if (err != ESP_OK) { ui_lock(); np_show(); ui_unlock(); ui_request_full_refresh(); }
     if (err == ESP_ERR_INVALID_STATE) { ui_lock(); np_show_notice("Wi-Fi not connected"); ui_unlock(); }
     else if (err != ESP_OK) ESP_LOGE(TAG, "pairing start failed: %s", esp_err_to_name(err));
 }
 
+static void start_wifisetup(void)
+{
+    s_menu.open = false;
+    pairing_stop();
+    esp_err_t err = wifisetup_start();
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "Wi-Fi setup failed to start: %s", esp_err_to_name(err));
+        ui_lock(); np_show(); np_show_notice("Wi-Fi setup failed"); ui_unlock();
+        ui_request_full_refresh();
+    }
+}
+
+static bool spotify_needs_login(void)
+{
+    sp_auth_t a = spotify_auth_state();
+    return a == SP_AUTH_NO_TOKEN || a == SP_AUTH_REJECTED;
+}
+
+// Mirror the Wi-Fi setup state on screen. After a successful setup, go
+// straight on to Spotify sign-in if there is no login yet.
+static void apply_wifisetup(void)
+{
+    static bool shown, joined;
+    wifisetup_info_t w;
+    wifisetup_get(&w);
+    if (w.state == WS_OFF) {
+        if (!shown) return;
+        shown = false;
+        if (joined && spotify_needs_login()) {
+            joined = false;
+            start_pairing();                    // its screen replaces this one
+            return;
+        }
+        joined = false;
+        ui_lock(); np_show(); ui_unlock();
+        ui_request_full_refresh();
+        return;
+    }
+    shown = true;
+    char qr[80], line[128];
+    ui_lock();
+    switch (w.state) {
+    case WS_WAITING:
+        wifisetup_join_qr(&w, qr, sizeof qr);
+        snprintf(line, sizeof line, "%s%sPassword %s", w.error, w.error[0] ? "\n" : "", w.ap_pass);
+        pair_screen_show("Set up Wi-Fi", qr, w.ap_ssid, line, "Scan to join. MENU: cancel");
+        break;
+    case WS_CONNECTING:
+        snprintf(line, sizeof line, "Connecting to %s...", w.target);
+        pair_screen_show("Set up Wi-Fi", NULL, line, NULL, NULL);
+        break;
+    default:
+        joined = true;
+        pair_screen_show("Set up Wi-Fi", NULL, "Connected", w.target, NULL);
+        break;
+    }
+    ui_unlock();
+}
+
 // First boot without a login: offer the sign-in screen once Wi-Fi is up.
 static void maybe_auto_pair(void)
 {
     static bool done;
-    if (done || !net_connected()) return;
+    if (done || !net_connected() || wifisetup_active()) return;
     player_state_t s;
     player_get(&s);
     if (s.status != PLAYER_NO_TOKEN && s.status != PLAYER_REJECTED) return;
@@ -264,6 +329,7 @@ static void menu_input(button_id_t b)
     case BTN_PREV: menu_close(); break;
     case BTN_SEL:
         if (s_menu.sel == MI_SIGN_IN) start_pairing();
+        else if (s_menu.sel == MI_WIFI) start_wifisetup();
         else menu_close();
         break;
     default: break;
@@ -288,6 +354,7 @@ static void handle_input(const input_event_t *ev)
     if (s_menu.open) { menu_input(ev->button); return; }
     if (ev->button == BTN_MENU) {
         if (pairing_active()) pairing_stop();
+        else if (wifisetup_active()) wifisetup_stop();
         else menu_open();
         return;
     }
@@ -340,6 +407,11 @@ void app_main(void)
     uint32_t seen_version = player_version();
     uint32_t seen_art = art_version();
     uint32_t seen_pair = pairing_version();
+    uint32_t seen_wifi = wifisetup_version();
+    if (!net_have_credentials()) {
+        ESP_LOGI(TAG, "no Wi-Fi saved: starting the setup hotspot");
+        start_wifisetup();
+    }
     for (;;) {
         input_event_t ev;
         if (xQueueReceive(events, &ev, pdMS_TO_TICKS(100)) == pdTRUE) handle_input(&ev);
@@ -358,6 +430,11 @@ void app_main(void)
         if (pv != seen_pair) {
             seen_pair = pv;
             apply_pairing();
+        }
+        uint32_t wv = wifisetup_version();
+        if (wv != seen_wifi) {
+            seen_wifi = wv;
+            apply_wifisetup();
         }
         maybe_auto_pair();
         if (s_menu.open && esp_timer_get_time() - s_menu.last_us > MENU_IDLE_MS * 1000LL) menu_close();

@@ -12,6 +12,7 @@
 #include "spotify.h"
 #include "player.h"
 #include "pairing.h"
+#include "wifisetup.h"
 #include "cJSON.h"
 #include <time.h>
 #include "esp_console.h"
@@ -113,7 +114,16 @@ static int cmd_wifi(int argc, char **argv)
         printf("cleared\n");
         return 0;
     }
-    printf("usage: wifi set <ssid> <password> | wifi clear  (quote values with spaces)\n");
+    if (argc >= 2 && !strcmp(argv[1], "setup")) {
+        if (argc == 3 && !strcmp(argv[2], "stop")) { wifisetup_stop(); printf("hotspot stopped\n"); return 0; }
+        esp_err_t err = wifisetup_start();
+        if (err != ESP_OK) { printf("failed: %s\n", esp_err_to_name(err)); return 1; }
+        wifisetup_info_t w;
+        wifisetup_get(&w);
+        printf("hotspot \"%s\", password %s; setup page http://192.168.4.1/\n", w.ap_ssid, w.ap_pass);
+        return 0;
+    }
+    printf("usage: wifi set <ssid> <password> | wifi clear | wifi setup [stop]  (quote values with spaces)\n");
     return 1;
 }
 
@@ -334,7 +344,7 @@ esp_err_t app_console_start(void)
 
     const esp_console_cmd_t cmds[] = {
         { .command = "status",  .help = "Board, power, input and settings summary", .func = cmd_status },
-        { .command = "wifi",    .help = "wifi set <ssid> <password> | wifi clear", .func = cmd_wifi },
+        { .command = "wifi",    .help = "wifi set <ssid> <password> | wifi clear | wifi setup [stop]", .func = cmd_wifi },
         { .command = "token",   .help = "token set <refresh_token> | token clear", .func = cmd_token },
         { .command = "pair",    .help = "pair [start|stop|status]: Spotify sign-in page on the LAN", .func = cmd_pair },
         { .command = "spotify", .help = "spotify refresh|now|devices|next|prev|play", .func = cmd_spotify },

@@ -16,7 +16,7 @@ Target: ESP32-S3-MINI-1-N8 (8 MB flash, **no PSRAM**), ESP-IDF 6.0.2.
 | 3. Wi-Fi, SNTP, Spotify token refresh | Done, on board 1 |
 | 4. Now playing, transport controls, wheel volume, album art | Done, on board 1 |
 | 5. Device picker | Dropped for now (user doesn't need it) |
-| 6. Pairing: setup hotspot, on-device setup page, static redirect page | In progress: Spotify sign-in from a phone works on board 1; Wi-Fi hotspot to do |
+| 6. Pairing: setup hotspot, on-device setup page, static redirect page | Done on board 1: Wi-Fi setup hotspot and Spotify sign-in from a phone |
 | 7. Low battery → deep sleep, wake policy | Planned |
 
 ## Build and flash
@@ -82,11 +82,23 @@ default the GitHub Pages copy at `https://david-feldt.github.io/eink-remote-pair
 `pairing/README.md`). Set it empty to use `http://127.0.0.1:8888/callback`
 with `python3 tools/pairing_bounce.py`, from a browser on that same computer.
 
+## Wi-Fi setup (hotspot)
+
+With no Wi-Fi saved the board starts its own network, `E-ink Remote XXXX`
+(WPA2, fresh random password each time); **Set up Wi-Fi** in the menu (or
+`wifi setup`) does the same to change networks. The screen shows a Wi-Fi QR
+code, so a phone joins with one scan, and a small DNS server sends every lookup
+to the board, so the phone opens the setup page (`http://192.168.4.1/`) by
+itself. Pick a 2.4 GHz network (or type a hidden one) and its password: the
+board tries it with the hotspot still up and saves it only if it works (it
+tells a wrong password apart from a network it can't find). The hotspot then
+turns off; with no Spotify login yet, the board goes straight on to sign-in.
+MENU cancels, and the hotspot stops after 10 idle minutes. A saved network that
+is merely unreachable never starts the hotspot by itself.
+
 ## First-time setup (development path)
 
-Without the pairing hotspot (still to come in milestone 6), give the board
-Wi-Fi from the console. A Spotify login can come from pairing (above) or
-from your computer:
+Wi-Fi and the Spotify login can also come from the console and your computer:
 
 ```sh
 # in the console (idf.py -p /dev/cu.usbmodem101 monitor), 2.4 GHz network only
@@ -114,6 +126,7 @@ The serial monitor gives a `remote>` prompt:
 | `calib wheel` | Sweep the wheel end to end within 8 s to store its end points |
 | `charger usb100\|usb500\|suspend\|auto` | Override the charger mode (auto re-applies within 2 s) |
 | `wifi set <ssid> <password>` / `wifi clear` | Store Wi-Fi credentials and (re)connect |
+| `wifi setup` / `wifi setup stop` | Start / stop the Wi-Fi setup hotspot (prints its name and password) |
 | `token set <refresh_token>` / `token clear` | Store a Spotify refresh token (development) |
 | `pair start` / `pair stop` / `pair status` | Spotify sign-in page on the LAN (same as the menu item) |
 | `spotify refresh` | Get a new access token now (saves a rotated refresh token) |
@@ -135,9 +148,10 @@ The serial monitor gives a `remote>` prompt:
 | `components/settings/` | NVS-backed settings |
 | `components/epd/` | SSD1680/GDEY0213B74 driver: full/partial refresh, bounded BUSY waits, orientation |
 | `components/ui/` | LVGL 1-bit port, refresh scheduler, now-playing, menu and sign-in screens, calibration pattern |
-| `components/net/` | Wi-Fi station with reconnect backoff, SNTP |
+| `components/net/` | Wi-Fi station with reconnect backoff, SNTP; hotspot (APSTA), scan, `net_try` |
 | `components/player/` | Playback poller and command runner (play/pause/next/previous/seek/volume) |
 | `components/art/` | Album art: streaming JPEG decode (ROM TJpgDec), scale, dither to 1-bit |
+| `components/wifisetup/` | Wi-Fi setup hotspot: captive DNS, setup page, try-then-save via `net_try` |
 | `components/pairing/` | Spotify sign-in: setup page on port 80 while pairing, PKCE, code exchange via `spotify_exchange_code` |
 | `components/spotify/` | Token refresh (rotating refresh token saved to NVS), authenticated Web API requests over one kept-alive TLS connection |
 | `components/app_console/` | USB console commands |

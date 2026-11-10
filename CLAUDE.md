@@ -58,8 +58,8 @@ the now-playing screen.
 3. Wi-Fi, SNTP, Spotify auth/token refresh — **done** (board 1 reads live playback)
 4. Real now playing, transport controls, wheel volume, album art — **done**
 5. Device picker — **dropped** (user said they don't need it; MENU stays free)
-6. Pairing flow — **in progress**: LAN sign-in page + bounce page work on board 1 (fw 0.5.0, via the local bounce on 127.0.0.1). Firmware default redirect URI now points at GitHub Pages; phone sign-in verified on board 1; still to do: the SoftAP Wi-Fi portal
-7. Low battery → deep sleep, wake policy
+6. Pairing flow — **done**: LAN sign-in page + bounce page work on board 1 (fw 0.5.0, via the local bounce on 127.0.0.1). Firmware default redirect URI now points at GitHub Pages; phone sign-in verified on board 1; Wi-Fi setup hotspot (WPA2, password in the screen QR code — user's choice) verified on board 1 (fw 0.6.0)
+7. Low battery → deep sleep, wake policy — **next**
 
 Spotify app: Client ID `fb6818b0834e4e418b6ad5ef191383ee` (Kconfig default; not
 secret), Web API only, redirect URI `http://127.0.0.1:8888/callback`. Board 1 has
