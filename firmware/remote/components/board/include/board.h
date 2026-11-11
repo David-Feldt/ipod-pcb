@@ -25,6 +25,12 @@ int power_battery_pct(int vbat_mv);         // rough open-circuit estimate, 0..1
 // and enter deep sleep. Does not return (waking is a reset).
 void power_deep_sleep(void) __attribute__((noreturn));
 
+// ---------------------------------------------------------------- mode
+typedef enum { MODE_WIFI, MODE_BLUETOOTH } board_mode_t;
+board_mode_t board_boot_mode(void);         // fixed for this boot
+bool board_mode_manual(void);               // Bluetooth was chosen by the user, not a fallback
+void board_restart_into(board_mode_t m, bool manual) __attribute__((noreturn));
+
 // Shared ADC1 helper (used by power and wheel). Returns calibrated mV.
 int board_adc_read_mv(int gpio, int samples);
 

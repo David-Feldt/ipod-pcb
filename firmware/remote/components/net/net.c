@@ -286,3 +286,35 @@ int net_rssi(void)
     wifi_ap_record_t ap;
     return net_connected() && esp_wifi_sta_get_ap_info(&ap) == ESP_OK ? ap.rssi : 0;
 }
+
+// ------------------------------------------------------------------ probe
+bool net_probe_saved(int *rssi)
+{
+    char ssid[33];
+    if (settings_get_str(SETTING_WIFI_SSID, ssid, sizeof ssid) != ESP_OK || !ssid[0]) return false;
+    static bool ready;
+    if (!ready) {
+        esp_err_t err = esp_event_loop_create_default();
+        if (err != ESP_OK && err != ESP_ERR_INVALID_STATE) return false;
+        wifi_init_config_t init = WIFI_INIT_CONFIG_DEFAULT();
+        if (esp_wifi_init(&init) != ESP_OK) return false;
+        esp_wifi_set_storage(WIFI_STORAGE_RAM);
+        esp_wifi_set_mode(WIFI_MODE_STA);
+        ready = true;
+    }
+    if (esp_wifi_start() != ESP_OK) return false;
+    wifi_scan_config_t sc = { .ssid = (uint8_t *)ssid };
+    bool found = false;
+    if (esp_wifi_scan_start(&sc, true) == ESP_OK) {
+        uint16_t n = 1;
+        wifi_ap_record_t rec;
+        if (esp_wifi_scan_get_ap_records(&n, &rec) == ESP_OK && n > 0) {
+            found = true;
+            if (rssi) *rssi = rec.rssi;
+        }
+        esp_wifi_clear_ap_list();
+    }
+    esp_wifi_stop();
+    ESP_LOGI(TAG, "probe for \"%s\": %s", ssid, found ? "in range" : "not found");
+    return found;
+}

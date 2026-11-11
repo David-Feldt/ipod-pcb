@@ -106,3 +106,13 @@ supply/test pad is connected to each circuit.
 | Low-battery shutdown | Triggered with `sleep yes` (USB present, 4146 mV): Wi-Fi stopped, one full refresh (2270 ms) to the "Battery low" screen (user confirmed), charger USB500 → USB100, deep sleep with wake mask 0x3e00 (MENU/PLAY/PREV/NEXT/SEL; USB left out because it was present) |
 | Button wake | SEL woke the board: reset reason `deep-sleep wake`, USB present so it resumed normally (Wi-Fi and Spotify back) |
 | Not yet tested | Automatic trigger at the provisional 3450 mV threshold, wake on USB insertion, sleep-again on a low-battery button wake, whole-board sleep current |
+
+### Board 1, 2026-11-10 (firmware `firmware/remote` 0.8.0, milestone 8 Bluetooth fallback)
+
+| Step | Result |
+|---|---|
+| RAM | Wi-Fi mode with Bluetooth compiled in: 131 KB free, largest block 80 KB (0.7.0: 135 KB / 80 KB). Needed `BT_CTRL_RUN_IN_FLASH_ONLY`; with the controller in IRAM Wi-Fi mode lost 22 KB (largest block 58 KB). Bluetooth mode: 134 KB free |
+| iPhone pairing | Advertises as "E-ink Remote"; iPhone paired from Settings > Bluetooth, encrypted 3 s after connecting. After a restart into Bluetooth mode the iPhone reconnected by itself (14 s) |
+| Controls | SEL/NEXT/PREV sent to the phone without errors; user approved. Wheel → volume steps not seen in the log |
+| Mode switching | `mode bt` and menu "Use Bluetooth" restart into Bluetooth mode; menu "Use Wi-Fi" returns. Automatic mode: the 3-minute probe found the home network (−57 dBm) and switched back to Wi-Fi at 186 s. The 30 s Wi-Fi-loss fallback itself not yet exercised away from home |
+| First attempt | Main-task stack overflow during controller init; Bluetooth mode now runs in its own 6 KB task |

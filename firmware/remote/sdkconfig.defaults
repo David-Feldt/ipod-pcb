@@ -45,3 +45,18 @@ CONFIG_HTTPD_MAX_URI_LEN=1536
 CONFIG_HTTPD_MAX_REQ_HDR_LEN=2048
 # Wi-Fi setup hotspot: DNS + setup server sockets next to the station's.
 CONFIG_LWIP_MAX_SOCKETS=16
+
+# Bluetooth fallback (milestones 8-10): NimBLE peripheral, HID over GATT.
+# Wi-Fi and Bluetooth are exclusive modes chosen at boot; Wi-Fi mode releases
+# the Bluetooth RAM. The GATT client stays on for the Apple Media and
+# Notification Services later. Bonds persist in NVS.
+CONFIG_BT_ENABLED=y
+CONFIG_BT_NIMBLE_ENABLED=y
+CONFIG_BT_NIMBLE_HID_SERVICE=y
+CONFIG_BT_NIMBLE_NVS_PERSIST=y
+CONFIG_BT_NIMBLE_MAX_CONNECTIONS=1
+CONFIG_BT_NIMBLE_ROLE_CENTRAL=n
+CONFIG_BT_NIMBLE_ROLE_OBSERVER=n
+# Controller code in flash, not IRAM: frees ~21 KB of internal RAM that
+# esp_bt_mem_release() cannot give back (Wi-Fi mode needs it for TLS).
+CONFIG_BT_CTRL_RUN_IN_FLASH_ONLY=y

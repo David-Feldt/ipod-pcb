@@ -52,6 +52,10 @@ net_try_t net_try(const char *ssid, const char *pass, int timeout_ms);
 
 bool net_have_credentials(void);
 
+// Bluetooth mode only (net_start() not called): bring the Wi-Fi driver up just
+// long enough to scan for the saved network, then stop it. Blocks ~1-3 s.
+bool net_probe_saved(int *rssi);
+
 // Current IP as text ("" when not connected) and signal strength (0 if unknown).
 void net_ip_str(char *out, size_t n);
 int net_rssi(void);

@@ -1,4 +1,4 @@
-// Commands: status, wifi, token, pair, spotify, charger, calib, display, sleep, erase, restart.
+// Commands: status, wifi, token, pair, spotify, charger, calib, display, sleep, mode, ble, erase, restart.
 // Secrets typed here are stored in NVS; they are never echoed back in full.
 #include <stdio.h>
 #include <string.h>
@@ -14,6 +14,7 @@
 #include "pairing.h"
 #include "wifisetup.h"
 #include "lowbatt.h"
+#include "btremote.h"
 #include "cJSON.h"
 #include <time.h>
 #include "esp_console.h"
@@ -329,6 +330,33 @@ static int cmd_display(int argc, char **argv)
 
 static int cmd_restart(int argc, char **argv) { esp_restart(); return 0; }
 
+static int cmd_mode(int argc, char **argv)
+{
+    if (argc == 2 && !strcmp(argv[1], "bt")) board_restart_into(MODE_BLUETOOTH, true);
+    if (argc == 2 && !strcmp(argv[1], "wifi")) board_restart_into(MODE_WIFI, true);
+    printf("mode %s (mode bt|wifi restarts into that mode)\n", board_boot_mode() == MODE_BLUETOOTH ? "bt" : "wifi");
+    return argc == 1 ? 0 : 1;
+}
+
+static int cmd_ble(int argc, char **argv)
+{
+    if (argc == 2 && !strcmp(argv[1], "forget")) { btremote_forget(); return 0; }
+    static const struct { const char *name; uint16_t usage; } keys[] = {
+        { "play", BTR_PLAY_PAUSE }, { "next", BTR_NEXT }, { "prev", BTR_PREV },
+        { "up", BTR_VOL_UP }, { "down", BTR_VOL_DOWN },
+    };
+    if (argc == 2) {
+        for (size_t i = 0; i < sizeof keys / sizeof keys[0]; i++) {
+            if (strcmp(argv[1], keys[i].name)) continue;
+            esp_err_t err = btremote_key(keys[i].usage);
+            printf("%s: %s\n", keys[i].name, esp_err_to_name(err));
+            return err == ESP_OK ? 0 : 1;
+        }
+    }
+    printf("bluetooth %s, %d bonded phone(s)\n", btremote_state_name(btremote_state()), btremote_bond_count());
+    return argc == 1 ? 0 : 1;
+}
+
 static int cmd_sleep(int argc, char **argv)
 {
     if (argc != 2 || strcmp(argv[1], "yes")) {
@@ -363,6 +391,8 @@ esp_err_t app_console_start(void)
         { .command = "calib",   .help = "calib wheel: capture wheel end points", .func = cmd_calib },
         { .command = "erase",   .help = "erase yes: wipe all settings", .func = cmd_erase },
         { .command = "display", .help = "display calib|done|inset l r t b|orient o|stats|full", .func = cmd_display },
+        { .command = "mode",    .help = "mode [bt|wifi]: show or switch (restarts)", .func = cmd_mode },
+        { .command = "ble",     .help = "ble [play|next|prev|up|down|forget]: Bluetooth remote", .func = cmd_ble },
         { .command = "sleep",   .help = "sleep yes: test the low-battery shutdown", .func = cmd_sleep },
         { .command = "restart", .help = "Reboot", .func = cmd_restart },
     };

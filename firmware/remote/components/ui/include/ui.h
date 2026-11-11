@@ -53,6 +53,12 @@ void pair_screen_create(const ui_insets_t *in);
 // hides the QR code. np_show() returns to now playing.
 void pair_screen_show(const char *title, const char *qr_text, const char *big, const char *small, const char *footer);
 
+// ---------------------------------------------------------------- bluetooth
+// Controls diagram shown while a phone is connected in Bluetooth mode.
+void bt_screen_create(const ui_insets_t *in);
+void bt_screen_show(const char *status, const char *footer);   // loads it if not shown
+void bt_screen_set_battery(int pct, bool usb);
+
 // ---------------------------------------------------------------- menu
 #define MENU_MAX_ITEMS 6
 void menu_screen_create(const ui_insets_t *in);

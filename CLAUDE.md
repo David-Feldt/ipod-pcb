@@ -63,10 +63,14 @@ the now-playing screen.
    (provisional) for ~10 s → "Battery low" screen → deep sleep; wake on buttons/USB,
    button wake below threshold+150 mV sleeps again. Verified on board 1 (fw 0.7.0):
    screen + SEL wake. Threshold not yet tuned from measured sag
-8. Bluetooth fallback (**next**): BLE media remote (HID consumer control: play/pause,
-   next/prev, wheel → phone volume) for any phone, used when no known Wi-Fi is
-   reachable — planned
-9. Bluetooth fallback, iPhone: now playing via Apple Media Service (title,
+8. Bluetooth fallback — **done** (fw 0.8.0): BLE HID media remote (NimBLE + esp_hid,
+   consumer keys; wheel → relative volume steps, 1/16 travel each). iPhone paired and
+   reconnects. Modes switch by restart (`board_restart_into`); Wi-Fi mode releases BT
+   RAM, controller runs from flash (`BT_CTRL_RUN_IN_FLASH_ONLY`, else −22 KB heap).
+   Auto: Wi-Fi unreachable 30 s → BT, probe every 3 min → back. Menu "Use Bluetooth"
+   (user's request) stays in BT until "Use Wi-Fi". Connected screen = controls diagram.
+   HOGP forces a Battery Service: it reports the real level
+9. Bluetooth fallback, iPhone (**next**): now playing via Apple Media Service (title,
    artist, album, progress, play state; no album art) — planned
 10. Bluetooth fallback, iPhone: call/message alerts via ANCS — planned
 
@@ -74,8 +78,10 @@ Bluetooth decisions (user, 2026-11-10): fallbacks for when Wi-Fi is out of
 range, not a replacement (Spotify Connect, speakers and album art need Wi-Fi).
 Not wanted: phone time sync, battery-level service. Wi-Fi and BLE run as
 exclusive modes (no PSRAM: min heap ~60 KB already with TLS + art). The chip is
-BLE-only (no Classic BT/AVRCP). Open: user's phone (iPhone decides 9/10), and
-the exact switch-over rule.
+BLE-only (no Classic BT/AVRCP). the exact switch-over rule.
+Decided 2026-11-10: the user's phone is an **iPhone** (milestones 9/10 apply).
+Switch rule: saved Wi-Fi unreachable for ~30 s → Bluetooth mode; while in
+Bluetooth mode, retry Wi-Fi every few minutes and switch back when it is in range.
 
 Spotify app: Client ID `fb6818b0834e4e418b6ad5ef191383ee` (Kconfig default; not
 secret), Web API only, redirect URI `http://127.0.0.1:8888/callback`. Board 1 has

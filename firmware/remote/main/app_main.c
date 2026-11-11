@@ -10,6 +10,8 @@
 // Button names follow the board's silkscreen (iPod cross); the user chose
 // play/pause on the centre button.
 // The player task does all Spotify I/O; this loop maps its state onto the UI.
+// Bluetooth fallback (ble_mode.c): when the saved Wi-Fi stays unreachable for
+// WIFI_FALLBACK_MS, restart into Bluetooth mode (user's rule, 2026-11-10).
 #include <string.h>
 #include "board.h"
 #include "settings.h"
@@ -23,6 +25,8 @@
 #include "pairing.h"
 #include "wifisetup.h"
 #include "lowbatt.h"
+#include "btremote.h"
+#include "ble_mode.h"
 #include "esp_log.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
@@ -30,6 +34,8 @@
 #include "freertos/queue.h"
 
 static const char *TAG = "app";
+
+#define WIFI_FALLBACK_MS 30000
 
 // What the screen currently shows, so we only touch LVGL on real changes
 // (every LVGL change costs an e-paper refresh).
@@ -209,7 +215,7 @@ static void apply_pairing(void)
 // ------------------------------------------------------------------ menu
 #define MENU_IDLE_MS 20000          // back to now playing when left alone
 
-typedef enum { MI_SIGN_IN, MI_WIFI, MI_BACK, MI_COUNT } menu_item_t;
+typedef enum { MI_SIGN_IN, MI_WIFI, MI_BLUETOOTH, MI_BACK, MI_COUNT } menu_item_t;
 static struct {
     bool open;
     int sel;
@@ -219,7 +225,7 @@ static struct {
 static void menu_render(void)
 {
     static const char *const items[MI_COUNT] = { [MI_SIGN_IN] = "Sign in to Spotify", [MI_WIFI] = "Set up Wi-Fi",
-                                                  [MI_BACK] = "Back" };
+                                                  [MI_BLUETOOTH] = "Use Bluetooth", [MI_BACK] = "Back" };
     ui_lock(); menu_screen_show(items, MI_COUNT, s_menu.sel); ui_unlock();
 }
 
@@ -321,6 +327,21 @@ static void maybe_auto_pair(void)
     start_pairing();
 }
 
+// Saved Wi-Fi unreachable for WIFI_FALLBACK_MS (and no setup screen open):
+// switch to Bluetooth mode.
+static void check_wifi_fallback(void)
+{
+    static int64_t offline_since;
+    bool offline = net_have_credentials() && !net_connected() && !wifisetup_active() && !pairing_active();
+    int64_t t = esp_timer_get_time() / 1000;
+    if (!offline) { offline_since = 0; return; }
+    if (!offline_since) { offline_since = t; return; }
+    if (t - offline_since >= WIFI_FALLBACK_MS) {
+        ESP_LOGW(TAG, "Wi-Fi unreachable for %d s: Bluetooth mode", WIFI_FALLBACK_MS / 1000);
+        board_restart_into(MODE_BLUETOOTH, false);
+    }
+}
+
 static void menu_input(button_id_t b)
 {
     s_menu.last_us = esp_timer_get_time();
@@ -331,6 +352,7 @@ static void menu_input(button_id_t b)
     case BTN_SEL:
         if (s_menu.sel == MI_SIGN_IN) start_pairing();
         else if (s_menu.sel == MI_WIFI) start_wifisetup();
+        else if (s_menu.sel == MI_BLUETOOTH) board_restart_into(MODE_BLUETOOTH, true);
         else menu_close();
         break;
     default: break;
@@ -380,6 +402,8 @@ void app_main(void)
     ESP_LOGI(TAG, "vbat %d mV, usb %s, charger %s", power_vbat_mv(),
              power_usb_present() ? "present" : "absent", power_charger_mode_name(power_charger_mode()));
     bool low_at_boot = lowbatt_boot_check();    // a low-battery wake may go straight back to sleep here
+    bool bt = board_boot_mode() == MODE_BLUETOOTH;
+    if (!bt) btremote_release_memory();         // Wi-Fi mode: give Bluetooth's RAM to the heap
 
     QueueHandle_t events = xQueueCreate(16, sizeof(input_event_t));
     ESP_ERROR_CHECK(input_start(events));
@@ -395,12 +419,15 @@ void app_main(void)
     np_create(&insets);
     pair_screen_create(&insets);
     menu_screen_create(&insets);
+    bt_screen_create(&insets);
     if (low_at_boot) lowbatt_show_screen();     // before the first frame, so now playing never draws
+    else if (bt) pair_screen_show("Bluetooth", NULL, "Starting...", NULL, NULL);
     ui_unlock();
     if (low_at_boot) lowbatt_shutdown("battery low at power-on");
-    update_status();
     ESP_ERROR_CHECK(spotify_init());
     ESP_ERROR_CHECK(app_console_start());
+    if (bt) { ble_mode_start(events); return; }
+    update_status();
     ESP_ERROR_CHECK(net_start());
     ESP_ERROR_CHECK(player_start());
     ESP_ERROR_CHECK(art_start(np_art_size()));
@@ -441,6 +468,7 @@ void app_main(void)
             apply_wifisetup();
         }
         maybe_auto_pair();
+        check_wifi_fallback();
         if (s_menu.open && esp_timer_get_time() - s_menu.last_us > MENU_IDLE_MS * 1000LL) menu_close();
         uint32_t av = art_version();
         if (av != seen_art) {
