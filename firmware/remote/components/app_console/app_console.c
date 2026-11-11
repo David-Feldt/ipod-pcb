@@ -1,4 +1,4 @@
-// Commands: status, wifi, token, pair, spotify, charger, calib, display, erase, restart.
+// Commands: status, wifi, token, pair, spotify, charger, calib, display, sleep, erase, restart.
 // Secrets typed here are stored in NVS; they are never echoed back in full.
 #include <stdio.h>
 #include <string.h>
@@ -13,6 +13,7 @@
 #include "player.h"
 #include "pairing.h"
 #include "wifisetup.h"
+#include "lowbatt.h"
 #include "cJSON.h"
 #include <time.h>
 #include "esp_console.h"
@@ -57,7 +58,8 @@ static int cmd_status(int argc, char **argv)
     printf("uptime         %lld s, reset: %s\n", esp_timer_get_time() / 1000000, reset_reason_name(esp_reset_reason()));
     printf("usb            %s, charger %s\n", power_usb_present() ? "present" : "absent",
            power_charger_mode_name(power_charger_mode()));
-    printf("battery        %d mV (~%d%%)\n", vbat, power_battery_pct(vbat));
+    printf("battery        %d mV (~%d%%), sleeps below %d mV, resumes from %d mV\n", vbat, power_battery_pct(vbat),
+           lowbatt_threshold_mv(), lowbatt_resume_mv());
     wheel_cal_t c = wheel_calibration();
     printf("wheel          %d mV, %d%% (cal %d..%d mV)\n", wheel_read_mv(), wheel_percent(), c.min_mv, c.max_mv);
     printf("buttons        ");
@@ -327,6 +329,15 @@ static int cmd_display(int argc, char **argv)
 
 static int cmd_restart(int argc, char **argv) { esp_restart(); return 0; }
 
+static int cmd_sleep(int argc, char **argv)
+{
+    if (argc != 2 || strcmp(argv[1], "yes")) {
+        printf("sleep yes: run the low-battery shutdown now (wake with a front button or USB plug-in)\n");
+        return 1;
+    }
+    lowbatt_shutdown("console");
+}
+
 esp_err_t app_console_start(void)
 {
     temperature_sensor_config_t tc = TEMPERATURE_SENSOR_CONFIG_DEFAULT(-10, 80);
@@ -352,6 +363,7 @@ esp_err_t app_console_start(void)
         { .command = "calib",   .help = "calib wheel: capture wheel end points", .func = cmd_calib },
         { .command = "erase",   .help = "erase yes: wipe all settings", .func = cmd_erase },
         { .command = "display", .help = "display calib|done|inset l r t b|orient o|stats|full", .func = cmd_display },
+        { .command = "sleep",   .help = "sleep yes: test the low-battery shutdown", .func = cmd_sleep },
         { .command = "restart", .help = "Reboot", .func = cmd_restart },
     };
     for (size_t i = 0; i < sizeof cmds / sizeof cmds[0]; i++) esp_console_cmd_register(&cmds[i]);

@@ -59,8 +59,11 @@ the now-playing screen.
 4. Real now playing, transport controls, wheel volume, album art — **done**
 5. Device picker — **dropped** (user said they don't need it; MENU stays free)
 6. Pairing flow — **done**: LAN sign-in page + bounce page work on board 1 (fw 0.5.0, via the local bounce on 127.0.0.1). Firmware default redirect URI now points at GitHub Pages; phone sign-in verified on board 1; Wi-Fi setup hotspot (WPA2, password in the screen QR code — user's choice) verified on board 1 (fw 0.6.0)
-7. Low battery → deep sleep, wake policy — **next**
-8. Bluetooth fallback: BLE media remote (HID consumer control: play/pause,
+7. Low battery → deep sleep, wake policy — **done (minimal)**: on battery, <3450 mV
+   (provisional) for ~10 s → "Battery low" screen → deep sleep; wake on buttons/USB,
+   button wake below threshold+150 mV sleeps again. Verified on board 1 (fw 0.7.0):
+   screen + SEL wake. Threshold not yet tuned from measured sag
+8. Bluetooth fallback (**next**): BLE media remote (HID consumer control: play/pause,
    next/prev, wheel → phone volume) for any phone, used when no known Wi-Fi is
    reachable — planned
 9. Bluetooth fallback, iPhone: now playing via Apple Media Service (title,

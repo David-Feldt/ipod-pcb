@@ -21,6 +21,9 @@ const char *power_charger_mode_name(charger_mode_t m);
 void power_apply_usb_policy(void);          // USB present -> USB500, else USB100
 int power_vbat_mv(void);                    // calibrated, x2 divider, averaged
 int power_battery_pct(int vbat_mv);         // rough open-circuit estimate, 0..100
+// Hold VOL_EN/EN1/EN2 LOW, arm wake on the front buttons and USB insertion,
+// and enter deep sleep. Does not return (waking is a reset).
+void power_deep_sleep(void) __attribute__((noreturn));
 
 // Shared ADC1 helper (used by power and wheel). Returns calibrated mV.
 int board_adc_read_mv(int gpio, int samples);

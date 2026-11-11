@@ -17,7 +17,7 @@ Target: ESP32-S3-MINI-1-N8 (8 MB flash, **no PSRAM**), ESP-IDF 6.0.2.
 | 4. Now playing, transport controls, wheel volume, album art | Done, on board 1 |
 | 5. Device picker | Dropped for now (user doesn't need it) |
 | 6. Pairing: setup hotspot, on-device setup page, static redirect page | Done on board 1: Wi-Fi setup hotspot and Spotify sign-in from a phone |
-| 7. Low battery → deep sleep, wake policy | Next |
+| 7. Low battery → deep sleep, wake policy | Done (minimal version) on board 1: shutdown screen and button wake verified; threshold 3450 mV is provisional |
 | 8. Bluetooth fallback: BLE media remote for any phone when no known Wi-Fi is in range | Planned |
 | 9. Bluetooth fallback, iPhone: now playing via Apple Media Service (no album art) | Planned |
 | 10. Bluetooth fallback, iPhone: call and message alerts (ANCS) | Planned |
@@ -140,6 +140,7 @@ The serial monitor gives a `remote>` prompt:
 | `display inset <l> <r> <t> <b>` | Save pixels hidden on each edge and restart |
 | `display orient native\|rot180\|flipv\|fliph` | Save how the image maps onto the glass (default `rot180`) |
 | `display stats` / `display full` | Refresh counters and timing / force a full refresh |
+| `sleep yes` | Run the low-battery shutdown now (wake with a front button or by plugging in USB) |
 | `restart` | Reboot |
 
 ## Layout
@@ -147,7 +148,8 @@ The serial monitor gives a `remote>` prompt:
 | Path | Contents |
 |---|---|
 | `main/` | Boot sequence and app loop; `Kconfig.projbuild` project options |
-| `components/board/` | Pin map, charger/USB/battery (`power.c`), buttons and wheel (`input.c`) |
+| `components/board/` | Pin map, charger/USB/battery and deep-sleep entry (`power.c`), buttons and wheel (`input.c`) |
+| `components/lowbatt/` | Low battery → "Battery low" screen → deep sleep; wake hysteresis |
 | `components/settings/` | NVS-backed settings |
 | `components/epd/` | SSD1680/GDEY0213B74 driver: full/partial refresh, bounded BUSY waits, orientation |
 | `components/ui/` | LVGL 1-bit port, refresh scheduler, now-playing, menu and sign-in screens, calibration pattern |

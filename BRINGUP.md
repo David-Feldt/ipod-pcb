@@ -98,3 +98,11 @@ supply/test pad is connected to each circuit.
 | Step | Result |
 |---|---|
 | Wi-Fi setup hotspot | `wifi setup`: hotspot "E-ink Remote AA8D" (WPA2) up, 3 networks found by the pre-join scan, free heap 117 KB. Phone joined via the screen QR code, setup page opened, chose the home network: joined in 1.6 s on the first attempt, saved, hotspot stopped 12 s later and playback resumed (one failed poll on the connection left over from before the hotspot, then normal). Wrong-password path not yet exercised on hardware |
+
+### Board 1, 2026-11-10 (firmware `firmware/remote` 0.7.0, milestone 7 minimal)
+
+| Step | Result |
+|---|---|
+| Low-battery shutdown | Triggered with `sleep yes` (USB present, 4146 mV): Wi-Fi stopped, one full refresh (2270 ms) to the "Battery low" screen (user confirmed), charger USB500 → USB100, deep sleep with wake mask 0x3e00 (MENU/PLAY/PREV/NEXT/SEL; USB left out because it was present) |
+| Button wake | SEL woke the board: reset reason `deep-sleep wake`, USB present so it resumed normally (Wi-Fi and Spotify back) |
+| Not yet tested | Automatic trigger at the provisional 3450 mV threshold, wake on USB insertion, sleep-again on a low-battery button wake, whole-board sleep current |

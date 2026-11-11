@@ -15,6 +15,10 @@ esp_err_t ui_init(void);
 void ui_lock(void);
 void ui_unlock(void);
 void ui_request_full_refresh(void);     // next refresh is full, even if nothing changed
+// Before deep sleep: optionally push the current screen with a full refresh
+// (waits for it), then put the panel to sleep and stop all further refreshes.
+// Must not be called with ui_lock() held. True if everything completed in time.
+bool ui_halt(bool flush, uint32_t timeout_ms);
 
 // Screen calibration: pixels hidden by the bezel/case on each edge of the
 // 122 x 250 panel. Stored in NVS; layouts use only the visible area.

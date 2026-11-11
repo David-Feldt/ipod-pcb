@@ -22,6 +22,7 @@
 #include "art.h"
 #include "pairing.h"
 #include "wifisetup.h"
+#include "lowbatt.h"
 #include "esp_log.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
@@ -378,6 +379,7 @@ void app_main(void)
     power_apply_usb_policy();
     ESP_LOGI(TAG, "vbat %d mV, usb %s, charger %s", power_vbat_mv(),
              power_usb_present() ? "present" : "absent", power_charger_mode_name(power_charger_mode()));
+    bool low_at_boot = lowbatt_boot_check();    // a low-battery wake may go straight back to sleep here
 
     QueueHandle_t events = xQueueCreate(16, sizeof(input_event_t));
     ESP_ERROR_CHECK(input_start(events));
@@ -393,7 +395,9 @@ void app_main(void)
     np_create(&insets);
     pair_screen_create(&insets);
     menu_screen_create(&insets);
+    if (low_at_boot) lowbatt_show_screen();     // before the first frame, so now playing never draws
     ui_unlock();
+    if (low_at_boot) lowbatt_shutdown("battery low at power-on");
     update_status();
     ESP_ERROR_CHECK(spotify_init());
     ESP_ERROR_CHECK(app_console_start());
@@ -451,6 +455,7 @@ void app_main(void)
         if (now - last_power >= pdMS_TO_TICKS(2000)) {
             last_power = now;
             power_apply_usb_policy();      // handles USB plug/unplug
+            lowbatt_poll();                // may enter deep sleep
             static int n;
             static bool was_connected;
             bool conn = net_connected();

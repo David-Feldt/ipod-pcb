@@ -19,6 +19,15 @@ config REMOTE_LOW_BATT_MV
     default 3450
     help
         Not an approved value (FIRMWARE-NOTES.md). Choose from pack data and measured sag.
+        On battery, this many mV for ~10 s puts the board into deep sleep.
+
+config REMOTE_LOW_BATT_HYST_MV
+    int "Low-battery wake hysteresis (mV)"
+    default 150
+    range 0 500
+    help
+        After a low-battery sleep, a button wake without USB resumes only if the
+        battery reads at least the threshold plus this much; otherwise it sleeps again.
 
 config REMOTE_FULL_REFRESH_EVERY
     int "Full e-paper clearing refresh after N partial updates"

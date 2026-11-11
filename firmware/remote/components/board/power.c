@@ -8,6 +8,9 @@
 #include "esp_adc/adc_cali.h"
 #include "esp_adc/adc_cali_scheme.h"
 #include "esp_log.h"
+#include "esp_sleep.h"
+#include "driver/rtc_io.h"
+#include "esp_rom_sys.h"
 
 static const char *TAG = "power";
 
@@ -121,6 +124,11 @@ esp_err_t power_init(void)
     gpio_set_level(PIN_CHG_EN2, 0);
     gpio_set_level(PIN_VOL_EN, 0);
     s_mode = CHG_USB100;
+    // Release the deep-sleep hold (power_deep_sleep) only now that the
+    // outputs already drive the same LOW levels.
+    gpio_hold_dis(PIN_CHG_EN1);
+    gpio_hold_dis(PIN_CHG_EN2);
+    gpio_hold_dis(PIN_VOL_EN);
 
     gpio_config_t usb = {   // external pull-up R8; disable internal pulls
         .pin_bit_mask = 1ULL << PIN_USB_PRESENT_N,
@@ -135,4 +143,38 @@ esp_err_t power_init(void)
     if ((err = adc_setup_channel(PIN_VBAT_SENSE)) != ESP_OK) return err;
     if ((err = adc_setup_channel(PIN_VOL_SENSE)) != ESP_OK) return err;
     return ESP_OK;
+}
+
+void power_deep_sleep(void)
+{
+    // Wheel pot off and charger in its USB100 default, both held through
+    // sleep (GPIO5/6/7 are RTC pads, so gpio_hold_en works in deep sleep).
+    gpio_set_level(PIN_VOL_EN, 0);
+    power_set_charger_mode(CHG_USB100);
+    gpio_hold_en(PIN_VOL_EN);
+    gpio_hold_en(PIN_CHG_EN1);
+    gpio_hold_en(PIN_CHG_EN2);
+
+    // Wake on any front button (BOOT/GPIO0 is a strapping pin: not used) or on
+    // USB being plugged in. A button already held (or stuck) is left out, so
+    // it cannot wake the board straight back up; likewise USB when present.
+    static const int btns[] = { PIN_BTN_MENU, PIN_BTN_PLAY, PIN_BTN_PREV, PIN_BTN_NEXT, PIN_BTN_SEL };
+    uint64_t bmask = 0;
+    for (size_t i = 0; i < sizeof btns / sizeof btns[0]; i++) bmask |= 1ULL << btns[i];
+    gpio_config_t in = { .pin_bit_mask = bmask, .mode = GPIO_MODE_INPUT,
+                         .pull_up_en = GPIO_PULLUP_ENABLE, .pull_down_en = GPIO_PULLDOWN_DISABLE };
+    gpio_config(&in);
+    esp_rom_delay_us(200);
+    uint64_t wake = 0;
+    for (size_t i = 0; i < sizeof btns / sizeof btns[0]; i++) {
+        if (gpio_get_level(btns[i]) == 0) { ESP_LOGW(TAG, "GPIO%d held: not a wake source", btns[i]); continue; }
+        rtc_gpio_pullup_en(btns[i]);            // pull-ups must survive deep sleep
+        rtc_gpio_pulldown_dis(btns[i]);
+        wake |= 1ULL << btns[i];
+    }
+    if (!power_usb_present()) wake |= 1ULL << PIN_USB_PRESENT_N;   // external pull-up R8
+    if (wake) esp_sleep_enable_ext1_wakeup_io(wake, ESP_EXT1_WAKEUP_ANY_LOW);
+    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_ON);   // keeps the RTC pull-ups
+    ESP_LOGW(TAG, "deep sleep (wake mask 0x%llx)", (unsigned long long)wake);
+    esp_deep_sleep_start();
 }

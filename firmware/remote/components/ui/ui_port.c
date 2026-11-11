@@ -25,6 +25,7 @@ static uint8_t s_out[EPD_FB_SIZE];          // snapshot being sent to the panel
 static volatile bool s_dirty;
 static volatile bool s_full_req = true;     // first frame is always full
 static int64_t s_dirty_since_ms;
+static volatile bool s_halt_req, s_halted;  // ui_halt(): panel asleep, no more refreshes
 
 static int64_t now_ms(void) { return esp_timer_get_time() / 1000; }
 static uint32_t tick_cb(void) { return (uint32_t)now_ms(); }
@@ -69,6 +70,12 @@ static void ui_task(void *arg)
             s_dirty = false;
             s_full_req = false;
         }
+        if (s_halt_req) {
+            ui_unlock();
+            epd_sleep();
+            s_halted = true;
+            vTaskSuspend(NULL);
+        }
         ui_unlock();
 
         if (go) {
@@ -95,6 +102,21 @@ static void ui_task(void *arg)
         if (wait < 5) wait = 5;
         vTaskDelay(pdMS_TO_TICKS(wait));
     }
+}
+
+bool ui_halt(bool flush, uint32_t timeout_ms)
+{
+    int64_t deadline = now_ms() + timeout_ms;
+    bool shown = !flush;
+    if (flush) {
+        uint32_t before = epd_stats().full_count;
+        ui_request_full_refresh();
+        while (!(shown = epd_stats().full_count != before) && now_ms() < deadline) vTaskDelay(pdMS_TO_TICKS(20));
+    }
+    s_halt_req = true;
+    while (!s_halted && now_ms() < deadline + 3000) vTaskDelay(pdMS_TO_TICKS(20));
+    if (!s_halted) ESP_LOGW(TAG, "UI task did not halt");
+    return shown && s_halted;
 }
 
 esp_err_t ui_init(void)
