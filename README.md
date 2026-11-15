@@ -5,6 +5,11 @@ buttons, a volume thumbwheel, USB-C and a 1S LiPo, on a 42 × 98 mm four-layer P
 four M2.5 mounting holes. Playback happens on another Spotify device; this board has
 no audio or microSD hardware.
 
+<p>
+  <img src="photos/assembled.jpg" alt="Assembled remote showing Now Playing on the e-paper screen" width="45%">
+  <img src="photos/parts.jpg" alt="Front plate, assembled board, LiPo battery and back shell laid out" width="45%">
+</p>
+
 This is revision E, an unbuilt prototype design. The earlier 1.54-inch, 40 × 78 mm version is tagged `v1-1.54in`
 in git. See `DESIGN.md` for the GPIO map, power architecture and revision notes.
 
